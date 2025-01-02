@@ -19,6 +19,51 @@
         --window-margin: 10px;
         --spacing: 1rem;
     }
+
+    .window-title {
+        padding: 0 10px;
+        font-size: 12px;
+    }
+
+    .project-window .window-title {
+        max-width: 150px;
+    }
+
+    .project-window .content h3 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: calc(100% - 20px);
+        font-size: 14px;
+    }
+
+    .desktop-icons {
+        right: 5px;
+        gap: 10px;
+        transform: translateX(100%);
+    }
+
+    .desktop-icons.active {
+        transform: translateX(0);
+    }
+
+    .desktop-icon {
+        transform: scale(0.8);
+    }
+
+    .icon-label {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-window .window-title {
+        max-width: 120px;
+    }
+
+    .project-window .content h3 {
+        font-size: 12px;
+    }
 }
 
 /* Engineering Paper Background */
@@ -77,6 +122,8 @@ main.mac-window {
     z-index: 2000;
     font-family: "Chicago", "Helvetica Neue", sans-serif;
     font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .apple-menu {
@@ -98,16 +145,28 @@ main.mac-window {
 
 /* Window Title Bar Enhancement */
 .window-title-bar {
-    height: 24px; /* Slightly taller for better proportion */
+    display: flex;
+    align-items: center;
     background: var(--menu-bg);
     border-bottom: 1px solid var(--window-border);
     border-radius: 5px 5px 0 0;
-    display: flex;
-    align-items: center;
     padding: 0 8px;
+    height: 24px;
     font-family: "Courier New", monospace;
     font-size: 12px;
     position: relative;
+}
+
+.window-title {
+    flex: 1 1 auto;
+    min-width: 0;         /* crucial for Safari! */
+    text-align: center;
+    font-family: "Courier New", monospace;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
 }
 
 /* Typography - Engineering Style */
@@ -169,8 +228,8 @@ h3 { font-size: 1.2rem; }
 .window-controls {
     display: flex;
     gap: 6px;
-    margin-right: 8px;
     align-items: center;
+    flex: 0 0 auto;  /* Prevent shrinking */
 }
 
 .window-button {
@@ -195,12 +254,15 @@ h3 { font-size: 1.2rem; }
 }
 
 .window-title {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-weight: normal;
+    flex: 1 1 auto;
+    min-width: 0;  /* Critical for ellipsis in flex container */
+    text-align: center;
     font-family: "Courier New", monospace;
     letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 8px;
 }
 
 /* Desktop Icons Enhancement */
@@ -322,13 +384,40 @@ button:hover {
 .menu-item {
     padding: 2px 8px;
     cursor: default;
-    font-family: "Courier New", monospace;
-    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .menu-item:hover {
     background: var(--primary-color);
     color: var(--menu-bg);
+}
+
+@media (max-width: 768px) {
+    .window-title {
+        max-width: 200px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
+
+    .menu-item {
+        max-width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .window-title {
+        max-width: 150px;
+    }
+
+    .menu-item {
+        max-width: 40px;
+    }
+
+    .menu-item:nth-last-child(-n+2) {
+        display: none;
+    }
 }
 
 /* Notebook Header Enhancement */
@@ -457,12 +546,7 @@ button:hover {
 }
 
 .project-window .window-title {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-weight: normal;
-    font-family: "Courier New", monospace;
-    letter-spacing: 0.05em;
+    max-width: 300px;  /* Desktop default */
 }
 
 .project-window:hover {
@@ -1045,5 +1129,186 @@ body.preview-open {
 @media (max-width: 768px) {
     .menu-toggle {
         display: flex;
+    }
+}
+
+/* Project preview window title */
+.project-preview .window-title {
+    max-width: 300px;  /* Larger for preview window */
+}
+
+@media (max-width: 480px) {
+    .window-title {
+        max-width: 150px;
+    }
+    
+    .project-preview .window-title {
+        max-width: 200px;
+    }
+}
+
+.window-title-bar {
+    background: var(--title-bar-bg);
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid var(--window-border);
+}
+
+.window-controls {
+    display: flex;
+    gap: 4px;
+    z-index: 1;
+}
+
+.window-buttons {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+    z-index: 1;
+}
+
+/* Ensure buttons don't get cut off */
+.preview-button, .github-button {
+    white-space: nowrap;
+    min-width: fit-content;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+    .window-title-bar {
+        padding: 2px;
+        gap: 4px;
+    }
+
+    .window-title {
+        font-size: 14px;
+        max-width: 160px;
+        padding: 0 8px;
+    }
+
+    .project-window .window-title {
+        max-width: 120px;
+    }
+
+    .project-window .content h3 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: calc(100% - 20px);
+    }
+
+    .project-window {
+        width: 100%;
+        margin: 0;
+    }
+
+    .window-buttons {
+        gap: 4px;
+    }
+
+    .preview-button, .github-button {
+        padding: 2px 6px;
+        font-size: 12px;
+    }
+}
+
+/* Even smaller screens */
+@media (max-width: 480px) {
+    .window-title {
+        max-width: 120px;
+    }
+
+    .project-window .window-title {
+        max-width: 100px;
+    }
+
+    .window-buttons {
+        gap: 2px;
+    }
+
+    .preview-button, .github-button {
+        padding: 2px 4px;
+        min-width: auto;
+    }
+}
+
+/* Project window specific styles */
+.project-window .window-title {
+    max-width: 200px;
+}
+
+@media (max-width: 768px) {
+    .project-window .window-title {
+        max-width: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-window .window-title {
+        max-width: 120px;
+    }
+}
+
+@media (max-width: 390px) {  /* iPhone 15 width */
+    .window-title {
+        font-size: 11px;
+        margin: 0 4px;
+        max-width: 140px;  /* Specific constraint for iPhone */
+    }
+    
+    .window-buttons {
+        gap: 4px;
+    }
+    
+    .preview-button, .github-button {
+        padding: 2px 4px;
+        font-size: 10px;
+    }
+}
+
+.window-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;  /* Prevent buttons from shrinking */
+}
+
+.preview-button, .github-button {
+    padding: 2px 6px;
+    border: 1px solid var(--window-border);
+    border-radius: 3px;
+    background: var(--window-bg);
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.window-controls {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex: 0 0 auto;  /* Prevent shrinking */
+}
+
+.window-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex: 0 0 auto;  /* Prevent shrinking */
+}
+
+@media (max-width: 480px) {
+    .window-buttons {
+        gap: 4px;
+    }
+    
+    .preview-button, .github-button {
+        padding: 2px 4px;
+        font-size: 10px;
     }
 } 

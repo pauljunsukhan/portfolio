@@ -190,9 +190,24 @@ async function loadProjects() {
 }
 
 function createProjectWindow(project) {
-    const projectWindow = document.createElement('div');
-    projectWindow.className = 'mac-window project-window';
-    projectWindow.dataset.project = project.id;
+    const windowDiv = document.createElement('div');
+    windowDiv.className = 'mac-window project-window';
+    windowDiv.setAttribute('data-project', project.id);
+
+    const titleBar = document.createElement('div');
+    titleBar.className = 'window-title-bar';
+    titleBar.innerHTML = `
+        <div class="window-controls">
+            <div class="window-button"></div>
+            <div class="window-button"></div>
+            <div class="window-button"></div>
+        </div>
+        <div class="window-title">${project.title}</div>
+        <div class="window-buttons">
+            <button class="preview-button">Preview</button>
+            ${project.buttons.github ? `<a href="${project.buttons.github}" target="_blank" class="github-button">Github</a>` : ''}
+        </div>
+    `;
 
     // Helper function to convert URLs in text to links
     function linkifySpec(spec) {
@@ -204,7 +219,7 @@ function createProjectWindow(project) {
         return spec;
     }
 
-    projectWindow.innerHTML = `
+    windowDiv.innerHTML = `
         <div class="window-title-bar">
             <div class="window-controls">
                 <div class="window-button maximize-button"></div>
@@ -225,7 +240,7 @@ function createProjectWindow(project) {
         </div>
     `;
 
-    return projectWindow;
+    return windowDiv;
 }
 
 // Initialize project windows
