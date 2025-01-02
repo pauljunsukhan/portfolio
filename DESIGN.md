@@ -1,141 +1,94 @@
-# Portfolio Website Design Documentation
+# Portfolio Design Documentation
 
 ## Design Philosophy
-This website combines two distinct design languages:
+The portfolio website combines two distinct design languages:
 1. Classic Macintosh UI (circa 1984)
-2. Vintage Engineering Notebook aesthetic (1950s)
+2. Vintage Engineering Notebook aesthetic
 
-The result is a unique hybrid that maintains the usability of the Mac OS while incorporating the charm and technical feel of old engineering documents.
+## Window Hierarchy and Design Pattern
+
+### Main Window
+- Serves as the primary container for all content
+- Full classic Macintosh window styling:
+  - Three window control buttons (left-aligned)
+  - Centered window title
+  - Light background with black border
+  - 6px border radius on top corners, 2px on bottom
+  - 3px shadow offset
+
+### Sub-Windows (Projects, Messages)
+- Inherit main window's design language
+- Consistent styling with parent window:
+  - Same border radius (6px top, 2px bottom)
+  - Same border color and weight
+  - Same title bar height (24px)
+  - Same font family (Courier New)
+- Differences from main window:
+  - Single control button (maximize/minimize)
+  - Slightly reduced padding
+  - Hover animation (2px upward shift)
+  - Enhanced shadow on hover
+
+### Window Components
+1. Title Bar
+   - Height: 24px
+   - Background: var(--menu-bg)
+   - Border-bottom: 1px solid var(--window-border)
+   - Centered title text
+   - Left-aligned control buttons
+
+2. Control Buttons
+   - Size: 12px × 12px
+   - Border-radius: 50%
+   - Border: 1px solid var(--window-border)
+   - Special states:
+     - Maximize: var(--accent-color) background
+     - Minimize: var(--secondary-color) background
+
+3. Content Area
+   - Direct content placement (no additional borders)
+   - Clean typography with consistent spacing
+   - Engineering-style headings with bottom borders
+   - List items with left borders in var(--secondary-color)
+
+### Maximized View
+- Centered overlay with backdrop blur
+- Draggable window behavior
+- Smooth transition animations
+- Reset position on minimize
 
 ## Color Palette
-```css
---primary-color: #2b2b2b;    /* Main text and borders */
---secondary-color: #008b8b;  /* Vintage teal for accents */
---accent-color: #d4a017;     /* Mustard yellow for highlights */
---background-color: #f5e6d3; /* Aged paper background */
---window-bg: #fff9f0;        /* Slightly warmer white for windows */
-```
+- Primary: #2b2b2b (Text and borders)
+- Secondary: #008b8b (Vintage teal accents)
+- Accent: #d4a017 (Mustard yellow for interactive elements)
+- Background: #f5e6d3 (Aged paper)
+- Window Background: #fff9f0 (Warm white)
+- Menu Background: #f5e6d3 (Matches main background)
 
 ## Typography
 - Primary Font: "Courier New", monospace
-  - Used for all technical content, headers, and body text
-  - Maintains the engineering notebook aesthetic
-- System Font: "Chicago", "Helvetica Neue", sans-serif
-  - Used sparingly for authentic Mac OS elements
-  - Primarily in the menu bar and system elements
+- Font Sizes:
+  - Window Titles: 12px
+  - Content: 14px
+  - Headings: 1.1-2rem
+- Letter Spacing: 0.05em for window elements
 
-## Layout Structure
-
-### Global Elements
-1. Menu Bar (Mac OS style)
-   - Fixed position at top
-   - Contains Apple menu and system items
-   - Uses system font for authenticity
-
-2. Desktop Icons
-   - Fixed position on right side
-   - Represents main navigation sections
-   - Styled as classic Mac OS icons
-
-### Window System
-All content is contained within Mac-style windows:
-```html
-<div class="mac-window">
-    <div class="window-title-bar">
-        <div class="window-controls">
-            <div class="window-button"></div>
-        </div>
-        <div class="window-title">Window Title</div>
-    </div>
-    <div class="content">
-        <!-- Content goes here -->
-    </div>
-</div>
-```
-
-### Engineering Elements
-1. Technical Sketches
-   ```html
-   <div class="technical-sketch">
-       <h3>Title</h3>
-       <ul class="sketch-list">
-           <li>Item</li>
-       </ul>
-   </div>
-   ```
-
-2. Notebook Headers
-   ```html
-   <div class="notebook-header">
-       <div class="date">Date: <span class="typewriter">01.01.2024</span></div>
-       <div class="subject">Subject: <span class="typewriter">Title</span></div>
-   </div>
-   ```
-
-## Grid System
-- Background uses engineering paper grid
-- 20px x 20px grid size
-- Subtle brown lines (rgba(70, 40, 20, 0.1))
-- Content follows a responsive grid system
-
-## Interactive Elements
-
-### Buttons
-- Styled as vintage form elements
-- 2px borders for depth
-- Uppercase text with letter-spacing
-- Hover effects change background color
-
-### Forms
-- Input fields styled with monospace font
-- Simple borders matching window style
-- Labels use technical annotation style
-
-## Adding New Content
-
-### New Sections
-1. Create a new Mac window container
-2. Add appropriate window controls
-3. Use notebook header if it's a main section
-4. Follow the grid system for layout
-
-### New Features
-1. Maintain the hybrid aesthetic
-2. Use technical sketch containers for grouped content
-3. Keep to the color palette
-4. Prefer monospace fonts for content
+## Spacing
+- Window Margin: 40px
+- Content Padding: 2rem
+- Grid Gap: 2rem
+- List Item Spacing: 0.5rem
 
 ## Best Practices
-1. Always wrap main content in mac-window containers
-2. Use technical-sketch for important information grouping
-3. Maintain the grid alignment where possible
-4. Keep the vintage engineering aesthetic in content presentation
-5. Use uppercase for headers and important labels
-6. Maintain proper spacing (--spacing: 2rem)
-
-## File Structure
-```
-portfolio/
-├── index.html          # Main entry point
-├── styles/
-│   └── main.css       # All styles consolidated
-├── js/
-│   └── main.js        # Minimal JavaScript for interactions
-└── assets/            # Images and media
-```
+1. Maintain consistent window styling across all components
+2. Use proper nesting hierarchy (main window → sub-windows)
+3. Keep content directly in window content areas
+4. Follow classic Macintosh interaction patterns
+5. Preserve engineering notebook aesthetics in typography and layout
 
 ## Future Considerations
-1. Keep animations minimal and purposeful
-2. Maintain accessibility despite the retro aesthetic
-3. Consider adding more engineering notebook elements like:
-   - Margin annotations
-   - Technical diagrams
-   - Graph paper overlays
-   - Calculation sections
-
-## Development Guidelines
-1. Mobile-first approach despite desktop aesthetic
-2. Maintain semantic HTML structure
-3. Keep JavaScript minimal and unobtrusive
-4. Use CSS custom properties for consistency
-5. Comment new sections clearly 
+1. Window stacking and z-index management
+2. Window drag boundaries
+3. Window resize functionality
+4. Menu bar interaction implementation
+5. Desktop icon functionality 

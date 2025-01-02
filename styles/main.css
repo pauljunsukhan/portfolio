@@ -338,4 +338,170 @@ button:hover {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     padding: 1rem;
+    position: relative;
+}
+
+/* Project Windows - Match Main Window Style */
+.project-window {
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+    background: var(--window-bg);
+    margin-bottom: 1.5rem;
+    width: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-window .window-title-bar {
+    height: 24px;
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    position: relative;
+}
+
+.project-window .window-controls {
+    display: flex;
+    gap: 6px;
+    margin-right: 8px;
+}
+
+.project-window .window-button {
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--window-border);
+    border-radius: 50%;
+    background: var(--window-bg);
+    position: relative;
+}
+
+.project-window .window-button:first-child::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 2px;
+    background: var(--window-border);
+    opacity: 0.5;
+}
+
+.project-window .window-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: normal;
+    font-family: "Courier New", monospace;
+    letter-spacing: 0.05em;
+}
+
+.project-window:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.15);
+}
+
+.project-window .content {
+    padding: var(--spacing);
+    background: var(--window-bg);
+    min-height: 100px;
+}
+
+.project-window .content h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+    padding-bottom: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+.project-window .content p {
+    font-family: "Courier New", monospace;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.project-window .content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: "Courier New", monospace;
+}
+
+.project-window .content ul li {
+    margin: 0.5rem 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--secondary-color);
+    color: var(--text-color);
+}
+
+/* Keep the maximize button styling */
+.maximize-button {
+    background: var(--accent-color) !important;
+    cursor: pointer;
+}
+
+.minimize-button {
+    background: var(--secondary-color) !important;
+    cursor: pointer;
+}
+
+/* Maximized Project View */
+.maximized-project {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 800px;
+    height: 80vh;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.maximized-project.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.maximized-project .mac-window {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.maximized-project .content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: var(--spacing);
+}
+
+/* Overlay for maximized view */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 999;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
 } 
