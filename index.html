@@ -4,77 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Personal portfolio showcasing my work, projects, and expertise">
-    <title>Your Portfolio</title>
+    <title>Paul Junsuk Han | Engineering Portfolio</title>
     <link rel="stylesheet" href="styles/main.css">
-    <!-- Preload important assets -->
     <link rel="preload" href="styles/main.css" as="style">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Classic Mac Menu Bar -->
+    <div class="global-menu-bar">
+        <span class="apple-menu">🍎</span>
+        <div class="menu-divider"></div>
+        <span class="menu-item">File</span>
+        <span class="menu-item">Edit</span>
+        <span class="menu-item">View</span>
+        <span class="menu-item">Special</span>
+    </div>
 
-    <main>
-        <section id="hero">
-            <h1>Welcome to My Portfolio</h1>
-            <p>Software Developer & Problem Solver</p>
-        </section>
+    <!-- Desktop Icons -->
+    <div class="desktop-icons">
+        <div class="desktop-icon">
+            <div class="icon-image">📁</div>
+            <div class="icon-label">Projects</div>
+        </div>
+        <div class="desktop-icon">
+            <div class="icon-image">📝</div>
+            <div class="icon-label">Notes</div>
+        </div>
+        <div class="desktop-icon">
+            <div class="icon-image">✉️</div>
+            <div class="icon-label">Contact</div>
+        </div>
+    </div>
 
-        <section id="about">
-            <h2>About Me</h2>
-            <div class="content">
-                <!-- Content will go here -->
+    <!-- Main Window -->
+    <main class="mac-window">
+        <div class="window-title-bar">
+            <div class="window-controls">
+                <div class="window-button"></div>
+                <div class="window-button"></div>
+                <div class="window-button"></div>
             </div>
-        </section>
+            <div class="window-title">Paul Junsuk Han - Portfolio</div>
+        </div>
 
-        <section id="projects">
-            <h2>Projects</h2>
-            <div class="project-grid">
-                <!-- Project cards will go here -->
-            </div>
-        </section>
+        <div class="content">
+            <section id="hero">
+                <div class="notebook-header">
+                    <div class="date">Date: <span class="typewriter">01.01.2024</span></div>
+                    <div class="subject">Subject: <span class="typewriter">Software Engineering Portfolio</span></div>
+                </div>
+                <h1>Paul Junsuk Han</h1>
+                <p class="subtitle">Software Engineer & Problem Solver</p>
+            </section>
 
-        <section id="videos">
-            <h2>Featured Videos</h2>
-            <div class="video-container">
-                <!-- Replace VIDEO_ID with your YouTube video ID -->
-                <iframe 
-                    width="560" 
-                    height="315" 
-                    src="https://www.youtube.com/embed/VIDEO_ID" 
-                    title="Featured Project Video"
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </section>
+            <section id="about">
+                <h2>About</h2>
+                <div class="content">
+                    <p>A software engineer with a passion for elegant solutions and clean code. Specializing in...</p>
+                    <div class="technical-sketch">
+                        <h3>Technical Expertise</h3>
+                        <ul class="sketch-list">
+                            <li>Languages: JavaScript, Python</li>
+                            <li>Frameworks: React, Node.js</li>
+                            <li>Tools: Git, Docker</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
 
-        <section id="blog">
-            <h2>Blog</h2>
-            <div class="blog-posts">
-                <!-- Blog posts will go here -->
-            </div>
-        </section>
+            <section id="projects">
+                <h2>Projects</h2>
+                <div class="project-grid">
+                    <div class="mac-window">
+                        <div class="window-title-bar">
+                            <div class="window-controls">
+                                <div class="window-button"></div>
+                            </div>
+                            <div class="window-title">Project #1</div>
+                        </div>
+                        <div class="content">
+                            <h3>Project Title</h3>
+                            <p>Project description goes here...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <section id="contact">
-            <h2>Contact</h2>
-            <div class="contact-form">
-                <!-- Contact form will go here -->
-            </div>
-        </section>
+            <section id="contact">
+                <h2>Contact</h2>
+                <div class="mac-window">
+                    <div class="window-title-bar">
+                        <div class="window-controls">
+                            <div class="window-button"></div>
+                        </div>
+                        <div class="window-title">New Message</div>
+                    </div>
+                    <div class="content">
+                        <form>
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message:</label>
+                                <textarea id="message" name="message" required></textarea>
+                            </div>
+                            <button type="submit">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
-
-    <footer>
-        <p>&copy; 2024 Your Name. All rights reserved.</p>
-    </footer>
 
     <script src="js/main.js" defer></script>
 </body>

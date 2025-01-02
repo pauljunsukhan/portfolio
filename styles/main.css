@@ -1,83 +1,289 @@
 /* Reset and base styles */
 :root {
-    --primary-color: #2d3436;
-    --secondary-color: #0984e3;
-    --background-color: #ffffff;
-    --text-color: #2d3436;
-    --max-width: 1200px;
+    --primary-color: #2b2b2b;
+    --secondary-color: #008b8b;  /* Vintage teal */
+    --accent-color: #d4a017;     /* Mustard yellow */
+    --background-color: #f5e6d3;  /* Aged paper */
+    --text-color: #2b2b2b;
+    --menu-bg: #f5e6d3;
+    --window-bg: #fff9f0;        /* Slightly warmer white */
+    --window-border: #2b2b2b;
+    --grid-color: rgba(70, 40, 20, 0.1); /* Subtle brown grid */
+    --max-width: 1000px;
     --spacing: 2rem;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* Engineering Paper Background */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
     background-color: var(--background-color);
+    padding-top: 40px;
+    margin: 0;
+    min-height: 100vh;
+    background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 20px 20px;
+    position: relative;
 }
 
-/* Typography */
-h1, h2, h3 {
-    margin-bottom: 1rem;
-    line-height: 1.2;
-}
-
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.5rem; }
-
-/* Layout */
-header {
-    position: sticky;
+body::after {
+    content: '';
+    position: fixed;
     top: 0;
-    background-color: var(--background-color);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    z-index: 1000;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 240, 0.1) 0%, rgba(255, 240, 200, 0.2) 100%);
+    pointer-events: none;
+    z-index: 1;
 }
 
-nav {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 1rem;
-}
-
-nav ul {
+/* Mac OS Classic Menu Bar with engineering twist */
+.global-menu-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
     display: flex;
-    justify-content: flex-end;
-    list-style: none;
-    gap: 2rem;
+    align-items: center;
+    padding: 0 8px;
+    z-index: 2000;
+    font-family: "Chicago", "Helvetica Neue", sans-serif;
+    font-size: 12px;
 }
 
-nav a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 500;
+.apple-menu {
+    margin-right: 20px;
+    padding: 2px 5px;
 }
 
-nav a:hover {
+.apple-menu:hover {
+    background: var(--primary-color);
+    color: var(--menu-bg);
+}
+
+.menu-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--window-border);
+    margin: 0 10px;
+}
+
+/* Mac Window Styles with engineering aesthetic */
+.mac-window {
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 2px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+}
+
+.window-title-bar {
+    height: 20px;
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    position: relative;
+}
+
+/* Typography - Engineering Style */
+h1, h2, h3 {
+    font-family: "Courier New", monospace;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+h1 { 
+    font-size: 2rem; 
+    border-bottom: 3px double var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+h2 { 
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--primary-color);
+    padding-bottom: 0.3rem;
+}
+
+h3 { font-size: 1.2rem; }
+
+/* Technical Sketch Style */
+.technical-sketch {
+    border: 1px solid var(--primary-color);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    position: relative;
+}
+
+.technical-sketch::before {
+    content: '✦';
+    position: absolute;
+    top: -0.5rem;
+    left: 1rem;
+    background: var(--window-bg);
+    padding: 0 0.5rem;
     color: var(--secondary-color);
 }
 
-main {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 1rem;
+.sketch-list {
+    list-style: none;
+    padding: 0;
 }
 
-section {
-    margin: var(--spacing) 0;
-    padding: var(--spacing) 0;
+.sketch-list li {
+    margin: 0.5rem 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--secondary-color);
+    font-family: "Courier New", monospace;
 }
 
-/* Hero section */
-#hero {
+/* Keep existing Mac UI structure but update colors and fonts */
+.window-controls {
+    display: flex;
+    gap: 4px;
+    margin-right: 8px;
+}
+
+.window-button {
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--window-border);
+    border-radius: 50%;
+    background: var(--window-bg);
+}
+
+.window-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: normal;
+    font-family: "Courier New", monospace;
+    letter-spacing: 0.05em;
+}
+
+/* Desktop Icons with engineering twist */
+.desktop-icons {
+    position: fixed;
+    top: 40px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 1;
+}
+
+.desktop-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding: 4rem 0;
+    width: 64px;
+}
+
+.icon-image {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 5px;
+    background: var(--menu-bg);
+    border: 1px solid var(--window-border);
+}
+
+.icon-label {
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    color: var(--window-border);
+    background: var(--menu-bg);
+    padding: 2px 4px;
+    border-radius: 0;
+    border: 1px solid var(--window-border);
+}
+
+/* Content styling */
+.content {
+    padding: 20px;
+    background: var(--window-bg);
+}
+
+/* Form styling with engineering aesthetic */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: "Courier New", monospace;
+    color: var(--primary-color);
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--window-border);
+    background-color: var(--window-bg);
+    font-family: "Courier New", monospace;
+    margin-top: 0.25rem;
+}
+
+button {
+    background: var(--menu-bg);
+    color: var(--primary-color);
+    border: 2px solid var(--window-border);
+    padding: 0.5rem 1rem;
+    font-family: "Courier New", monospace;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 12px;
+}
+
+button:hover {
+    background: var(--secondary-color);
+    color: var(--window-bg);
+}
+
+/* Menu items */
+.menu-item {
+    padding: 2px 8px;
+    cursor: default;
+    font-family: "Courier New", monospace;
+    letter-spacing: 0.05em;
+}
+
+.menu-item:hover {
+    background: var(--primary-color);
+    color: var(--menu-bg);
+}
+
+/* Notebook specific elements */
+.notebook-header {
+    text-align: left;
+    margin-bottom: 2rem;
+    font-family: "Courier New", monospace;
+    border-bottom: 1px dashed var(--primary-color);
+    padding-bottom: 1rem;
+}
+
+.date, .subject {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+}
+
+.typewriter {
+    border-bottom: 1px solid var(--primary-color);
+    padding: 0 0.5rem;
 }
 
 /* Project grid */
@@ -85,68 +291,5 @@ section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    padding: 2rem 0;
-}
-
-/* Blog posts */
-.blog-posts {
-    display: grid;
-    gap: 2rem;
-}
-
-/* Contact form */
-.contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 2rem;
-    margin-top: 4rem;
-    background-color: var(--primary-color);
-    color: var(--background-color);
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    nav ul {
-        justify-content: center;
-        gap: 1rem;
-    }
-
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.75rem; }
-    h3 { font-size: 1.25rem; }
-}
-
-/* Utility classes */
-.content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* Images and media */
-img, video {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Video container for responsive embeds */
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-    margin: 2rem auto;
-}
-
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    padding: 1rem;
 } 
