@@ -21,22 +21,22 @@
 
     <!-- Desktop Icons -->
     <div class="desktop-icons">
-        <div class="desktop-icon">
-            <div class="icon-image">📁</div>
-            <div class="icon-label">About</div>
-        </div>
-        <div class="desktop-icon">
+        <a href="/" class="desktop-icon">
+            <div class="icon-image">💾</div>
+            <div class="icon-label">Home</div>
+        </a>
+        <a href="#projects" class="desktop-icon">
             <div class="icon-image">📁</div>
             <div class="icon-label">Projects</div>
-        </div>
-        <div class="desktop-icon">
+        </a>
+        <a href="#about" class="desktop-icon">
             <div class="icon-image">📝</div>
             <div class="icon-label">Notes</div>
-        </div>
-        <div class="desktop-icon">
+        </a>
+        <a href="#contact" class="desktop-icon">
             <div class="icon-image">✉️</div>
             <div class="icon-label">Contact</div>
-        </div>
+        </a>
     </div>
 
     <!-- Main Window -->
@@ -78,127 +78,54 @@
 
             <section id="projects">
                 <h2>Project Documentation</h2>
-                <div class="project-grid">
-                    <div class="mac-window project-window">
-                        <div class="window-title-bar">
-                            <div class="window-controls">
-                                <div class="window-button maximize-button"></div>
-                            </div>
-                            <div class="window-title">Neural Network Visualizer</div>
-                        </div>
-                        <div class="content">
-                            <h3>Research & Development</h3>
-                            <p>Interactive visualization tool for neural network architectures. Built with WebGL and React.</p>
-                            <ul>
-                                <li>Tech: WebGL, React, TypeScript</li>
-                                <li>Status: Production</li>
-                                <li>Role: Lead Developer</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="mac-window project-window">
-                        <div class="window-title-bar">
-                            <div class="window-controls">
-                                <div class="window-button maximize-button"></div>
-                            </div>
-                            <div class="window-title">Quantum Circuit Simulator</div>
-                        </div>
-                        <div class="content">
-                            <h3>Experimental Project</h3>
-                            <p>Browser-based quantum circuit simulator supporting basic quantum gates and measurements.</p>
-                            <ul>
-                                <li>Tech: Python, WebAssembly, Three.js</li>
-                                <li>Status: Beta Testing</li>
-                                <li>Role: Full Stack Developer</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="mac-window project-window">
-                        <div class="window-title-bar">
-                            <div class="window-controls">
-                                <div class="window-button maximize-button"></div>
-                            </div>
-                            <div class="window-title">Retro OS Portfolio</div>
-                        </div>
-                        <div class="content">
-                            <h3>Personal Project</h3>
-                            <p>A portfolio website designed to replicate the classic Macintosh UI with an engineering notebook aesthetic.</p>
-                            <ul>
-                                <li>Tech: HTML5, CSS3, Vanilla JS</li>
-                                <li>Status: Active Development</li>
-                                <li>Role: Designer & Developer</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="mac-window project-window">
-                        <div class="window-title-bar">
-                            <div class="window-controls">
-                                <div class="window-button maximize-button"></div>
-                            </div>
-                            <div class="window-title">AI Code Assistant</div>
-                        </div>
-                        <div class="content">
-                            <h3>Research Project</h3>
-                            <p>An AI-powered code completion and refactoring tool with context-aware suggestions.</p>
-                            <ul>
-                                <li>Tech: Python, PyTorch, FastAPI</li>
-                                <li>Status: Research Phase</li>
-                                <li>Role: ML Engineer</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="project-grid dynamic-projects">
+                    <!-- Projects will be loaded here from projects.json -->
                 </div>
 
-                <!-- Maximized Project View -->
-                <div class="maximized-project" style="display: none;">
-                    <div class="mac-window">
-                        <div class="window-title-bar">
-                            <div class="window-controls">
-                                <div class="window-button minimize-button"></div>
-                            </div>
-                            <div class="window-title">Project Details</div>
-                        </div>
-                        <div class="content">
-                            <!-- Content will be dynamically populated -->
-                        </div>
+                <!-- Project Preview Window -->
+                <div class="project-preview">
+                    <button class="exit-button">Exit</button>
+                    <div class="preview-content">
+                        <!-- Content will be loaded dynamically -->
                     </div>
                 </div>
             </section>
 
             <section id="contact">
-                <h2>Communication Channel</h2>
+                <h2>Connect</h2>
                 <div class="mac-window">
                     <div class="window-title-bar">
                         <div class="window-controls">
                             <div class="window-button"></div>
                         </div>
-                        <div class="window-title">New Message</div>
+                        <div class="window-title">Social Links</div>
                     </div>
-                    <div class="content">
-                        <form>
-                            <div class="form-group">
-                                <label for="name">Name:</label>
-                                <input type="text" id="name" name="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email:</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="message">Message:</label>
-                                <textarea id="message" name="message" required></textarea>
-                            </div>
-                            <button type="submit">SEND MESSAGE</button>
-                        </form>
+                    <div class="content social-links">
+                        <div class="social-grid">
+                            <!-- Social links will be dynamically generated from config/socials.json -->
+                        </div>
                     </div>
                 </div>
             </section>
+
+            <!-- Visitor Counter -->
+            <div class="visitor-counter">
+                <!-- Hidden badge to track visits -->
+                <img src="https://visitor-badge.laobi.icu/badge?page_id=pauljunsukhan.portfolio" alt="Visitor Count" style="display: none;" id="visitor-badge">
+                <!-- LED Display -->
+                <div class="counter-display">
+                    <div class="counter-digit">0</div>
+                    <div class="counter-digit">0</div>
+                    <div class="counter-digit">0</div>
+                    <div class="counter-digit">0</div>
+                    <div class="counter-digit">0</div>
+                    <div class="counter-digit">0</div>
+                </div>
+            </div>
         </div>
     </main>
 
     <script src="js/main.js" defer></script>
+    <div class="overlay"></div>
 </body>
 </html> 

@@ -1,0 +1,66 @@
+{
+    "email": {
+        "icon": "✉",
+        "label": "Email",
+        "value": "aW8ucGF1bEBrYXRvLmN4",
+        "type": "dialog",
+        "encrypt": true
+    },
+    "messaging": {
+        "icon": "💬",
+        "label": "Messaging",
+        "value": "ODYwLTcwOS04MzY4",
+        "dialogContent": "Text, Signal, Telegram, Teletype",
+        "type": "dialog",
+        "encrypt": true
+    },
+    "discord": {
+        "icon": "🎮",
+        "label": "Discord",
+        "value": "@velvetundergroundandy",
+        "type": "dialog",
+        "encrypt": false
+    },
+    "twitter": {
+        "icon": "𝕏",
+        "label": "Twitter",
+        "url": "https://twitter.com/pauljunsukhan",
+        "type": "link"
+    },
+    "github": {
+        "icon": "⌨",
+        "label": "GitHub",
+        "url": "https://github.com/pauljunsukhan",
+        "type": "link"
+    },
+    "huggingface": {
+        "icon": "🤗",
+        "label": "HuggingFace",
+        "url": "https://huggingface.co/pauljunsukhan",
+        "type": "link"
+    },
+    "linkedin": {
+        "icon": "💼",
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/pauljunsukhan",
+        "type": "link"
+    },
+    "substack": {
+        "icon": "📝",
+        "label": "Substack",
+        "url": "https://pauljunsukhanwrites.substack.com",
+        "type": "link"
+    },
+    "resume_sw": {
+        "icon": "📄",
+        "label": "Resume (SW)",
+        "url": "./assets/docs/Han_Paul Resume_SW.pdf",
+        "type": "link"
+    },
+    "resume_hw": {
+        "icon": "📋",
+        "label": "Resume (HW)",
+        "url": "./assets/docs/Han_Paul Resume.pdf",
+        "type": "link"
+    }
+} 

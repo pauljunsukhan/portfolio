@@ -1,0 +1,84 @@
+{
+  "projects": [
+    {
+      "id": "neural-network",
+      "title": "Neural Network Visualizer",
+      "subtitle": "RESEARCH & DEVELOPMENT",
+      "description": "Interactive visualization tool for neural network architectures. Built with WebGL and React.",
+      "specs": [
+        "Tech: WebGL, React, TypeScript",
+        "Status: Production",
+        "Role: Lead Developer"
+      ],
+      "buttons": {
+        "preview": "/projects/neural-network",
+        "link": "/projects/neural-network",
+        "github": "https://github.com/pauljunsukhan/neural-network"
+      }
+    },
+    {
+      "id": "silent-speech",
+      "title": "Silent Speech Interfaces",
+      "subtitle": "Throat Mic & Whisper",
+      "description": "Creating a dataset & fine tunned Whisper for subvocalization transcription",
+      "specs": [
+        "Tech: Pytorch, NLP, Python, Huggingface, CUDA, Electronics",
+        "Status: POC Finished, Developing",
+        "Role: Everything, want dataset volunteers"
+      ],
+      "buttons": {
+        "preview": "/projects/under-construction",
+        "link": "/projects/under-construction",
+        "github": "https://github.com/pauljunsukhan/throatmicdata"
+      }
+    },
+    {
+      "id": "chatroom-translate",
+      "title": "Instant Translator Chatroom",
+      "subtitle": "LANGUAGE TRANSPARENT",
+      "description": "Chatroom for live cross-language comms.",
+      "specs": [
+        "Tech: Python, HTML, CSS, JavaScript, Heroku",
+        "Status: Deployed on Heroku",
+        "Link: http://chatroom.kato.cx/"
+      ],
+      "buttons": {
+        "preview": "/projects/under-construction",
+        "link": "/projects/under-construction",
+        "github": "https://github.com/pauljunsukhan/chatroomkatocx"
+      }
+    },
+    {
+      "id": "retro-os",
+      "title": "Retro OS Portfolio",
+      "subtitle": "PERSONAL PROJECT",
+      "description": "A portfolio website designed to replicate the classic Macintosh UI with an engineering notebook aesthetic.",
+      "specs": [
+        "Tech: HTML5, CSS3, Vanilla JS",
+        "Status: Active Development",
+        "Role: Designer & Developer"
+      ],
+      "buttons": {
+        "preview": "/projects/under-construction",
+        "link": "/projects/under-construction",
+        "github": "https://github.com/pauljunsukhan/portfolio"
+      }
+    },
+    {
+      "id": "ai-assistant",
+      "title": "AI Code Assistant",
+      "subtitle": "RESEARCH PROJECT",
+      "description": "An AI-powered code completion and refactoring tool with context-aware suggestions.",
+      "specs": [
+        "Tech: Python, PyTorch, FastAPI",
+        "Status: Research Phase",
+        "Role: ML Engineer"
+      ],
+      "buttons": {
+        "preview": "/projects/under-construction",
+        "link": "/projects/under-construction",
+        "github": "https://github.com/pauljunsukhan/ai-assistant"
+      }
+    }
+  ]
+} 

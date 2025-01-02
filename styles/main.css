@@ -163,6 +163,7 @@ h3 { font-size: 1.2rem; }
     display: flex;
     gap: 6px;
     margin-right: 8px;
+    align-items: center;
 }
 
 .window-button {
@@ -214,6 +215,8 @@ h3 { font-size: 1.2rem; }
     width: 64px;
     cursor: pointer;
     transition: transform 0.2s ease;
+    text-decoration: none;
+    color: inherit;
 }
 
 .desktop-icon:hover {
@@ -350,6 +353,9 @@ button:hover {
     margin-bottom: 1.5rem;
     width: 100%;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px; /* Ensure consistent height */
 }
 
 .project-window .window-title-bar {
@@ -409,7 +415,13 @@ button:hover {
 .project-window .content {
     padding: var(--spacing);
     background: var(--window-bg);
-    min-height: 100px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-window .content > *:not(.project-actions) {
+    flex-shrink: 0;
 }
 
 .project-window .content h3 {
@@ -453,40 +465,322 @@ button:hover {
     cursor: pointer;
 }
 
-/* Maximized Project View */
-.maximized-project {
+/* Project Preview Window */
+.project-preview {
+    position: fixed;
+    top: 8vh;
+    left: 46.5%;
+    transform: translateX(-50%);
+    z-index: 2000;
+    display: none;
+    width: calc(100% - var(--window-margin) * 2);
+    max-width: var(--max-width);
+    height: 90vh;
+}
+
+.project-preview.active {
+    display: block;
+}
+
+.project-preview .exit-button {
+    position: absolute;
+    top: -24px;
+    left: 0;
+    height: 24px;
+    width: auto;
+    padding: 0 12px;
+    background: #ff3b30;
+    border: 1px solid #c41e3a;
+    border-radius: 5px 5px 0 0;
+    border-bottom: none;
+    color: var(--window-bg);
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 2001;
+}
+
+.project-preview .exit-button:hover {
+    background: #ff1f1f;
+}
+
+.project-preview .preview-content {
+    background: var(--window-bg);
+    height: 100%;
+    border: 1px solid var(--window-border);
+    border-radius: 0 6px 2px 2px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2000;
+    overflow: hidden;
+}
+
+.project-preview .preview-content main.mac-window {
+    margin: 20px;
+    width: calc(100% - 40px);
+    height: calc(100% - 44px);
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;
+    overflow: auto;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+    pointer-events: auto;
+}
+
+/* Prevent body scroll when preview is open */
+body.preview-open {
+    overflow: hidden;
+}
+
+/* Error Dialog */
+.error-dialog {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 800px;
-    height: 80vh;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.maximized-project.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.maximized-project .mac-window {
-    width: 100%;
-    height: 100%;
-    display: flex;
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    width: 300px;
+    z-index: 2100;
+    display: none;
     flex-direction: column;
 }
 
-.maximized-project .content {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: var(--spacing);
+.error-dialog.active {
+    display: flex;
 }
 
-/* Overlay for maximized view */
+.error-dialog .window-title-bar {
+    height: 24px;
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
+}
+
+.error-dialog .window-button {
+    background: #ff3b30; /* Apple red in our style */
+    border-color: #c41e3a;
+}
+
+.error-dialog .content {
+    padding: 2rem;
+    text-align: center;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+/* Update Github Button */
+.project-button.github {
+    border-color: var(--primary-color);
+}
+
+.project-button.github:hover {
+    background: var(--primary-color);
+}
+
+/* Project Window Link Styles */
+.project-window {
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+    background: var(--window-bg);
+    margin-bottom: 1.5rem;
+    width: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-link-button {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 2px 8px;
+    background: var(--menu-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 3px;
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    color: var(--primary-color);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.project-link-button:hover {
+    background: var(--primary-color);
+    color: var(--menu-bg);
+}
+
+/* Update Link Button */
+.project-button.link {
+    border-color: var(--window-border);
+}
+
+.project-button.link:hover {
+    background: var(--window-border);
+    color: var(--menu-bg);
+}
+
+/* Ensure buttons are clickable */
+.project-link-button, 
+.project-actions button,
+.window-controls {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+/* Project Action Buttons */
+.project-actions {
+    margin-top: auto; /* Push to bottom */
+    padding-top: 1rem;
+    border-top: 1px solid var(--window-border);
+    display: flex;
+    gap: 1rem;
+}
+
+.project-button {
+    flex: 1;
+    background: var(--menu-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    text-decoration: none;
+}
+
+.project-button:hover {
+    background: var(--window-border);
+    color: var(--menu-bg);
+}
+
+.project-button.preview {
+    border-color: var(--window-border);
+}
+
+.project-button.preview:hover {
+    background: var(--window-border);
+}
+
+/* Social Links Section */
+.social-links {
+    padding: var(--spacing);
+    margin-bottom: 0.5rem;
+}
+
+.social-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: var(--menu-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-family: "Courier New", monospace;
+    transition: all 0.2s ease;
+    text-transform: none;
+}
+
+.social-link:hover {
+    background: var(--window-border);
+    color: var(--menu-bg);
+    transform: translateY(-2px);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.social-icon {
+    font-size: 1.2rem;
+    min-width: 24px;
+    text-align: center;
+}
+
+.social-label {
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+/* Email Button */
+.email-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: var(--menu-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-family: "Courier New", monospace;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.email-button:hover {
+    background: var(--window-border);
+    color: var(--menu-bg);
+    transform: translateY(-2px);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Email Dialog */
+.email-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    width: 300px;
+    z-index: 2100;
+    display: none;
+    flex-direction: column;
+}
+
+.email-dialog.active {
+    display: flex;
+}
+
+.email-dialog .window-title-bar {
+    height: 24px;
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
+}
+
+.email-dialog .window-button.close-button {
+    background: #ff3b30;
+    border-color: #c41e3a;
+}
+
+.email-dialog .content {
+    padding: 2rem;
+    text-align: center;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+/* Add overlay for email dialog */
 .overlay {
     position: fixed;
     top: 0;
@@ -494,14 +788,180 @@ button:hover {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 999;
+    z-index: 2000;
+    display: none;
 }
 
 .overlay.active {
-    opacity: 1;
-    visibility: visible;
+    display: block;
+}
+
+/* Message Button */
+.message-button {
+    cursor: pointer;
+}
+
+.message-button:hover {
+    background: var(--window-border);
+    color: var(--menu-bg);
+    transform: translateY(-2px);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Mac Dialog */
+.mac-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    width: 300px;
+    z-index: 2100;
+    display: none;
+    flex-direction: column;
+}
+
+.mac-dialog.active {
+    display: flex;
+}
+
+.mac-dialog .window-title-bar {
+    height: 24px;
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
+}
+
+.mac-dialog .window-button.close-button {
+    background: #ff3b30;
+    border-color: #c41e3a;
+}
+
+.mac-dialog .content {
+    padding: 2rem;
+    text-align: center;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+.mac-dialog .content p {
+    margin: 0.5rem 0;
+}
+
+/* Visitor Counter */
+.visitor-counter {
+    text-align: center;
+    margin: 0 auto 1rem;
+    width: fit-content;
+    background: var(--window-bg);
+}
+
+.counter-display {
+    display: flex;
+    justify-content: center;
+    gap: 1px;
+    background: #000;
+    padding: 2px;
+    border: 1px solid #444;
+}
+
+.counter-digit {
+    display: inline-block;
+    background: #000;
+    color: #32CD32;
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 12px;
+    padding: 2px;
+    text-shadow: 0 0 5px #32CD32;
+}
+
+/* Window Title Bar Link */
+.window-link {
+    position: absolute;
+    right: 8px;
+    color: var(--window-bg);
+    text-decoration: none;
+    font-size: 11px;
+    padding: 2px 6px;
+    background: #2ea538; /* Muted retro Mac green */
+    border: 1px solid #1e7a28; /* Darker muted green for border */
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.window-link:hover {
+    background: #1e7a28; /* Darker muted green on hover */
+    color: var(--window-bg);
+}
+
+/* Construction Page Styles */
+.construction-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    padding: 2rem;
+    font-family: "Courier New", monospace;
+}
+
+.construction-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.2em;
+    border-bottom: none;
+    animation: blink 2s infinite;
+}
+
+.construction-message {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+.construction-animation {
+    font-size: 2rem;
+    margin: 2rem 0;
+    padding: 1rem;
+    border: 2px dashed var(--primary-color);
+    border-radius: 4px;
+    text-align: center;
+}
+
+.construction-animation a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0 4px;
+    border-bottom: 2px solid var(--secondary-color);
+    transition: all 0.2s ease;
+}
+
+.construction-animation a:hover {
+    background: var(--secondary-color);
+    color: var(--window-bg);
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.construction-divider {
+    width: 50%;
+    height: 2px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--primary-color),
+        var(--primary-color) 10px,
+        transparent 10px,
+        transparent 20px
+    );
+    margin: 2rem 0;
 } 
