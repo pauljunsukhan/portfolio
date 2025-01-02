@@ -305,12 +305,34 @@ button:hover {
 
 /* Notebook Header Enhancement */
 .notebook-header {
-    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 2rem;
     font-family: "Courier New", monospace;
     border-bottom: 1px dashed var(--primary-color);
     padding-bottom: 1rem;
     position: relative;
+}
+
+.header-left {
+    flex: 1;
+}
+
+.header-right {
+    flex-shrink: 0;
+    margin-left: 2rem;
+    width: 45px;  /* Set explicit width for container */
+    height: 45px; /* Set explicit height for container */
+}
+
+.headshot {
+    width: 100%;    /* Fill container width */
+    height: 100%;   /* Fill container height */
+    object-fit: cover;
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    display: block;  /* Remove any extra space */
 }
 
 .notebook-header::after {
