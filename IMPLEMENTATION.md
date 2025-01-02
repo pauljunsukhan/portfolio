@@ -184,3 +184,97 @@ The `createProjectWindow` function includes a `linkifySpec` helper that:
 3. Sets `target="_blank"` to open links in a new tab
 
 This maintains a consistent look while making URLs interactive and accessible. 
+
+## Mobile Responsiveness
+
+### Responsive Design System
+
+The portfolio adapts to mobile devices through a comprehensive responsive design system:
+
+1. **CSS Variables Adjustment**
+```css
+:root {
+    --window-margin: 40px;  /* Desktop default */
+    --spacing: 2rem;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --window-margin: 10px;  /* Mobile adjustment */
+        --spacing: 1rem;
+    }
+}
+```
+
+### Project Grid Layout
+- Desktop: Multi-column grid using `auto-fit`
+- Mobile: Single column layout for better readability
+```css
+.project-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+@media (max-width: 768px) {
+    .project-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+}
+```
+
+### Collapsible Desktop Icons
+The desktop icons adapt to mobile screens through a collapsible menu system:
+
+1. **Toggle Button**
+```html
+<button class="menu-toggle" aria-label="Toggle menu">⋮</button>
+```
+
+2. **Mobile Styling**
+```css
+@media (max-width: 768px) {
+    .desktop-icons {
+        right: 5px;
+        gap: 10px;
+        transform: translateX(100%);  /* Hidden by default */
+    }
+    
+    .desktop-icons.active {
+        transform: translateX(0);     /* Shown when active */
+    }
+}
+```
+
+3. **JavaScript Toggle Functionality**
+```javascript
+const menuToggle = document.querySelector('.menu-toggle');
+const desktopIcons = document.querySelector('.desktop-icons');
+
+menuToggle.addEventListener('click', () => {
+    desktopIcons.classList.toggle('active');
+    menuToggle.textContent = desktopIcons.classList.contains('active') ? '×' : '⋮';
+});
+```
+
+### Benefits
+1. **Improved Mobile UX**
+   - Reduced margins for better space utilization
+   - Collapsible menu to prevent content overlap
+   - Single column layout for easier reading
+
+2. **Preserved Desktop Experience**
+   - No changes to desktop layout
+   - Smooth transitions between states
+   - Consistent vintage Mac aesthetic
+
+3. **Progressive Enhancement**
+   - Base styles for all devices
+   - Enhanced features for larger screens
+   - Graceful degradation for older browsers
+
+### Implementation Notes
+- Breakpoint set at 768px for tablet/mobile transition
+- Uses CSS transforms for smooth animations
+- Maintains accessibility with ARIA labels
+- Preserves all functionality across device sizes 

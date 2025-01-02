@@ -393,6 +393,21 @@ function updateVisitorCounter() {
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', async () => {
     try {
+        // Initialize mobile menu toggle first
+        const menuToggle = document.querySelector('.menu-toggle');
+        const desktopIcons = document.querySelector('.desktop-icons');
+        
+        if (menuToggle && desktopIcons) {
+            console.log('Menu toggle elements found');
+            menuToggle.addEventListener('click', () => {
+                console.log('Menu toggle clicked');
+                desktopIcons.classList.toggle('active');
+                menuToggle.textContent = desktopIcons.classList.contains('active') ? '×' : '⋮';
+            });
+        } else {
+            console.log('Menu toggle elements not found:', { menuToggle, desktopIcons });
+        }
+
         // Initialize core functionality
         await generateSocialLinks();
         updateVisitorCounter();
