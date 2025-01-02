@@ -11,6 +11,7 @@
     --grid-color: rgba(70, 40, 20, 0.1); /* Subtle brown grid */
     --max-width: 1000px;
     --spacing: 2rem;
+    --window-margin: 40px;       /* Space around main window */
 }
 
 /* Engineering Paper Background */
@@ -24,6 +25,9 @@ body {
         linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
     background-size: 20px 20px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 body::after {
@@ -37,6 +41,18 @@ body::after {
         radial-gradient(circle at 50% 50%, rgba(255, 255, 240, 0.1) 0%, rgba(255, 240, 200, 0.2) 100%);
     pointer-events: none;
     z-index: 1;
+}
+
+/* Main Window Container */
+main.mac-window {
+    width: calc(100% - var(--window-margin) * 2);
+    max-width: var(--max-width);
+    margin: var(--window-margin) auto;
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;  /* More pronounced top radius */
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 /* Mac OS Classic Menu Bar with engineering twist */
@@ -73,19 +89,12 @@ body::after {
     margin: 0 10px;
 }
 
-/* Mac Window Styles with engineering aesthetic */
-.mac-window {
-    background: var(--window-bg);
-    border: 1px solid var(--window-border);
-    border-radius: 2px;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
-}
-
+/* Window Title Bar Enhancement */
 .window-title-bar {
-    height: 20px;
+    height: 24px; /* Slightly taller for better proportion */
     background: var(--menu-bg);
     border-bottom: 1px solid var(--window-border);
+    border-radius: 5px 5px 0 0;
     display: flex;
     align-items: center;
     padding: 0 8px;
@@ -117,13 +126,14 @@ h2 {
 
 h3 { font-size: 1.2rem; }
 
-/* Technical Sketch Style */
+/* Technical Sketch Enhancement */
 .technical-sketch {
     border: 1px solid var(--primary-color);
     padding: 1.5rem;
     margin: 2rem 0;
     background-color: rgba(255, 255, 255, 0.7);
     position: relative;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .technical-sketch::before {
@@ -148,10 +158,10 @@ h3 { font-size: 1.2rem; }
     font-family: "Courier New", monospace;
 }
 
-/* Keep existing Mac UI structure but update colors and fonts */
+/* Window Controls Enhancement */
 .window-controls {
     display: flex;
-    gap: 4px;
+    gap: 6px;
     margin-right: 8px;
 }
 
@@ -161,6 +171,19 @@ h3 { font-size: 1.2rem; }
     border: 1px solid var(--window-border);
     border-radius: 50%;
     background: var(--window-bg);
+    position: relative;
+}
+
+.window-button:first-child::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 2px;
+    background: var(--window-border);
+    opacity: 0.5;
 }
 
 .window-title {
@@ -172,7 +195,7 @@ h3 { font-size: 1.2rem; }
     letter-spacing: 0.05em;
 }
 
-/* Desktop Icons with engineering twist */
+/* Desktop Icons Enhancement */
 .desktop-icons {
     position: fixed;
     top: 40px;
@@ -189,6 +212,12 @@ h3 { font-size: 1.2rem; }
     align-items: center;
     text-align: center;
     width: 64px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.desktop-icon:hover {
+    transform: scale(1.05);
 }
 
 .icon-image {
@@ -197,6 +226,10 @@ h3 { font-size: 1.2rem; }
     margin-bottom: 5px;
     background: var(--menu-bg);
     border: 1px solid var(--window-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
 }
 
 .icon-label {
@@ -209,10 +242,11 @@ h3 { font-size: 1.2rem; }
     border: 1px solid var(--window-border);
 }
 
-/* Content styling */
+/* Content Area Enhancement */
 .content {
-    padding: 20px;
+    padding: var(--spacing);
     background: var(--window-bg);
+    min-height: 200px;
 }
 
 /* Form styling with engineering aesthetic */
@@ -266,13 +300,25 @@ button:hover {
     color: var(--menu-bg);
 }
 
-/* Notebook specific elements */
+/* Notebook Header Enhancement */
 .notebook-header {
     text-align: left;
     margin-bottom: 2rem;
     font-family: "Courier New", monospace;
     border-bottom: 1px dashed var(--primary-color);
     padding-bottom: 1rem;
+    position: relative;
+}
+
+.notebook-header::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    border-bottom: 1px dashed var(--primary-color);
+    opacity: 0.5;
 }
 
 .date, .subject {
