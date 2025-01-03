@@ -393,39 +393,49 @@ function updateVisitorCounter() {
     const digits = document.querySelectorAll('.counter-digit');
     
     if (!badge || !digits.length) {
-        console.log('Visitor counter elements not found');
+        console.error('Visitor counter elements not found');
         return;
     }
-    
-    // Create an observer to watch for changes to the badge's src
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'src') {
-                // Extract count from badge alt text after it loads
-                badge.onload = () => {
-                    try {
-                        // The badge alt text contains the count in format "Visitor Count : 123"
-                        const count = badge.alt.split(':')[1]?.trim() || '0';
+
+    // Function to update the display
+    function updateDisplay() {
+        try {
+            console.log('Attempting to update visitor count...');
+            fetch(badge.src)
+                .then(response => response.text())
+                .then(svgText => {
+                    // Extract the count from SVG text (format: <text>visits 123</text>)
+                    const countMatch = svgText.match(/text-anchor="middle"[^>]*>(\d+)</);
+                    if (countMatch && countMatch[1]) {
+                        const count = countMatch[1];
+                        console.log('Extracted visitor count:', count);
                         const paddedCount = count.padStart(6, '0');
                         
                         // Update each digit
                         digits.forEach((digit, index) => {
                             digit.textContent = paddedCount[index] || '0';
                         });
-                    } catch (error) {
-                        console.error('Error updating visitor counter:', error);
+                    } else {
+                        console.warn('Could not extract count from SVG');
                     }
-                };
-            }
-        });
-    });
-    
-    try {
-        // Start observing the badge
-        observer.observe(badge, { attributes: true });
-    } catch (error) {
-        console.error('Error setting up visitor counter:', error);
+                })
+                .catch(error => {
+                    console.error('Error fetching visitor count:', error);
+                });
+        } catch (error) {
+            console.error('Error in updateDisplay:', error);
+        }
     }
+
+    // Update when badge loads
+    badge.onload = updateDisplay;
+
+    // Initial update attempt
+    console.log('Initializing visitor counter...');
+    updateDisplay();
+
+    // Periodic updates
+    setInterval(updateDisplay, 30000); // Check every 30 seconds
 }
 
 // Typewriter effect for construction date
