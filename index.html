@@ -1,115 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
 <head>
+    <!-- Basic Meta Tags -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="description" content="Paul Han's Portfolio">
-    <link rel="icon" href="assets/site/icon.png" type="image/png">
-    <title>Paul Han</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="preload" href="styles/main.css" as="style">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Paul Han - Innovative Software & Hardware Engineer</title>
+
+    <!-- SEO Optimization Section -->
+    <!-- Basic SEO -->
+    <meta name="description" content="Paul Han's Portfolio - Innovative Software & Hardware Engineer crafting elegant solutions. Explore projects in AI, machine learning, and creative problem-solving.">
+    <meta name="keywords" content="software engineer, hardware engineer, full stack developer, creative problem solver, technical writing, system design, engineering solutions, AI, machine learning, portfolio">
+    <meta name="author" content="Paul Junsuk Han">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#f5e6d3">
+    <meta name="google" content="nositelinkssearchbox">
+    <meta name="google" content="notranslate">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- Favicon Section -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/site/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/site/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/site/favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pauljunsukhan.com/">
+    <meta property="og:title" content="Paul Han - Innovative SWE & HWE | Creative Problem Solver">
+    <meta property="og:description" content="Discover innovative software & hardware engineering projects. From AI and machine learning to creative problem-solving, explore my journey in technology and engineering.">
+    <meta property="og:image" content="https://pauljunsukhan.com/assets/site/social-preview.webp">
+    <meta property="og:image:alt" content="https://pauljunsukhan.com/assets/site/social-preview.png">
+    <meta property="og:image:type" content="image/webp">
+    <meta property="og:site_name" content="Paul Han Portfolio">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://pauljunsukhan.com/">
+    <meta name="twitter:title" content="Paul Han - Innovative SWE & HWE | Creative Problem Solver">
+    <meta name="twitter:description" content="Discover innovative software & hardware engineering projects. From AI and machine learning to creative problem-solving, explore my journey in technology and engineering.">
+    <meta name="twitter:image" content="https://pauljunsukhan.com/assets/site/social-preview.webp">
+    <meta name="twitter:image:alt" content="https://pauljunsukhan.com/assets/site/social-preview.png">
+    <meta name="twitter:creator" content="@yourtwitterhandle">
+    <meta name="twitter:site" content="@yourtwitterhandle">
+
+    <!-- Canonical & Language -->
+    <link rel="canonical" href="https://pauljunsukhan.com/">
+    <link rel="alternate" hreflang="en" href="https://pauljunsukhan.com/">
+
+    <!-- Styles -->
+    <link rel="preload" href="styles/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="styles/main.css"></noscript>
 </head>
 <body>
-    <!-- Classic Mac Menu Bar -->
-    <div class="global-menu-bar">
-        <span class="apple-menu">🍎</span>
-        <div class="menu-divider"></div>
-        <span class="menu-item">File</span>
-        <span class="menu-item">Edit</span>
-        <span class="menu-item">View</span>
-        <span class="menu-item">Special</span>
-    </div>
+    <!-- Navigation -->
+    <nav class="global-menu-bar" role="navigation" aria-label="Main navigation">
+        <span class="apple-menu" aria-label="Menu icon">🍎</span>
+        <div class="menu-divider" aria-hidden="true"></div>
+        <span class="menu-item" role="menuitem">File</span>
+        <span class="menu-item" role="menuitem">Edit</span>
+        <span class="menu-item" role="menuitem">View</span>
+        <span class="menu-item" role="menuitem">Special</span>
+    </nav>
 
-    <!-- Desktop Icons -->
-    <button class="menu-toggle" aria-label="Toggle menu">⋮</button>
-    <div class="desktop-icons">
-        <a href="/" class="desktop-icon">
-            <div class="icon-image">💾</div>
+    <!-- Desktop Icons Navigation -->
+    <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">⋮</button>
+    <nav class="desktop-icons" role="navigation" aria-label="Quick navigation">
+        <a href="/" class="desktop-icon" aria-label="Home">
+            <div class="icon-image" aria-hidden="true">💾</div>
             <div class="icon-label">Home</div>
         </a>
-        <a href="#projects" class="desktop-icon">
-            <div class="icon-image">📁</div>
+        <a href="#projects" class="desktop-icon" aria-label="Projects">
+            <div class="icon-image" aria-hidden="true">📁</div>
             <div class="icon-label">Projects</div>
         </a>
-        <a href="#about" class="desktop-icon">
-            <div class="icon-image">📝</div>
+        <a href="#about" class="desktop-icon" aria-label="Notes">
+            <div class="icon-image" aria-hidden="true">📝</div>
             <div class="icon-label">Notes</div>
         </a>
-        <a href="#contact" class="desktop-icon">
-            <div class="icon-image">✉️</div>
+        <a href="#contact" class="desktop-icon" aria-label="Contact">
+            <div class="icon-image" aria-hidden="true">✉️</div>
             <div class="icon-label">Contact</div>
         </a>
-    </div>
+    </nav>
 
-    <!-- Main Window -->
-    <main class="mac-window">
-        <div class="window-title-bar">
-            <div class="window-controls">
-                <div class="window-button"></div>
-                <div class="window-button"></div>
-                <div class="window-button"></div>
+    <!-- Main Content -->
+    <main class="mac-window" role="main">
+        <header class="window-title-bar" role="banner">
+            <div class="window-controls" aria-label="Window controls">
+                <div class="window-button" role="button" aria-label="Close"></div>
+                <div class="window-button" role="button" aria-label="Minimize"></div>
+                <div class="window-button" role="button" aria-label="Maximize"></div>
             </div>
             <div class="window-title">IE 8.0 and above</div>
-        </div>
+        </header>
 
         <div class="content">
-            <section id="hero">
+            <!-- Hero Section -->
+            <section id="hero" aria-labelledby="hero-title">
                 <div class="notebook-header">
                     <div class="header-left">
-                        <div class="date">Last Update: <span class="typewriter">01.02.2024</span></div>
-                        <div class="subject">Subject: <span class="typewriter">Life Work</span></div>
+                        <time class="date" datetime="2024-01-02">Last Update: <span class="typewriter">01.02.2024</span></time>
                     </div>
                     <div class="header-right">
-                        <img src="assets/site/headshot.png" alt="Paul Han" class="headshot">
+                        <img src="assets/site/headshot.png" alt="Paul Han - Software and Hardware Engineer" class="headshot" loading="lazy" width="180" height="180">
                     </div>
                 </div>
-                <h1>Paul Junsuk Han</h1>
+                <h1 id="hero-title">Paul Junsuk Han</h1>
                 <p class="subtitle">SWE, HWE, Designer, Writer, & Problem Solver</p>
             </section>
 
-            <section id="about">
+            <section id="about" aria-labelledby="about-title">
                 <div class="technical-sketch">
-                    <h2>Field Notes</h2>
+                    <h2 id="about-title">Field Notes</h2>
                     <p>Good engineering is honest. Good design is honest. Good writing is honest. It's going to be great!</p>
                     <div class="sketch-list">
                         <h3>Technical Expertise</h3>
-                        <ul>
-                            <li>Languages: JavaScript, Python, Java</li>
-                            <li>Frontend: React, Vue.js, HTML5/CSS3</li>
-                            <li>Backend: Node.js, Django, Spring</li>
-                            <li>Tools: Git, Docker, AWS</li>
+                        <ul lang="en">
+                            <li>Languages: <span lang="en">JavaScript, Python, Java</span></li>
+                            <li>Frontend: <span lang="en">React, Vue.js, HTML5/CSS3</span></li>
+                            <li>Backend: <span lang="en">Node.js, Django, Spring</span></li>
+                            <li>Tools: <span lang="en">Git, Docker, AWS</span></li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <section id="projects">
-                <h2>Project Documentation</h2>
-                <div class="project-grid dynamic-projects">
+            <section id="projects" aria-labelledby="projects-title">
+                <h2 id="projects-title">Project Documentation</h2>
+                <div class="project-grid dynamic-projects" role="list" aria-label="Project list" lang="en">
                     <!-- Projects will be loaded here from projects.json -->
                 </div>
 
                 <!-- Project Preview Window -->
-                <div class="project-preview">
-                    <button class="exit-button">Exit</button>
+                <div class="project-preview" aria-label="Project preview window">
+                    <button class="exit-button" aria-label="Close preview">Exit</button>
                     <div class="preview-content">
                         <!-- Content will be loaded dynamically -->
                     </div>
                 </div>
             </section>
 
-            <section id="contact">
-                <h2>Connect</h2>
+            <section id="contact" aria-labelledby="contact-title">
+                <h2 id="contact-title">Connect</h2>
                 <div class="mac-window">
-                    <div class="window-title-bar">
+                    <div class="window-title-bar" role="heading" aria-level="3">
                         <div class="window-controls">
-                            <div class="window-button"></div>
+                            <div class="window-button" aria-hidden="true"></div>
                         </div>
                         <div class="window-title">Social Links</div>
                     </div>
                     <div class="content social-links">
-                        <div class="social-grid">
+                        <div class="social-grid" role="list" aria-label="Social media links">
                             <!-- Social links will be dynamically generated from config/socials.json -->
                         </div>
                     </div>
@@ -117,26 +158,137 @@
             </section>
 
             <!-- Visitor Counter -->
-            <div class="visitor-counter">
-                <div class="counter-display">
-                    <div class="counter-digit">0</div>
-                    <div class="counter-digit">0</div>
-                    <div class="counter-digit">0</div>
-                    <div class="counter-digit">0</div>
-                    <div class="counter-digit">0</div>
-                    <div class="counter-digit">0</div>
+            <div class="visitor-counter" aria-label="Site visitor counter">
+                <div class="counter-display" role="status" aria-live="polite">
+                    <div class="counter-digit" aria-hidden="true">0</div>
+                    <div class="counter-digit" aria-hidden="true">0</div>
+                    <div class="counter-digit" aria-hidden="true">0</div>
+                    <div class="counter-digit" aria-hidden="true">0</div>
+                    <div class="counter-digit" aria-hidden="true">0</div>
+                    <div class="counter-digit" aria-hidden="true">0</div>
                 </div>
                 <img 
                     src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fpauljunsukhan.com&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=visits&edge_flat=false"
-                    alt="Visitor Count"
+                    alt="Real-time visitor count for Paul Han's portfolio"
                     id="visitor-badge"
                     style="position: absolute; width: 1px; height: 1px; overflow: hidden;"
+                    aria-hidden="true"
                 >
             </div>
         </div>
     </main>
 
+    <div class="overlay" aria-hidden="true"></div>
+
+    <!-- Move all JSON-LD scripts here, outside the dynamic content area -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Paul Junsuk Han",
+            "url": "https://pauljunsukhan.com",
+            "image": "https://pauljunsukhan.com/assets/site/headshot.png",
+            "sameAs": [
+                "https://github.com/pauljunsukhan",
+                "https://linkedin.com/in/[your-profile]"
+            ],
+            "jobTitle": ["Software Engineer", "Hardware Engineer"],
+            "description": "SWE, HWE, Designer, Writer, & Problem Solver",
+            "knowsAbout": [
+                "Software Engineering",
+                "Hardware Engineering",
+                "Concurrency Programming",
+                "Electrical Engineering",
+                "Creative Problem Solving",
+                "Rationalism",
+                "Progress Studies",
+                "Full Stack Development",
+                "AI/Machine Learning",
+                "Founder"
+            ],
+            "alumniOf": [
+                {
+                    "@type": "CollegeOrUniversity",
+                    "name": "Yale University",
+                    "department": ["Computer Science", "Electrical Engineering"]
+                }
+            ],
+            "hasCredential": [
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "credentialCategory": "degree",
+                    "name": "Bachelor of Science in Computer Science"
+                },
+                {
+                    "@type": "EducationalOccupationalCredential",
+                    "credentialCategory": "degree",
+                    "name": "Bachelor of Science in Electrical Engineering"
+                }
+            ],
+            "workLocation": {
+                "@type": "Place",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "San Francisco",
+                    "addressRegion": "CA",
+                    "addressCountry": "US"
+                }
+            },
+            "homeLocation": {
+                "@type": "Place",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "San Francisco",
+                    "addressRegion": "CA",
+                    "addressCountry": "US"
+                }
+            },
+            "workExample": [
+                {
+                    "@type": "TechArticle",
+                    "name": "Neural Network Visualizer",
+                    "url": "https://pauljunsukhan.com/projects/neural-network/",
+                    "abstract": "Interactive visualization tool for neural network architectures using WebGL and React",
+                    "proficiencyLevel": "Advanced",
+                    "genre": "Software Engineering",
+                    "datePublished": "2024-01-02",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Paul Junsuk Han"
+                    },
+                    "keywords": ["Neural Networks", "WebGL", "React", "Visualization", "Machine Learning"],
+                    "technicalLevel": "Advanced"
+                }
+            ]
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Paul Han Portfolio",
+            "url": "https://pauljunsukhan.com",
+            "description": "Portfolio of Paul Han - Software & Hardware Engineer",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://pauljunsukhan.com/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://pauljunsukhan.com"
+            }]
+        }
+    </script>
+
     <script src="js/main.js" defer></script>
-    <div class="overlay"></div>
 </body>
 </html> 

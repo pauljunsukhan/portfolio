@@ -1,0 +1,26 @@
+{
+    "name": "Paul Han Portfolio",
+    "short_name": "Paul Han",
+    "description": "Portfolio showcasing software engineering, hardware engineering, design work, and writing projects.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f5e6d3",
+    "theme_color": "#f5e6d3",
+    "icons": [
+        {
+            "src": "assets/site/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/site/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/site/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ]
+} 

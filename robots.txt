@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Disallow: /config/
+Disallow: /assets/private/
+
+# Allow search engines to crawl JavaScript and CSS files
+Allow: /*.js$
+Allow: /*.css$
+
+# Prevent crawling of search results, if any
+Disallow: /*?*
+
+# Sitemap location
+Sitemap: https://pauljunsukhan.com/sitemap.xml
+
+# Crawl-delay for all bots
+Crawl-delay: 10 

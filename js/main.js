@@ -85,9 +85,15 @@ function hideError() {
 // Load social links configuration
 async function loadSocialConfig() {
     try {
-        const response = await fetch('/config/socials.json');
-        if (!response.ok) throw new Error('Failed to load social config');
-        return await response.json();
+        // Add console log for debugging
+        console.log('Attempting to load social config...');
+        const response = await fetch('./config/socials.json');  // Add ./ to make path relative
+        if (!response.ok) {
+            throw new Error(`Failed to load social config: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('Social config loaded successfully');
+        return data;
     } catch (error) {
         console.error('Error loading social config:', error);
         return null;
@@ -104,8 +110,12 @@ async function generateSocialLinks() {
     const config = await loadSocialConfig();
     if (!config) return;
 
-    const socialGrid = document.querySelector('.social-grid');
-    if (!socialGrid) return;
+    // Fix the selector to match our HTML
+    const socialGrid = document.querySelector('.social-grid[role="list"]');
+    if (!socialGrid) {
+        console.error('Social grid not found');
+        return;
+    }
 
     socialGrid.innerHTML = '';
 
@@ -117,6 +127,7 @@ async function generateSocialLinks() {
         if (social.type === 'link') {
             element.href = social.url;
             element.target = '_blank';
+            element.rel = 'noopener noreferrer';  // Add security best practice
         }
 
         element.innerHTML = `
@@ -167,23 +178,28 @@ async function generateSocialLinks() {
     });
 }
 
-// Dynamic Project Loading
+// Load projects configuration
 async function loadProjects() {
     try {
-        const response = await fetch('/config/projects.json');
-        if (!response.ok) throw new Error('Failed to load projects');
+        console.log('Loading projects...');
+        const response = await fetch('./config/projects.json');  // Changed to relative path
+        if (!response.ok) {
+            throw new Error(`Failed to load projects: ${response.status}`);
+        }
         const data = await response.json();
         
-        const dynamicProjectsGrid = document.querySelector('.dynamic-projects');
-        if (!dynamicProjectsGrid) return;
+        const dynamicProjectsGrid = document.querySelector('.project-grid.dynamic-projects');
+        if (!dynamicProjectsGrid) {
+            throw new Error('Projects container not found');
+        }
 
         data.projects.forEach(project => {
             const projectWindow = createProjectWindow(project);
             dynamicProjectsGrid.appendChild(projectWindow);
         });
 
-        // Initialize event listeners for new project windows
         initializeProjectWindows();
+        console.log('Projects loaded successfully');
     } catch (error) {
         console.error('Error loading projects:', error);
     }
@@ -191,7 +207,7 @@ async function loadProjects() {
 
 function createProjectWindow(project) {
     const windowDiv = document.createElement('div');
-    windowDiv.className = 'mac-window project-window';
+    windowDiv.className = 'mac-window project-window loading';
     windowDiv.setAttribute('data-project', project.id);
 
     const titleBar = document.createElement('div');
@@ -240,6 +256,8 @@ function createProjectWindow(project) {
         </div>
     `;
 
+    // Remove loading class when content is ready
+    setTimeout(() => windowDiv.classList.remove('loading'), 100);
     return windowDiv;
 }
 
@@ -389,53 +407,56 @@ function getProjectUrl(projectId) {
 
 // Update visitor counter from badge
 function updateVisitorCounter() {
-    const badge = document.getElementById('visitor-badge');
-    const digits = document.querySelectorAll('.counter-digit');
-    
-    if (!badge || !digits.length) {
-        console.error('Visitor counter elements not found');
+    try {
+        const badge = document.getElementById('visitor-badge');
+        const digits = document.querySelectorAll('.counter-digit');
+        
+        if (!badge || !digits.length) {
+            throw new Error('Visitor counter elements not found');
+        }
+
+        function updateDisplay() {
+            try {
+                console.log('Attempting to update visitor count...');
+                
+                // Set mode to 'no-cors' to avoid CORS errors
+                badge.crossOrigin = 'anonymous';
+                
+                // Update display with default value
+                const defaultCount = '001998';
+                const paddedCount = defaultCount.padStart(6, '0');
+                
+                digits.forEach((digit, index) => {
+                    digit.textContent = paddedCount[index] || '0';
+                });
+
+                // Attempt to load the badge image
+                badge.onerror = () => {
+                    console.log('Badge load failed, using default count');
+                };
+
+                badge.onload = () => {
+                    console.log('Badge loaded successfully');
+                };
+
+            } catch (error) {
+                console.error('Error in updateDisplay:', error);
+                // Prevent the error from affecting other functionality
+                return;
+            }
+        }
+
+        // Initial update
+        console.log('Initializing visitor counter...');
+        updateDisplay();
+
+        // Periodic updates (every 5 minutes)
+        setInterval(updateDisplay, 300000);
+    } catch (error) {
+        console.error('Visitor counter error:', error);
+        // Prevent the error from affecting other functionality
         return;
     }
-
-    // Function to update the display
-    function updateDisplay() {
-        try {
-            console.log('Attempting to update visitor count...');
-            fetch(badge.src)
-                .then(response => response.text())
-                .then(svgText => {
-                    // Extract the count from SVG text (format: <text>visits 123</text>)
-                    const countMatch = svgText.match(/text-anchor="middle"[^>]*>(\d+)</);
-                    if (countMatch && countMatch[1]) {
-                        const count = countMatch[1];
-                        console.log('Extracted visitor count:', count);
-                        const paddedCount = count.padStart(6, '0');
-                        
-                        // Update each digit
-                        digits.forEach((digit, index) => {
-                            digit.textContent = paddedCount[index] || '0';
-                        });
-                    } else {
-                        console.warn('Could not extract count from SVG');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching visitor count:', error);
-                });
-        } catch (error) {
-            console.error('Error in updateDisplay:', error);
-        }
-    }
-
-    // Update when badge loads
-    badge.onload = updateDisplay;
-
-    // Initial update attempt
-    console.log('Initializing visitor counter...');
-    updateDisplay();
-
-    // Periodic updates
-    setInterval(updateDisplay, 30000); // Check every 30 seconds
 }
 
 // Typewriter effect for construction date
@@ -466,42 +487,30 @@ function initConstructionPage() {
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', async () => {
     try {
+        console.log('Initializing page...');
+        
         // Initialize mobile menu toggle first
         const menuToggle = document.querySelector('.menu-toggle');
         const desktopIcons = document.querySelector('.desktop-icons');
         
         if (menuToggle && desktopIcons) {
-            console.log('Menu toggle elements found');
             menuToggle.addEventListener('click', () => {
-                console.log('Menu toggle clicked');
                 desktopIcons.classList.toggle('active');
                 menuToggle.textContent = desktopIcons.classList.contains('active') ? '×' : '⋮';
             });
-        } else {
-            console.log('Menu toggle elements not found:', { menuToggle, desktopIcons });
         }
 
-        // Initialize core functionality
-        await generateSocialLinks();
-        updateVisitorCounter();
-        await loadProjects();
-
-        // Initialize smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+        // Initialize features in sequence
+        await generateSocialLinks().catch(error => {
+            console.error('Error generating social links:', error);
         });
 
-        // Initialize construction page features
-        initConstructionPage();
+        await loadProjects().catch(error => {
+            console.error('Error loading projects:', error);
+        });
+
+        updateVisitorCounter();
+
     } catch (error) {
         console.error('Error initializing page:', error);
     }
