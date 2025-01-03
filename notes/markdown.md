@@ -79,6 +79,29 @@ Images are automatically:
 - Styled with shadows and borders
 - Centered with captions
 
+### Image Container Manipulation
+You can wrap images in custom containers to control their size and positioning:
+
+```markdown
+<div class="markdown-figure" style="width: 300px; margin: 0 auto;">
+
+![Image Title](/path/to/image.jpg "Caption text")
+
+</div>
+```
+
+Container styling options:
+- Width: `width: 300px` or `width: 50%`
+- Alignment:
+  - Center: `margin: 0 auto`
+  - Left: `margin: 0`
+  - Right: `margin: 0 0 0 auto`
+  - Custom offset: `margin: 0 0 0 50px`
+- Additional spacing: `padding: 20px`
+- Max width: `max-width: 600px`
+
+Note: Always add empty lines before and after the image markdown inside the container.
+
 ### Tables
 Create responsive tables with automatic styling:
 

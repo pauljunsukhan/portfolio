@@ -440,12 +440,6 @@ class MarkdownLoader {
     constructor() {
         console.log('Current marked options:', marked.getDefaults());
         
-        const originalLexer = marked.Lexer;
-        marked.Lexer = function(...args) {
-            console.log('Lexer called with:', args);
-            return new originalLexer(...args);
-        };
-        
         marked.setOptions({
             headerIds: true,
             mangle: false,
@@ -459,9 +453,22 @@ class MarkdownLoader {
                     } catch (err) {}
                 }
                 return code;
-            },
-            renderer: this.createCustomRenderer()
+            }
         });
+
+        // Add header styles
+        const style = document.createElement('style');
+        style.textContent = `
+            h1.header-1 { font-size: 2.5em; margin-top: 1em; }
+            h2.header-2 { font-size: 2em; margin-top: 0.8em; }
+            h3.header-3 { font-size: 1.75em; margin-top: 0.6em; }
+            h4.header-4 { font-size: 1.5em; margin-top: 0.4em; }
+            h5.header-5 { font-size: 1.25em; margin-top: 0.2em; }
+            h6.header-6 { font-size: 1em; margin-top: 0.1em; }
+        `;
+        document.head.appendChild(style);
+
+        marked.use({ renderer: this.createCustomRenderer() });
     }
 
     createCustomRenderer() {
@@ -560,19 +567,18 @@ class MarkdownLoader {
                     .replace(/[^\w]+/g, '-')
                     .replace(/^-+|-+$/g, '');
                 const id = `section-${escapedText}`;
+                const headerLevel = Math.min(Math.max(parseInt(level) || 1, 1), 6);
                 
-                const safeLevel = Math.max(1, Math.min(6, parseInt(level) || 1));
-                
-                return `<h${safeLevel} id="${id}">
+                return `<h${headerLevel} id="${id}" class="header-${headerLevel}">
                     ${safeText}
                     <a href="#${id}" class="header-anchor" aria-label="Link to this section">
                         <span aria-hidden="true">#</span>
                     </a>
-                </h${safeLevel}>`;
+                </h${headerLevel}>`;
             } catch (error) {
                 console.error('Error in heading renderer:', error, { text, level });
-                const safeLevel = Math.max(1, Math.min(6, parseInt(level) || 1));
-                return `<h${safeLevel}>${String(text || '')}</h${safeLevel}>`;
+                const headerLevel = Math.min(Math.max(parseInt(level) || 1, 1), 6);
+                return `<h${headerLevel} class="header-${headerLevel}">${String(text || '')}</h${headerLevel}>`;
             }
         };
 

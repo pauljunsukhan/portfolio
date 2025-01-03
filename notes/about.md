@@ -16,36 +16,31 @@ technical architect, system design, neural networks, hardware optimization, engi
 Paul Han, Paul Junsuk Han, software development, hardware development, engineering principles
 -->
 
-# About Me
-
-I'm a software and hardware engineer passionate about building elegant solutions to complex problems. My work spans across various domains including:
+SWE, HWE, AI, builder, question asker. #40 <a href="https://guzey.com/people/" target="_blank">Alexey Guzey's People who are going to change the world</a>
 
 <!--
-Core competencies: software architecture, hardware design, distributed systems, 
+Core competencies: software, hardware design, distributed systems, machine learning
 scalable solutions, performance optimization, technical leadership
 -->
 
-## Technical Expertise
-- Full-stack development
-- Hardware design
-- Machine learning
-- System architecture
 
-<!--
-Technologies: React, Vue.js, Node.js, Python, Java, TensorFlow, PyTorch,
-FPGA development, PCB design, embedded systems, microcontroller programming
--->
 
-## Current Focus
 
-![Neural Network Optimization |width:100px](/assets/images/brain.jpg "Exploring the intersection of AI and hardware optimization")
+<div class="markdown-figure" style="width: 300px; margin: 0;">
 
-I'm currently exploring the intersection of AI and hardware optimization, looking for ways to make neural networks more efficient and accessible.
+![3D printed brain](/assets/images/image.png "3D printed from my MRI AI segmentation")
+
+</div>
+
+3D printed my brain using MRI scan. Learned a lot.
 
 <!--
 Research areas: neural network optimization, hardware acceleration, 
 AI model compression, efficient inference, edge computing, embedded AI
 -->
 
-## Philosophy
-Good engineering is honest. Good design is honest. Good writing is honest. These principles guide my approach to problem-solving and creation. 
+
+
+
+<h3>Big Interests</h3>
+AI Guardian - AI-Human intelligence augmentation. tFUS/BCI/neurotech. Silent speech interfaces.
