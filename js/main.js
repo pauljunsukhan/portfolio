@@ -1,4 +1,3 @@
-// Smooth scroll for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -12,7 +11,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Simple lazy loading for images
 document.addEventListener('DOMContentLoaded', () => {
     const lazyImages = document.querySelectorAll('img[data-src]');
     
@@ -30,22 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
     lazyImages.forEach(img => imageObserver.observe(img));
 });
 
-// Simple form validation
 const contactForm = document.querySelector('.contact-form form');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        // Add your form submission logic here
         console.log('Form submitted');
     });
 } 
 
-// Add overlay to body
 const overlay = document.createElement('div');
 overlay.className = 'overlay';
 document.body.appendChild(overlay);
 
-// Create error dialog
 const errorDialog = document.createElement('div');
 errorDialog.className = 'error-dialog';
 errorDialog.innerHTML = `
@@ -61,7 +55,6 @@ errorDialog.innerHTML = `
 `;
 document.body.appendChild(errorDialog);
 
-// Show/Hide Dialog Functions
 function showDialog(dialog) {
     dialog.classList.add('active');
     overlay.classList.add('active');
@@ -82,12 +75,10 @@ function hideError() {
     overlay.classList.remove('active');
 }
 
-// Load social links configuration
 async function loadSocialConfig() {
     try {
-        // Add console log for debugging
         console.log('Attempting to load social config...');
-        const response = await fetch('./config/socials.json');  // Add ./ to make path relative
+        const response = await fetch('./config/socials.json');
         if (!response.ok) {
             throw new Error(`Failed to load social config: ${response.status}`);
         }
@@ -100,17 +91,14 @@ async function loadSocialConfig() {
     }
 }
 
-// Decode Base64 encoded strings
 function decode(encoded) {
     return atob(encoded);
 }
 
-// Generate social links
 async function generateSocialLinks() {
     const config = await loadSocialConfig();
     if (!config) return;
 
-    // Fix the selector to match our HTML
     const socialGrid = document.querySelector('.social-grid[role="list"]');
     if (!socialGrid) {
         console.error('Social grid not found');
@@ -119,7 +107,6 @@ async function generateSocialLinks() {
 
     socialGrid.innerHTML = '';
 
-    // Create social links
     Object.entries(config).forEach(([key, social]) => {
         const element = document.createElement(social.type === 'link' ? 'a' : 'button');
         element.className = `social-link social-${key}`;
@@ -127,7 +114,7 @@ async function generateSocialLinks() {
         if (social.type === 'link') {
             element.href = social.url;
             element.target = '_blank';
-            element.rel = 'noopener noreferrer';  // Add security best practice
+            element.rel = 'noopener noreferrer';
         }
 
         element.innerHTML = `
@@ -137,7 +124,6 @@ async function generateSocialLinks() {
 
         socialGrid.appendChild(element);
 
-        // Create dialog for dialog-type socials
         if (social.type === 'dialog') {
             const dialog = document.createElement('div');
             dialog.className = 'mac-dialog';
@@ -155,20 +141,17 @@ async function generateSocialLinks() {
             `;
             document.body.appendChild(dialog);
 
-            // Add event listeners
             element.addEventListener('click', () => showDialog(dialog));
             dialog.querySelector('.close-button').addEventListener('click', () => hideDialog(dialog));
         }
     });
 
-    // Add global overlay click handler for all dialogs
     overlay.addEventListener('click', () => {
         document.querySelectorAll('.mac-dialog.active').forEach(dialog => {
             hideDialog(dialog);
         });
     });
 
-    // Add global escape key handler for all dialogs
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             document.querySelectorAll('.mac-dialog.active').forEach(dialog => {
@@ -178,11 +161,10 @@ async function generateSocialLinks() {
     });
 }
 
-// Load projects configuration
 async function loadProjects() {
     try {
         console.log('Loading projects...');
-        const response = await fetch('./config/projects.json');  // Changed to relative path
+        const response = await fetch('./config/projects.json');
         if (!response.ok) {
             throw new Error(`Failed to load projects: ${response.status}`);
         }
@@ -225,9 +207,7 @@ function createProjectWindow(project) {
         </div>
     `;
 
-    // Helper function to convert URLs in text to links
     function linkifySpec(spec) {
-        // If spec starts with "Link: ", make the URL part clickable
         if (spec.startsWith('Link:')) {
             const [prefix, url] = spec.split('Link:');
             return `Link: <a href="${url.trim()}" target="_blank">${url.trim()}</a>`;
@@ -256,12 +236,10 @@ function createProjectWindow(project) {
         </div>
     `;
 
-    // Remove loading class when content is ready
     setTimeout(() => windowDiv.classList.remove('loading'), 100);
     return windowDiv;
 }
 
-// Initialize project windows
 function initializeProjectWindows() {
     const projectWindows = document.querySelectorAll('.project-window');
     const previewButtons = document.querySelectorAll('.project-button.preview');
@@ -269,54 +247,43 @@ function initializeProjectWindows() {
     const exitButton = previewWindow.querySelector('.exit-button');
     const previewContent = previewWindow.querySelector('.preview-content');
     
-    // Handle preview button clicks
     previewButtons.forEach(button => {
         button.addEventListener('click', async (e) => {
             const projectId = button.dataset.project;
             const url = getProjectUrl(projectId);
             
             try {
-                // Load project webpage
                 const response = await fetch(url + 'index.html');
                 if (!response.ok) throw new Error('Project content not found');
                 
                 const content = await response.text();
                 
-                // Parse the HTML content
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(content, 'text/html');
                 
-                // Extract just the main window content
                 const mainWindow = doc.querySelector('main.mac-window');
                 if (mainWindow) {
-                    // Show preview window
                     previewWindow.classList.add('active');
                     document.body.classList.add('preview-open');
                     
-                    // Set the content
                     previewContent.innerHTML = '';
                     previewContent.appendChild(mainWindow.cloneNode(true));
                     
-                    // Load necessary styles for construction page
                     if (url.includes('under-construction')) {
-                        // Remove any existing construction styles
                         const existingStyles = document.querySelector('link[href*="construction.css"]');
                         if (existingStyles) {
                             existingStyles.remove();
                         }
 
-                        // Add fresh construction styles
                         const constructionStyles = document.createElement('link');
                         constructionStyles.rel = 'stylesheet';
                         constructionStyles.href = '/styles/construction.css';
                         document.head.appendChild(constructionStyles);
 
-                        // Force a repaint to apply styles
                         previewContent.style.display = 'none';
-                        previewContent.offsetHeight; // Force reflow
+                        previewContent.offsetHeight;
                         previewContent.style.display = '';
 
-                        // Initialize construction page features
                         initConstructionPage();
                     }
                 } else {
@@ -336,24 +303,20 @@ function initializeProjectWindows() {
         });
     });
 
-    // Handle exit button click
     exitButton.addEventListener('click', () => {
         previewWindow.classList.remove('active');
         document.body.classList.remove('preview-open');
-        // Clear content after animation
         setTimeout(() => {
             previewContent.innerHTML = '';
         }, 300);
     });
 
-    // Close preview on escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && previewWindow.classList.contains('active')) {
             exitButton.click();
         }
     });
     
-    // Handle project window clicks
     projectWindows.forEach(window => {
         window.addEventListener('click', (e) => {
             const linkButton = e.target.closest('.project-link-button');
@@ -368,7 +331,6 @@ function initializeProjectWindows() {
     });
 }
 
-// Helper functions
 function maximizeProject(projectWindow) {
     const maximizedView = document.querySelector('.maximized-project');
     const maximizedContent = maximizedView.querySelector('.content');
@@ -405,7 +367,6 @@ function getProjectUrl(projectId) {
     return projectUrls[projectId] || '/projects/under-construction/';
 }
 
-// Update visitor counter from badge
 function updateVisitorCounter() {
     try {
         const badge = document.getElementById('visitor-badge');
@@ -419,10 +380,8 @@ function updateVisitorCounter() {
             try {
                 console.log('Attempting to update visitor count...');
                 
-                // Set mode to 'no-cors' to avoid CORS errors
                 badge.crossOrigin = 'anonymous';
                 
-                // Update display with default value
                 const defaultCount = '001998';
                 const paddedCount = defaultCount.padStart(6, '0');
                 
@@ -430,7 +389,6 @@ function updateVisitorCounter() {
                     digit.textContent = paddedCount[index] || '0';
                 });
 
-                // Attempt to load the badge image
                 badge.onerror = () => {
                     console.log('Badge load failed, using default count');
                 };
@@ -441,25 +399,20 @@ function updateVisitorCounter() {
 
             } catch (error) {
                 console.error('Error in updateDisplay:', error);
-                // Prevent the error from affecting other functionality
                 return;
             }
         }
 
-        // Initial update
         console.log('Initializing visitor counter...');
         updateDisplay();
 
-        // Periodic updates (every 5 minutes)
         setInterval(updateDisplay, 300000);
     } catch (error) {
         console.error('Visitor counter error:', error);
-        // Prevent the error from affecting other functionality
         return;
     }
 }
 
-// Typewriter effect for construction date
 function typewriterEffect(element) {
     const text = element.textContent;
     element.textContent = '';
@@ -476,7 +429,6 @@ function typewriterEffect(element) {
     type();
 }
 
-// Initialize construction page features
 function initConstructionPage() {
     const dateElement = document.querySelector('.construction-date .typewriter');
     if (dateElement) {
@@ -484,12 +436,341 @@ function initConstructionPage() {
     }
 }
 
-// Initialize everything when DOM is loaded
+class MarkdownLoader {
+    constructor() {
+        console.log('Current marked options:', marked.getDefaults());
+        
+        const originalLexer = marked.Lexer;
+        marked.Lexer = function(...args) {
+            console.log('Lexer called with:', args);
+            return new originalLexer(...args);
+        };
+        
+        marked.setOptions({
+            headerIds: true,
+            mangle: false,
+            headerPrefix: 'section-',
+            breaks: true,
+            gfm: true,
+            highlight: function(code, lang) {
+                if (lang && hljs.getLanguage(lang)) {
+                    try {
+                        return hljs.highlight(code, { language: lang }).value;
+                    } catch (err) {}
+                }
+                return code;
+            },
+            renderer: this.createCustomRenderer()
+        });
+    }
+
+    createCustomRenderer() {
+        const renderer = new marked.Renderer();
+
+        renderer.image = (href, title, text) => {
+            // Get the path from the token
+            let imagePath;
+            if (typeof href === 'object') {
+                // Try to get the path from tokens first
+                if (href.tokens && href.tokens.length > 0) {
+                    const pathToken = href.tokens.find(t => t.raw && t.raw.includes('/assets/'));
+                    if (pathToken) {
+                        imagePath = pathToken.raw.match(/\/assets\/[^)\s"]*/)?.[0];
+                    }
+                }
+                
+                // Fallback to other properties
+                if (!imagePath) {
+                    imagePath = href.raw || href.source || href.href || href.path;
+                }
+            } else {
+                imagePath = href;
+            }
+            
+            // Clean up the path if needed
+            if (imagePath) {
+                const pathMatch = imagePath.match(/\/assets\/[^)\s"]*/);
+                if (pathMatch) {
+                    imagePath = pathMatch[0];
+                }
+            }
+
+            // Parse image dimensions from alt text
+            let sizeStyle = '';
+            let cleanAltText = '';
+            
+            if (text) {
+                // Handle both string and object text tokens
+                const altText = typeof text === 'object' ? (text.raw || text.text || '') : text;
+                
+                // Look for width directive
+                const widthMatch = altText.match(/\|width:(\d+)(px|%)?/i);
+                if (widthMatch) {
+                    const [, value, unit = 'px'] = widthMatch;
+                    sizeStyle = ` style="width: ${value}${unit}"`;
+                    cleanAltText = altText.replace(/\|width:\d+(?:px|%)?/i, '').trim();
+                } else {
+                    cleanAltText = altText;
+                }
+            }
+
+            return `<figure class="markdown-figure">
+                <img src="${imagePath || ''}" 
+                     alt="${cleanAltText}"
+                     class="markdown-image"
+                     loading="lazy"${sizeStyle}>
+                ${title ? `<figcaption class="markdown-caption">${title}</figcaption>` : ''}
+            </figure>`;
+        };
+
+        renderer.table = (header, body) => {
+            return `
+                <div class="table-container">
+                    <table class="markdown-table">
+                        <thead>${header}</thead>
+                        <tbody>${body}</tbody>
+                    </table>
+                </div>
+            `;
+        };
+
+        renderer.link = (href, title, text) => {
+            const safeHref = typeof href === 'object' ? (href.raw || href.source || href.href || '#') : href;
+            const isExternal = safeHref.toString().startsWith('http');
+            const linkClass = isExternal ? 'markdown-link external' : 'markdown-link';
+            const attrs = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
+            
+            return `<a href="${safeHref}" class="${linkClass}"${attrs}${title ? ` title="${title}"` : ''}>${text}</a>`;
+        };
+
+        renderer.heading = (text, level) => {
+            try {
+                const extractText = (input) => {
+                    if (typeof input === 'string') return input;
+                    if (typeof input === 'object') {
+                        if (input.text) return input.text;
+                        if (input.raw) return input.raw.replace(/^#+\s+/, '');
+                        return JSON.stringify(input);
+                    }
+                    return String(input || '');
+                };
+
+                const safeText = extractText(text);
+                const escapedText = safeText.toLowerCase()
+                    .replace(/[^\w]+/g, '-')
+                    .replace(/^-+|-+$/g, '');
+                const id = `section-${escapedText}`;
+                
+                const safeLevel = Math.max(1, Math.min(6, parseInt(level) || 1));
+                
+                return `<h${safeLevel} id="${id}">
+                    ${safeText}
+                    <a href="#${id}" class="header-anchor" aria-label="Link to this section">
+                        <span aria-hidden="true">#</span>
+                    </a>
+                </h${safeLevel}>`;
+            } catch (error) {
+                console.error('Error in heading renderer:', error, { text, level });
+                const safeLevel = Math.max(1, Math.min(6, parseInt(level) || 1));
+                return `<h${safeLevel}>${String(text || '')}</h${safeLevel}>`;
+            }
+        };
+
+        renderer.blockquote = (quote) => {
+            let type = 'info';
+            let content = '';
+            
+            try {
+                // Convert quote to string if it's not already
+                const quoteStr = String(quote || '');
+                
+                // Check for special types at the start of the quote
+                const typeMatch = quoteStr.match(/^(?:<p>)?(?:NOTE|WARNING|TIP):\s*/i);
+                if (typeMatch) {
+                    type = typeMatch[0].replace(/[^a-z]/gi, '').toLowerCase();
+                    content = quoteStr.slice(typeMatch[0].length);
+                } else {
+                    content = quoteStr;
+                }
+                
+                // Clean up any remaining <p> tags
+                content = content.replace(/^<p>|<\/p>$/g, '');
+                
+                return `<blockquote class="markdown-blockquote ${type}">${content}</blockquote>`;
+            } catch (error) {
+                console.error('Error in blockquote renderer:', error);
+                return `<blockquote class="markdown-blockquote info">${String(quote || '')}</blockquote>`;
+            }
+        };
+
+        return renderer;
+    }
+
+    generateTOC(content) {
+        const headings = content.match(/^#{1,3}.*$/gm) || [];
+        let toc = '## Table of Contents\n\n';
+        
+        headings.forEach(heading => {
+            const level = heading.match(/^#+/)[0].length;
+            const text = heading.replace(/^#+\s+/, '');
+            const link = text.toLowerCase().replace(/[^\w]+/g, '-');
+            const indent = '  '.repeat(level - 1);
+            
+            toc += `${indent}- [${text}](#section-${link})\n`;
+        });
+        
+        return toc + '\n';
+    }
+
+    parseFrontMatter(content) {
+        const frontMatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+        const match = content.match(frontMatterRegex);
+        
+        if (!match) {
+            return {
+                attributes: {},
+                body: content
+            };
+        }
+
+        const frontMatterStr = match[1];
+        const body = match[2];
+        
+        const attributes = {};
+        frontMatterStr.split('\n').forEach(line => {
+            const [key, ...values] = line.split(':').map(str => str.trim());
+            if (key && values.length) {
+                let value = values.join(':').trim();
+                if (value.startsWith('[') && value.endsWith(']')) {
+                    value = value.slice(1, -1).split(',').map(item => item.trim());
+                }
+                else if (value.match(/^\d{4}-\d{2}-\d{2}$/)) {
+                    value = new Date(value);
+                }
+                else if (value === 'true' || value === 'false') {
+                    value = value === 'true';
+                }
+                else if (!isNaN(value)) {
+                    value = Number(value);
+                }
+                attributes[key] = value;
+            }
+        });
+
+        return { attributes, body };
+    }
+
+    async loadMarkdown(path, targetElementId) {
+        try {
+            console.log(`Loading markdown from ${path}...`);
+            const response = await fetch(path);
+            if (!response.ok) {
+                throw new Error(`Failed to load markdown: ${response.status}`);
+            }
+            const content = await response.text();
+            console.log('Raw markdown content:', content);
+            
+            const { attributes, body } = this.parseFrontMatter(content);
+            console.log('Parsed front matter:', attributes);
+            console.log('Markdown body:', body);
+            
+            const parsedContent = marked.parse(body);
+            console.log('Parsed markdown content:', parsedContent);
+            
+            const targetElement = document.getElementById(targetElementId);
+            if (!targetElement) {
+                throw new Error(`Target element ${targetElementId} not found`);
+            }
+
+            targetElement.innerHTML = parsedContent;
+            const currentContent = targetElement.innerHTML;
+            
+            Object.entries(attributes).forEach(([key, value]) => {
+                targetElement.dataset[key] = typeof value === 'object' 
+                    ? JSON.stringify(value) 
+                    : value.toString();
+            });
+            
+            if (targetElement.innerHTML !== currentContent) {
+                console.log('Content was modified, restoring...');
+                targetElement.innerHTML = currentContent;
+            }
+            
+            const event = new CustomEvent('markdownLoaded', {
+                detail: { 
+                    targetId: targetElementId,
+                    frontMatter: attributes,
+                    path: path,
+                    content: currentContent
+                }
+            });
+            document.dispatchEvent(event);
+            
+            if (targetElement.innerHTML !== currentContent) {
+                console.log('Content was modified by event handlers, restoring...');
+                targetElement.innerHTML = currentContent;
+            }
+            
+            console.log(`Markdown loaded successfully into ${targetElementId}`, attributes);
+            return { success: true, attributes };
+        } catch (error) {
+            console.error(`Error loading markdown for ${targetElementId}:`, error);
+            const targetElement = document.getElementById(targetElementId);
+            if (targetElement) {
+                targetElement.innerHTML = '<p>Error loading content. Please try again later.</p>';
+            }
+            return { success: false, error };
+        }
+    }
+
+    async loadMultiple(configs) {
+        const results = await Promise.allSettled(
+            configs.map(config => 
+                this.loadMarkdown(config.path, config.targetId)
+            )
+        );
+        
+        return results.map((result, index) => ({
+            path: configs[index].path,
+            targetId: configs[index].targetId,
+            ...(result.status === 'fulfilled' ? result.value : { success: false, error: result.reason })
+        }));
+    }
+}
+
+document.addEventListener('markdownLoaded', (event) => {
+    const { targetId, frontMatter, path, content } = event.detail;
+    console.log(`Markdown loaded for ${targetId}:`, frontMatter);
+    
+    const targetElement = document.getElementById(targetId);
+    if (!targetElement) return;
+
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    
+    if (frontMatter.title) {
+        const titleElement = document.querySelector(`#${targetId}-title`);
+        if (titleElement) {
+            titleElement.textContent = frontMatter.title;
+        }
+    }
+    
+    if (frontMatter.lastModified) {
+        const lastModified = new Date(frontMatter.lastModified);
+        const dateStr = lastModified.toLocaleDateString();
+        const meta = document.createElement('div');
+        meta.className = 'markdown-meta';
+        meta.innerHTML = `Last updated: ${dateStr}`;
+        tempDiv.appendChild(meta);
+    }
+
+    targetElement.innerHTML = tempDiv.innerHTML;
+});
+
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         console.log('Initializing page...');
         
-        // Initialize mobile menu toggle first
         const menuToggle = document.querySelector('.menu-toggle');
         const desktopIcons = document.querySelector('.desktop-icons');
         
@@ -500,16 +781,31 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
 
-        // Initialize features in sequence
-        await generateSocialLinks().catch(error => {
-            console.error('Error generating social links:', error);
-        });
+        const initSequence = async () => {
+            const mdLoader = new MarkdownLoader();
+            
+            const markdownConfigs = [
+                { path: './notes/about.md', targetId: 'notes-content' },
+                { path: './notes/markdown.md', targetId: 'markdown-docs' }
+            ];
 
-        await loadProjects().catch(error => {
-            console.error('Error loading projects:', error);
-        });
+            console.log('Loading markdown content...');
+            const markdownResults = await mdLoader.loadMultiple(markdownConfigs);
+            console.log('Markdown loading complete:', markdownResults);
 
-        updateVisitorCounter();
+            console.log('Initializing remaining features...');
+            await generateSocialLinks().catch(error => {
+                console.error('Error generating social links:', error);
+            });
+
+            await loadProjects().catch(error => {
+                console.error('Error loading projects:', error);
+            });
+
+            updateVisitorCounter();
+        };
+
+        await initSequence();
 
     } catch (error) {
         console.error('Error initializing page:', error);

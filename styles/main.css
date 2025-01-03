@@ -1317,4 +1317,294 @@ body.preview-open {
 .project-window .github-button,
 .window-title-bar .github-button {
     /* Keep the same styles that were in .github-button */
+}
+
+/* Notes Content Styles */
+.notes-content {
+    font-family: "Courier New", monospace;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+}
+
+.notes-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+.notes-content h2 {
+    font-size: 1.4rem;
+    margin: 1.5rem 0 1rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.notes-content h3 {
+    font-size: 1.2rem;
+    margin: 1.2rem 0 0.8rem;
+}
+
+.notes-content p {
+    margin-bottom: 1rem;
+}
+
+.notes-content ul, .notes-content ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.notes-content li {
+    margin: 0.5rem 0;
+    padding-left: 0.5rem;
+}
+
+.notes-content code {
+    font-family: "Courier New", monospace;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+}
+
+.notes-content pre {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.notes-content pre code {
+    background: none;
+    padding: 0;
+}
+
+.notes-content blockquote {
+    border-left: 3px solid var(--secondary-color);
+    margin: 1rem 0;
+    padding-left: 1rem;
+    font-style: italic;
+}
+
+/* Markdown metadata styles */
+.markdown-meta {
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    font-style: italic;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--secondary-color);
+    text-align: right;
+}
+
+.notes-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+/* Enhanced markdown styles */
+.markdown-figure {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.markdown-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Images with explicit width */
+.markdown-image[style*="width"] {
+    max-width: none;
+    object-fit: contain;
+}
+
+.markdown-caption {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* Ensure image with explicit width maintains aspect ratio */
+.markdown-image[style*="width"] {
+    height: auto;
+    object-fit: contain;
+}
+
+.markdown-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--secondary-color);
+    transition: all 0.2s ease;
+}
+
+.markdown-link:hover {
+    color: var(--accent-color);
+    border-bottom-style: solid;
+}
+
+.markdown-link.external::after {
+    content: '↗';
+    display: inline-block;
+    margin-left: 0.2em;
+    font-size: 0.8em;
+}
+
+/* Linkable section headers */
+.notes-content h1,
+.notes-content h2,
+.notes-content h3,
+.notes-content h4,
+.notes-content h5,
+.notes-content h6 {
+    position: relative;
+}
+
+.header-anchor {
+    position: absolute;
+    left: -1.5em;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 0.5em;
+    color: var(--secondary-color);
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.notes-content h1:hover .header-anchor,
+.notes-content h2:hover .header-anchor,
+.notes-content h3:hover .header-anchor,
+.notes-content h4:hover .header-anchor,
+.notes-content h5:hover .header-anchor,
+.notes-content h6:hover .header-anchor {
+    opacity: 1;
+}
+
+.header-anchor:hover {
+    color: var(--accent-color);
+}
+
+/* Table styles */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin: 2rem 0;
+}
+
+.markdown-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Courier New", monospace;
+    font-size: 0.9rem;
+}
+
+.markdown-table th,
+.markdown-table td {
+    padding: 0.75rem;
+    border: 1px solid var(--window-border);
+    text-align: left;
+}
+
+.markdown-table th {
+    background: var(--menu-bg);
+    font-weight: bold;
+}
+
+.markdown-table tr:nth-child(even) {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+/* Link styles */
+.markdown-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--secondary-color);
+    transition: all 0.2s ease;
+}
+
+.markdown-link:hover {
+    color: var(--accent-color);
+    border-bottom-style: solid;
+}
+
+.markdown-link.external::after {
+    content: '↗';
+    display: inline-block;
+    margin-left: 0.2em;
+    font-size: 0.8em;
+}
+
+/* Custom containers */
+.markdown-blockquote {
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    border-left: 4px solid var(--secondary-color);
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 0 4px 4px 0;
+}
+
+.markdown-blockquote.note {
+    border-color: #3498db;
+    background: rgba(52, 152, 219, 0.05);
+}
+
+.markdown-blockquote.warning {
+    border-color: #e74c3c;
+    background: rgba(231, 76, 60, 0.05);
+}
+
+.markdown-blockquote.tip {
+    border-color: #2ecc71;
+    background: rgba(46, 204, 113, 0.05);
+}
+
+/* Code highlighting */
+.hljs {
+    background: rgba(0, 0, 0, 0.02) !important;
+    padding: 1rem !important;
+    border-radius: 4px;
+    font-family: "Courier New", monospace;
+}
+
+/* Table of Contents */
+.markdown-toc {
+    background: var(--menu-bg);
+    padding: 1.5rem;
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    margin: 2rem 0;
+}
+
+.markdown-toc ul {
+    list-style: none;
+    padding-left: 1rem;
+}
+
+.markdown-toc li {
+    margin: 0.5rem 0;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .markdown-table {
+        font-size: 0.8rem;
+    }
+    
+    .markdown-table th,
+    .markdown-table td {
+        padding: 0.5rem;
+    }
+    
+    .markdown-blockquote {
+        padding: 0.75rem 1rem;
+    }
 } 
