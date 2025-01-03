@@ -112,7 +112,7 @@ async function generateSocialLinks() {
     // Create social links
     Object.entries(config).forEach(([key, social]) => {
         const element = document.createElement(social.type === 'link' ? 'a' : 'button');
-        element.className = `social-link ${key}-button`;
+        element.className = `social-link social-${key}`;
         
         if (social.type === 'link') {
             element.href = social.url;
@@ -275,9 +275,32 @@ function initializeProjectWindows() {
                     previewWindow.classList.add('active');
                     document.body.classList.add('preview-open');
                     
-                    // Set the content directly
+                    // Set the content
                     previewContent.innerHTML = '';
-                    previewContent.appendChild(mainWindow);
+                    previewContent.appendChild(mainWindow.cloneNode(true));
+                    
+                    // Load necessary styles for construction page
+                    if (url.includes('under-construction')) {
+                        // Remove any existing construction styles
+                        const existingStyles = document.querySelector('link[href*="construction.css"]');
+                        if (existingStyles) {
+                            existingStyles.remove();
+                        }
+
+                        // Add fresh construction styles
+                        const constructionStyles = document.createElement('link');
+                        constructionStyles.rel = 'stylesheet';
+                        constructionStyles.href = '/styles/construction.css';
+                        document.head.appendChild(constructionStyles);
+
+                        // Force a repaint to apply styles
+                        previewContent.style.display = 'none';
+                        previewContent.offsetHeight; // Force reflow
+                        previewContent.style.display = '';
+
+                        // Initialize construction page features
+                        initConstructionPage();
+                    }
                 } else {
                     throw new Error('Invalid project content structure');
                 }
@@ -405,6 +428,31 @@ function updateVisitorCounter() {
     }
 }
 
+// Typewriter effect for construction date
+function typewriterEffect(element) {
+    const text = element.textContent;
+    element.textContent = '';
+    let i = 0;
+    
+    function type() {
+        if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, 100);
+        }
+    }
+    
+    type();
+}
+
+// Initialize construction page features
+function initConstructionPage() {
+    const dateElement = document.querySelector('.construction-date .typewriter');
+    if (dateElement) {
+        typewriterEffect(dateElement);
+    }
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -441,6 +489,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             });
         });
+
+        // Initialize construction page features
+        initConstructionPage();
     } catch (error) {
         console.error('Error initializing page:', error);
     }

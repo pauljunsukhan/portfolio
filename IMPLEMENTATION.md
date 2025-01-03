@@ -52,6 +52,21 @@ Social links are configured in `config/socials.json`:
 }
 ```
 
+### Class Naming Convention
+Social link elements use the class pattern `social-${key}` instead of `${key}-button` to avoid styling conflicts with project window buttons that may share the same key (e.g., GitHub buttons). This was implemented to solve a specific styling conflict:
+
+1. **The Problem:**
+   - Project windows have a GitHub button styled with the class `github-button`
+   - Social links were originally using the same pattern (`${key}-button`), causing the GitHub social link to inherit project button styles
+   - This made the GitHub social link appear visually inconsistent with other social links
+
+2. **The Solution:**
+   - Changed social link class pattern to `social-${key}`
+   - Updated CSS selectors to be more specific for project buttons (`.project-window .github-button`)
+   - This ensures project GitHub buttons and social GitHub links maintain their distinct styles
+
+This naming convention maintains clear separation between project window controls and social link elements while preserving the intended styling for each.
+
 ### Dialog System
 For social links of type "dialog":
 1. Creates a Mac-style dialog window with:

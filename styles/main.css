@@ -1311,4 +1311,10 @@ body.preview-open {
         padding: 2px 4px;
         font-size: 10px;
     }
+}
+
+/* Change from .github-button to be more specific */
+.project-window .github-button,
+.window-title-bar .github-button {
+    /* Keep the same styles that were in .github-button */
 } 
