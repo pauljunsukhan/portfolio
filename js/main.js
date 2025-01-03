@@ -164,7 +164,9 @@ async function generateSocialLinks() {
 async function loadProjects() {
     try {
         console.log('Loading projects...');
-        const response = await fetch('./config/projects.json');
+        const response = await fetch('./config/projects.json', {
+            cache: 'no-store'
+        });
         if (!response.ok) {
             throw new Error(`Failed to load projects: ${response.status}`);
         }
@@ -175,7 +177,17 @@ async function loadProjects() {
             throw new Error('Projects container not found');
         }
 
+        dynamicProjectsGrid.innerHTML = '';
+
+        const seenIds = new Set();
+
         data.projects.forEach(project => {
+            if (seenIds.has(project.id)) {
+                console.warn(`Duplicate project ID found: ${project.id}`);
+                return;
+            }
+            seenIds.add(project.id);
+
             const projectWindow = createProjectWindow(project);
             dynamicProjectsGrid.appendChild(projectWindow);
         });
@@ -184,6 +196,15 @@ async function loadProjects() {
         console.log('Projects loaded successfully');
     } catch (error) {
         console.error('Error loading projects:', error);
+        const dynamicProjectsGrid = document.querySelector('.project-grid.dynamic-projects');
+        if (dynamicProjectsGrid) {
+            dynamicProjectsGrid.innerHTML = `
+                <div class="error-message">
+                    <h3>Error Loading Projects</h3>
+                    <p>Please try refreshing the page.</p>
+                </div>
+            `;
+        }
     }
 }
 
@@ -191,6 +212,12 @@ function createProjectWindow(project) {
     const windowDiv = document.createElement('div');
     windowDiv.className = 'mac-window project-window loading';
     windowDiv.setAttribute('data-project', project.id);
+
+    // Ensure buttons object exists with default values
+    const buttons = project.buttons || {};
+    const githubUrl = buttons.github || '#';
+    const previewUrl = buttons.preview || '/projects/under-construction';
+    const linkUrl = buttons.link || '/projects/under-construction';
 
     const titleBar = document.createElement('div');
     titleBar.className = 'window-title-bar';
@@ -200,14 +227,15 @@ function createProjectWindow(project) {
             <div class="window-button"></div>
             <div class="window-button"></div>
         </div>
-        <div class="window-title">${project.title}</div>
+        <div class="window-title">${project.title || 'Untitled Project'}</div>
         <div class="window-buttons">
             <button class="preview-button">Preview</button>
-            ${project.buttons.github ? `<a href="${project.buttons.github}" target="_blank" class="github-button">Github</a>` : ''}
+            ${githubUrl !== '#' ? `<a href="${githubUrl}" target="_blank" class="github-button">Github</a>` : ''}
         </div>
     `;
 
     function linkifySpec(spec) {
+        if (!spec) return '';
         if (spec.startsWith('Link:')) {
             const [prefix, url] = spec.split('Link:');
             return `Link: <a href="${url.trim()}" target="_blank">${url.trim()}</a>`;
@@ -220,18 +248,18 @@ function createProjectWindow(project) {
             <div class="window-controls">
                 <div class="window-button maximize-button"></div>
             </div>
-            <div class="window-title">${project.title}</div>
-            <a href="${project.buttons.github}" class="project-link-button">Github</a>
+            <div class="window-title">${project.title || 'Untitled Project'}</div>
+            ${githubUrl !== '#' ? `<a href="${githubUrl}" class="project-link-button">Github</a>` : ''}
         </div>
         <div class="content">
-            <h3>${project.subtitle}</h3>
-            <p>${project.description}</p>
+            <h3>${project.subtitle || ''}</h3>
+            <p>${project.description || ''}</p>
             <ul>
-                ${project.specs.map(spec => `<li>${linkifySpec(spec)}</li>`).join('')}
+                ${(project.specs || []).map(spec => `<li>${linkifySpec(spec)}</li>`).join('')}
             </ul>
             <div class="project-actions">
                 <button class="project-button preview" data-project="${project.id}">Preview</button>
-                <a href="${project.buttons.link}" class="project-button link">Link</a>
+                <a href="${linkUrl}" class="project-button link">Link</a>
             </div>
         </div>
     `;
@@ -253,7 +281,13 @@ function initializeProjectWindows() {
             const url = getProjectUrl(projectId);
             
             try {
-                const response = await fetch(url + 'index.html');
+                const response = await fetch(url + 'index.html', {
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache'
+                    }
+                });
                 if (!response.ok) throw new Error('Project content not found');
                 
                 const content = await response.text();
@@ -267,7 +301,40 @@ function initializeProjectWindows() {
                     document.body.classList.add('preview-open');
                     
                     previewContent.innerHTML = '';
-                    previewContent.appendChild(mainWindow.cloneNode(true));
+                    const clonedWindow = mainWindow.cloneNode(true);
+                    
+                    // Add base URL for relative paths
+                    const baseUrl = url.endsWith('/') ? url : url + '/';
+                    const baseTag = document.createElement('base');
+                    baseTag.href = baseUrl;
+                    previewContent.appendChild(baseTag);
+                    
+                    // Clone and modify scripts
+                    const scripts = doc.querySelectorAll('script');
+                    for (const script of scripts) {
+                        const newScript = document.createElement('script');
+                        if (script.src) {
+                            newScript.src = new URL(script.src, baseUrl).href;
+                        }
+                        newScript.textContent = script.textContent;
+                        previewContent.appendChild(newScript);
+                    }
+                    
+                    // Clone and modify styles
+                    const styles = doc.querySelectorAll('link[rel="stylesheet"]');
+                    for (const style of styles) {
+                        const newStyle = document.createElement('link');
+                        newStyle.rel = 'stylesheet';
+                        newStyle.href = new URL(style.href, baseUrl).href;
+                        previewContent.appendChild(newStyle);
+                    }
+                    
+                    previewContent.appendChild(clonedWindow);
+                    
+                    // Initialize content loading
+                    if (typeof loadContent === 'function') {
+                        loadContent();
+                    }
                     
                     if (url.includes('under-construction')) {
                         const existingStyles = document.querySelector('link[href*="construction.css"]');
@@ -358,13 +425,14 @@ function minimizeProject() {
 }
 
 function getProjectUrl(projectId) {
-    const projectUrls = {
+    const projectPaths = {
         'neural-network': '/projects/neural-network/',
         'quantum-circuit': '/projects/quantum-circuit/',
         'retro-os': '/projects/under-construction/',
         'ai-assistant': '/projects/ai-assistant/'
     };
-    return projectUrls[projectId] || '/projects/under-construction/';
+    const relativePath = projectPaths[projectId] || '/projects/under-construction/';
+    return window.location.origin + relativePath;
 }
 
 function updateVisitorCounter() {
@@ -674,11 +742,9 @@ class MarkdownLoader {
                 throw new Error(`Failed to load markdown: ${response.status}`);
             }
             const content = await response.text();
-            console.log('Raw markdown content:', content);
             
             const { attributes, body } = this.parseFrontMatter(content);
             console.log('Parsed front matter:', attributes);
-            console.log('Markdown body:', body);
             
             const parsedContent = marked.parse(body);
             console.log('Parsed markdown content:', parsedContent);

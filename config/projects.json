@@ -2,13 +2,13 @@
   "projects": [
     {
       "id": "neural-network",
-      "title": "Neural Network Visualizer",
-      "subtitle": "RESEARCH & DEVELOPMENT",
-      "description": "Interactive visualization tool for neural network architectures. Built with WebGL and React.",
+      "title": "LLM et. all work",
+      "subtitle": "ML Study",
+      "description": "Various ML projects for education",
       "specs": [
-        "Tech: WebGL, React, TypeScript",
-        "Status: Production",
-        "Role: Lead Developer"
+        "Tech: Python, PyTorch, TensorFlow, CUDA",
+        "Status: Active Development",
+        "Importance: Core Research"
       ],
       "buttons": {
         "preview": "/projects/neural-network",
@@ -18,13 +18,13 @@
     },
     {
       "id": "silent-speech",
-      "title": "Silent Speech Interfaces",
-      "subtitle": "Throat Mic & Whisper",
-      "description": "Creating a dataset & fine tunned Whisper for subvocalization transcription",
+      "title": "Silent Speech",
+      "subtitle": "Silent Speech Interfaces",
+      "description": "Developing silent speech interfaces for AI-Human interfaces",
       "specs": [
-        "Tech: Pytorch, NLP, Python, Huggingface, CUDA, Electronics",
-        "Status: POC Finished, Developing",
-        "Role: Everything, want dataset volunteers"
+        "Tech: Signal Processing, ML, Hardware",
+        "Status: Research Phase",
+        "Importance: Future Interface"
       ],
       "buttons": {
         "preview": "/projects/under-construction",
@@ -33,14 +33,14 @@
       }
     },
     {
-      "id": "chatroom-translate",
-      "title": "Instant Translator Chatroom",
-      "subtitle": "LANGUAGE TRANSPARENT",
-      "description": "Chatroom for live cross-language comms.",
+      "id": "software-et-all",
+      "title": "General Software Projects",
+      "subtitle": "Learning coding and building useful things",
+      "description": "Chatroom, web apps, utilities, tools of the trade",
       "specs": [
         "Tech: Python, HTML, CSS, JavaScript, Heroku",
-        "Status: Deployed on Heroku",
-        "Link: http://chatroom.kato.cx/"
+        "Status: Always useful",
+        "Check this out: http://chatroom.kato.cx/"
       ],
       "buttons": {
         "preview": "/projects/under-construction",
@@ -49,13 +49,29 @@
       }
     },
     {
-      "id": "retro-os",
-      "title": "Retro OS Portfolio",
-      "subtitle": "PERSONAL PROJECT",
-      "description": "A portfolio website designed to replicate the classic Macintosh UI with an engineering notebook aesthetic.",
+      "id": "electronics-et-all",
+      "title": "General EE Projects",
+      "subtitle": "PCB, micros, systems, wearables, being an EE",
+      "description": "What all EEs need to know",
       "specs": [
-        "Tech: HTML5, CSS3, Vanilla JS",
-        "Status: Active Development",
+        "Tech: KiCad, Altium, OrCAD, Art of Electronics, ESP32, Arduino, TTL",
+        "Status: How I make a living (right now)",
+        "Newest thing: wearable ESP32 PCB for sports"
+      ],
+      "buttons": {
+        "preview": "/projects/under-construction",
+        "link": "/projects/under-construction",
+        "github": "https://github.com/pauljunsukhan/portfolio"
+      }
+    },
+    {
+      "id": "3d-printing",
+      "title": "3D Printing",
+      "subtitle": "3D Printing & CAD",
+      "description": "Various 3D prints + CAD/3DP education. I like industrial design & useful utility for projects.",
+      "specs": [
+        "Tech: Bambu, FDM, PC/PA, Onshape, Design",
+        "Status: Semi-cracked after a summer",
         "Role: Designer & Developer"
       ],
       "buttons": {
@@ -65,19 +81,66 @@
       }
     },
     {
-      "id": "ai-assistant",
-      "title": "AI Code Assistant",
-      "subtitle": "RESEARCH PROJECT",
-      "description": "An AI-powered code completion and refactoring tool with context-aware suggestions.",
+      "id": "tesla-coils",
+      "title": "High Voltage",
+      "subtitle": "Tesla Coils, Plasma Speakers, HV",
+      "description": "High voltage power electronics that make sparks, music, and melted metal.",
       "specs": [
-        "Tech: Python, PyTorch, FastAPI",
-        "Status: Research Phase",
-        "Role: ML Engineer"
+        "Tech: SSTC, DRSSTC, VTTC, ZVS, HV",
+        "Status: Not active",
+        "Importance: Foundational EE knowledge"
       ],
       "buttons": {
         "preview": "/projects/under-construction",
         "link": "/projects/under-construction",
-        "github": "https://github.com/pauljunsukhan/ai-assistant"
+        "github": "https://github.com/pauljunsukhan/portfolio"
+      }
+    },
+    {
+      "id": "power-electronics",
+      "title": "Power Electronics, Big Silicon, & Wireless Charging",
+      "subtitle": "Induction heating, wireless energy transfer, DC/DC converters",
+      "description": "High power electronics & power electronics",
+      "specs": [
+        "Tech: H-bridge, PWM, Buck/Boost, Induction heating, Wireless charging",
+        "Status: Old",
+        "Importance: Foundational EE knowledge"
+      ],
+      "buttons": {
+        "preview": "/projects/under-construction",
+        "link": "/projects/under-construction",
+        "github": "https://github.com/pauljunsukhan/portfolio"
+      }
+    },
+    {
+      "id": "audio-electronics",
+      "title": "Audio, cassette, radios",
+      "subtitle": "Audio electronics, vacuum tubes, radios, cassette decks",
+      "description": "Childhood hobby that got me started",
+      "specs": [
+        "Tech: Old old stuff",
+        "Status: Historical",
+        "Importance: Foundational EE knowledge"
+      ],
+      "buttons": {
+        "preview": "/projects/under-construction",
+        "link": "/projects/under-construction",
+        "github": "https://github.com/pauljunsukhan/portfolio"
+      }
+    },
+    {
+      "id": "ai-guardian",
+      "title": "AI Guardian",
+      "subtitle": "AI-Human Intelligence Augmentation",
+      "description": "Exploratory notes on AI-Human intelligence augmentation. tFUS/BCI/neurotech. Silent speech interfaces.",
+      "specs": [
+        "Tech: Pen and paper",
+        "Status: Cooking",
+        "Importance: Long term"
+      ],
+      "buttons": {
+        "preview": "/projects/under-construction",
+        "link": "/projects/under-construction"
       }
     }
   ]

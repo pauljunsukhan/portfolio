@@ -170,7 +170,7 @@ main.mac-window {
 }
 
 /* Typography - Engineering Style */
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3 {
     font-family: "Courier New", monospace;
     margin-bottom: 1.5rem;
     color: var(--primary-color);
@@ -178,22 +178,19 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: 0.1em;
 }
 
-.header-1 { 
-    font-size: 2.5rem; 
+h1 { 
+    font-size: 2rem; 
     border-bottom: 3px double var(--primary-color);
     padding-bottom: 0.5rem;
 }
 
-.header-2 { 
-    font-size: 2rem;
+h2 { 
+    font-size: 1.5rem;
     border-bottom: 1px solid var(--primary-color);
     padding-bottom: 0.3rem;
 }
 
-.header-3 { font-size: 1.75rem; }
-.header-4 { font-size: 1.5rem; }
-.header-5 { font-size: 1.25rem; }
-.header-6 { font-size: 1rem; }
+h3 { font-size: 1.2rem; }
 
 /* Technical Sketch Enhancement */
 .technical-sketch {
@@ -1330,6 +1327,25 @@ body.preview-open {
     margin-bottom: 2rem;
 }
 
+.notes-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+.notes-content h2 {
+    font-size: 1.4rem;
+    margin: 1.5rem 0 1rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.notes-content h3 {
+    font-size: 1.2rem;
+    margin: 1.2rem 0 0.8rem;
+}
+
 .notes-content p {
     margin-bottom: 1rem;
 }
@@ -1380,6 +1396,13 @@ body.preview-open {
     padding-top: 1rem;
     border-top: 1px dashed var(--secondary-color);
     text-align: right;
+}
+
+.notes-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--secondary-color);
 }
 
 /* Enhanced markdown styles */
@@ -1500,6 +1523,26 @@ body.preview-open {
     background: rgba(0, 0, 0, 0.02);
 }
 
+/* Link styles */
+.markdown-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--secondary-color);
+    transition: all 0.2s ease;
+}
+
+.markdown-link:hover {
+    color: var(--accent-color);
+    border-bottom-style: solid;
+}
+
+.markdown-link.external::after {
+    content: '↗';
+    display: inline-block;
+    margin-left: 0.2em;
+    font-size: 0.8em;
+}
+
 /* Custom containers */
 .markdown-blockquote {
     margin: 1.5rem 0;
@@ -1564,39 +1607,4 @@ body.preview-open {
     .markdown-blockquote {
         padding: 0.75rem 1rem;
     }
-}
-
-/* Header styles */
-.notes-content h1.header-1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--secondary-color);
-}
-
-.notes-content h2.header-2 {
-    font-size: 2rem;
-    margin: 1.5rem 0 1rem;
-    padding-bottom: 0.3rem;
-    border-bottom: 1px solid var(--secondary-color);
-}
-
-.notes-content h3.header-3 {
-    font-size: 1.75rem;
-    margin: 1.2rem 0 0.8rem;
-}
-
-.notes-content h4.header-4 {
-    font-size: 1.5rem;
-    margin: 1rem 0 0.6rem;
-}
-
-.notes-content h5.header-5 {
-    font-size: 1.25rem;
-    margin: 0.8rem 0 0.4rem;
-}
-
-.notes-content h6.header-6 {
-    font-size: 1rem;
-    margin: 0.6rem 0 0.2rem;
 } 
