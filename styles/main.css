@@ -54,7 +54,13 @@
     .icon-label {
         font-size: 10px;
     }
+    .project-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0.5rem;
+    }
 }
+
 
 @media (max-width: 480px) {
     .project-window .window-title {
@@ -394,17 +400,7 @@ button:hover {
     color: var(--menu-bg);
 }
 
-@media (max-width: 768px) {
-    .window-title {
-        max-width: 200px;
-        padding: 0 10px;
-        font-size: 12px;
-    }
 
-    .menu-item {
-        max-width: 60px;
-    }
-}
 
 @media (max-width: 480px) {
     .window-title {
@@ -483,13 +479,6 @@ button:hover {
     position: relative;
 }
 
-@media (max-width: 768px) {
-    .project-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        padding: 0.5rem;
-    }
-}
 
 /* Project Windows - Match Main Window Style */
 .project-window {
