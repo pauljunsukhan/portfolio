@@ -49,6 +49,20 @@
       }
     },
     {
+      "id": "llm-verb-originality-benchmark",
+      "title": "Benchmarking LLMs",
+      "subtitle": "Ranked written report on LLM verbal originality.",
+      "description": "I will collaborate with your LLM for one hour on an original verbal topic and create a 500 word ranked written report.",
+      "specs": [
+        "Price: $175"
+      ],
+      "buttons": {
+        "preview": "/projects/under-construction",
+        "link": "/projects/under-construction",
+        "github": "https://github.com/pauljunsukhan/chatroomkatocx"
+      }
+    },
+    {
       "id": "electronics-et-all",
       "title": "General EE Projects",
       "subtitle": "PCB, micros, systems, wearables, being an EE",
