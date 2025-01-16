@@ -1,0 +1,258 @@
+/* ===============================
+ * 1) global.css
+ * =============================== */
+
+/* 1) Root Variables & Base Reset */
+:root {
+    --primary-color: #2b2b2b;
+    --secondary-color: #008b8b;  /* Vintage teal */
+    --accent-color: #d4a017;     /* Mustard yellow */
+    --background-color: #f5e6d3; /* Aged paper */
+    --text-color: #2b2b2b;
+    --menu-bg: #f5e6d3;
+    --window-bg: #fff9f0;        /* Slightly warmer white */
+    --window-border: #2b2b2b;
+    --grid-color: rgba(70, 40, 20, 0.1); /* Subtle brown grid */
+    --max-width: 1000px;
+    --spacing: 2rem;
+    --window-margin: 40px; /* Space around main window */
+}
+
+@media (max-width: 768px) {
+    :root {
+        --window-margin: 10px;
+        --spacing: 1rem;
+    }
+}
+
+/* Engineering Paper Background, Body Reset */
+body {
+    background-color: var(--background-color);
+    padding-top: 40px;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image:
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 20px 20px;
+    position: relative;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+        radial-gradient(circle at 50% 50%,
+                        rgba(255, 255, 240, 0.1) 0%,
+                        rgba(255, 240, 200, 0.2) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Typography - Engineering Style */
+h1, h2, h3 {
+    font-family: "Courier New", monospace;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+h1 {
+    font-size: 2rem;
+    border-bottom: 3px double var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--primary-color);
+    padding-bottom: 0.3rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+/* Global Menu Bar */
+.global-menu-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    z-index: 2000;
+    font-family: "Chicago", "Helvetica Neue", sans-serif;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.apple-menu {
+    margin-right: 20px;
+    padding: 2px 5px;
+}
+.apple-menu:hover {
+    background: var(--primary-color);
+    color: var(--menu-bg);
+}
+
+.menu-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--window-border);
+    margin: 0 10px;
+}
+
+.menu-item {
+    padding: 2px 8px;
+    cursor: default;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.menu-item:hover {
+    background: var(--primary-color);
+    color: var(--menu-bg);
+}
+
+/* Main Window (.mac-window) */
+main.mac-window {
+    width: calc(100% - var(--window-margin) * 2);
+    max-width: var(--max-width);
+    margin: var(--window-margin) auto;
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.window-title-bar {
+    display: flex;
+    align-items: center;
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
+    border-radius: 5px 5px 0 0;
+    padding: 0 8px;
+    height: 24px;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    position: relative;
+}
+.window-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    text-align: center;
+    font-family: "Courier New", monospace;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    padding: 0 8px;
+}
+
+/* Buttons, Inputs, etc. */
+button {
+    background: var(--menu-bg);
+    color: var(--primary-color);
+    border: 2px solid var(--window-border);
+    padding: 0.5rem 1rem;
+    font-family: "Courier New", monospace;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 12px;
+}
+button:hover {
+    background: var(--secondary-color);
+    color: var(--window-bg);
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--window-border);
+    background-color: var(--window-bg);
+    font-family: "Courier New", monospace;
+    margin-top: 0.25rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Notebook Header */
+.notebook-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    font-family: "Courier New", monospace;
+    border-bottom: 1px dashed var(--primary-color);
+    padding-bottom: 1rem;
+    position: relative;
+}
+.notebook-header::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    border-bottom: 1px dashed var(--primary-color);
+    opacity: 0.5;
+}
+.header-left { flex: 1; }
+.header-right {
+    flex-shrink: 0;
+    margin-left: 2rem;
+    width: 45px;
+    height: 45px;
+}
+.headshot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    display: block;
+}
+.date,
+.subject {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+}
+.typewriter {
+    border-bottom: 1px solid var(--primary-color);
+    padding: 0 0.5rem;
+}
+
+/* Responsive: Some generic smaller screen adjustments */
+@media (max-width: 480px) {
+    .window-title {
+        max-width: 150px;
+    }
+    .menu-item {
+        max-width: 40px;
+    }
+    .menu-item:nth-last-child(-n+2) {
+        display: none;
+    }
+}

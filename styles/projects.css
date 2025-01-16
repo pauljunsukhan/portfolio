@@ -1,0 +1,584 @@
+/* ===============================
+ * 3) projects.css
+ * =============================== */
+
+/* Window Controls Enhancement */
+.window-controls {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex: 0 0 auto;
+}
+.window-button {
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--window-border);
+    border-radius: 50%;
+    background: var(--window-bg);
+    position: relative;
+}
+.window-button:first-child::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 2px;
+    background: var(--window-border);
+    opacity: 0.5;
+}
+.maximize-button {
+    background: var(--accent-color) !important;
+    cursor: pointer;
+}
+.minimize-button {
+    background: var(--secondary-color) !important;
+    cursor: pointer;
+}
+
+/* Project Grid & Windows */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+    position: relative;
+}
+
+.project-window {
+    position: relative;
+    width: 100%;
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.project-window:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+}
+main.mac-window.project-window {
+    transform: none !important;
+    transition: none;
+}
+main.mac-window.project-window:hover {
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+
+.project-window .content {
+    padding: var(--spacing);
+    background: var(--window-bg);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.project-window .content > *:not(.project-actions) {
+    flex-shrink: 0;
+}
+.project-window .content h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+    padding-bottom: 0.3rem;
+    margin-bottom: 1rem;
+}
+.project-window .content p {
+    font-family: "Courier New", monospace;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+.project-window .content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: "Courier New", monospace;
+}
+.project-window .content ul li {
+    margin: 0.5rem 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--secondary-color);
+    color: var(--text-color);
+}
+
+/* Project Buttons */
+.project-actions {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--window-border);
+    display: flex;
+    gap: 1rem;
+}
+.project-button {
+    flex: 1;
+    background: var(--menu-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    text-decoration: none;
+}
+.project-button:hover {
+    background: var(--window-border);
+    color: var(--menu-bg);
+}
+.project-button.preview {
+    border-color: var(--window-border);
+}
+.project-button.preview:hover {
+    background: var(--window-border);
+}
+.project-button.github {
+    border-color: var(--primary-color);
+}
+.project-button.github:hover {
+    background: var(--primary-color);
+}
+.project-button.link {
+    border-color: var(--window-border);
+}
+.project-button.link:hover {
+    background: var(--window-border);
+    color: var(--menu-bg);
+}
+
+/* Project Link Button (upper-right corner) */
+.project-link-button {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 2px 8px;
+    background: var(--menu-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 3px;
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    color: var(--primary-color);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.project-link-button:hover {
+    background: var(--primary-color);
+    color: var(--menu-bg);
+}
+
+/* Preview Window Overlay */
+.project-preview {
+    position: fixed;
+    top: 8vh;
+    left: 46.5%;
+    transform: translateX(-50%);
+    z-index: 2000;
+    display: none;
+    width: calc(100% - var(--window-margin) * 2);
+    max-width: var(--max-width);
+    height: 90vh;
+}
+.project-preview.active {
+    display: block;
+}
+.project-preview .exit-button {
+    position: absolute;
+    top: -24px;
+    left: 0;
+    height: 24px;
+    width: auto;
+    padding: 0 12px;
+    background: #ff3b30;
+    border: 1px solid #c41e3a;
+    border-radius: 5px 5px 0 0;
+    border-bottom: none;
+    color: var(--window-bg);
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 2001;
+}
+.project-preview .exit-button:hover {
+    background: #ff1f1f;
+}
+.project-preview .preview-content {
+    background: var(--window-bg);
+    height: 100%;
+    border: 1px solid var(--window-border);
+    border-radius: 0 6px 2px 2px;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 2000;
+    overflow: hidden;
+}
+.project-preview .preview-content main.mac-window {
+    margin: 20px;
+    width: calc(100% - 40px);
+    height: calc(100% - 44px);
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;
+    overflow: auto;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    pointer-events: auto;
+}
+body.preview-open {
+    overflow: hidden;
+}
+
+/* Error Dialog */
+.error-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+    width: 300px;
+    z-index: 2100;
+    display: none;
+    flex-direction: column;
+}
+.error-dialog.active {
+    display: flex;
+}
+.error-dialog .window-title-bar {
+    height: 24px;
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
+}
+.error-dialog .window-button {
+    background: #ff3b30;
+    border-color: #c41e3a;
+}
+.error-dialog .content {
+    padding: 2rem;
+    text-align: center;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+/* Overlay (for dialogs) */
+.overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    display: none;
+}
+.overlay.active {
+    display: block;
+}
+
+/* Social Links, Email Dialog, etc. */
+.social-links {
+    padding: var(--spacing);
+    margin-bottom: 0.5rem;
+}
+.social-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: var(--menu-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-family: "Courier New", monospace;
+    transition: all 0.2s ease;
+    text-transform: none;
+}
+.social-link:hover {
+    background: var(--window-border);
+    color: var(--menu-bg);
+    transform: translateY(-2px);
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+.social-icon {
+    font-size: 1.2rem;
+    min-width: 24px;
+    text-align: center;
+}
+.social-label {
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+/* Email Button & Dialog */
+.email-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: var(--menu-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-family: "Courier New", monospace;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.email-button:hover {
+    background: var(--window-border);
+    color: var(--menu-bg);
+    transform: translateY(-2px);
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+.email-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+    width: 300px;
+    z-index: 2100;
+    display: none;
+    flex-direction: column;
+}
+.email-dialog.active {
+    display: flex;
+}
+.email-dialog .window-title-bar {
+    height: 24px;
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
+}
+.email-dialog .window-button.close-button {
+    background: #ff3b30;
+    border-color: #c41e3a;
+}
+.email-dialog .content {
+    padding: 2rem;
+    text-align: center;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+/* Additional Mac Dialog (generic) */
+.mac-dialog {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+    width: 300px;
+    z-index: 2100;
+    display: none;
+    flex-direction: column;
+}
+.mac-dialog.active {
+    display: flex;
+}
+.mac-dialog .window-title-bar {
+    height: 24px;
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
+}
+.mac-dialog .window-button.close-button {
+    background: #ff3b30;
+    border-color: #c41e3a;
+}
+.mac-dialog .content {
+    padding: 2rem;
+    text-align: center;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    color: var(--primary-color);
+}
+.mac-dialog .content p {
+    margin: 0.5rem 0;
+}
+
+/* Visitor Counter */
+.visitor-counter {
+    text-align: center;
+    margin: 0 auto 1rem;
+    width: fit-content;
+    background: var(--window-bg);
+}
+.counter-display {
+    display: flex;
+    justify-content: center;
+    gap: 1px;
+    background: #000;
+    padding: 2px;
+    border: 1px solid #444;
+}
+.counter-digit {
+    display: inline-block;
+    background: #000;
+    color: #32CD32;
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 12px;
+    padding: 2px;
+    text-shadow: 0 0 5px #32CD32;
+}
+
+/* Window Title Bar Link (GitHub or similar) */
+.window-link {
+    position: absolute;
+    right: 8px;
+    color: var(--window-bg);
+    text-decoration: none;
+    font-size: 11px;
+    padding: 2px 6px;
+    background: #2ea538; /* Muted retro Mac green */
+    border: 1px solid #1e7a28;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+.window-link:hover {
+    background: #1e7a28;
+    color: var(--window-bg);
+}
+
+/* Construction Page Example */
+.construction-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    padding: 2rem;
+    font-family: "Courier New", monospace;
+}
+.construction-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.2em;
+    border-bottom: none;
+    animation: blink 2s infinite;
+}
+.construction-message {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+.construction-animation {
+    font-size: 2rem;
+    margin: 2rem 0;
+    padding: 1rem;
+    border: 2px dashed var(--primary-color);
+    border-radius: 4px;
+    text-align: center;
+}
+.construction-animation a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0 4px;
+    border-bottom: 2px solid var(--secondary-color);
+    transition: all 0.2s ease;
+}
+.construction-animation a:hover {
+    background: var(--secondary-color);
+    color: var(--window-bg);
+}
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.5; }
+}
+.construction-divider {
+    width: 50%;
+    height: 2px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--primary-color),
+        var(--primary-color) 10px,
+        transparent 10px,
+        transparent 20px
+    );
+    margin: 2rem 0;
+}
+
+/* Additional Responsive Tweaks */
+@media (max-width: 768px) {
+    .project-window .window-title {
+        max-width: 120px;
+    }
+    .project-window .content h3 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: calc(100% - 20px);
+        font-size: 14px;
+    }
+    .project-window {
+        width: 100%;
+        margin: 0;
+    }
+    .window-buttons {
+        gap: 4px;
+    }
+    .preview-button, .github-button {
+        padding: 2px 6px;
+        font-size: 12px;
+    }
+}
+@media (max-width: 480px) {
+    .project-window .window-title {
+        max-width: 100px;
+    }
+    .project-window .content h3 {
+        font-size: 12px;
+    }
+    .window-title {
+        max-width: 120px;
+    }
+    .window-buttons {
+        gap: 2px;
+    }
+    .preview-button, .github-button {
+        padding: 2px 4px;
+        min-width: auto;
+    }
+}
+@media (max-width: 390px) {
+    .window-title {
+        font-size: 11px;
+        margin: 0 4px;
+        max-width: 140px;
+    }
+    .window-buttons {
+        gap: 4px;
+    }
+    .preview-button, .github-button {
+        padding: 2px 4px;
+        font-size: 10px;
+    }
+}
