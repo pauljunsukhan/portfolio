@@ -176,7 +176,8 @@ main.mac-window {
     flex: 0 0 auto;
 }
 
-button.window-button {
+/* Base window button styles */
+.window-controls .window-button {
     width: 12px;
     height: 12px;
     padding: 0;
@@ -189,7 +190,7 @@ button.window-button {
     letter-spacing: normal;
 }
 
-button.window-button:first-child::after {
+.window-controls .window-button::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -201,40 +202,39 @@ button.window-button:first-child::after {
     opacity: 0.5;
 }
 
-button.window-button.close-button {
-    background: #ff3b30 !important;  /* Force red color */
-    border-color: #c41e3a;
+/* Close/Exit button styles */
+.window-controls .window-button.close-button,
+.mac-dialog .window-controls .window-button {
+    background: #ff3b30 !important;  /* Apple red from style guide */
+    border-color: #c41e3a !important;  /* Darker red from style guide */
     cursor: pointer;
 }
 
-button.window-button.maximize-button {
-    background: #28cd41 !important;  /* Force green color */
-    border-color: #1f9a31;
+.window-controls .window-button.close-button:hover,
+.mac-dialog .window-controls .window-button:hover {
+    background: #c41e3a !important;  /* Use border color for hover */
+}
+
+/* Interactive window buttons */
+.window-controls .window-button.maximize-button {
+    background: #2ea538 !important;  /* Muted retro Mac green */
+    border-color: #1e7a28 !important;  /* Darker muted green */
     cursor: pointer;
 }
 
-button.window-button.minimize-button {
-    background: #ffbd2e !important;  /* Force yellow color */
-    border-color: #dea123;
+.window-controls .window-button.minimize-button {
+    background: #ffbd2e !important;  /* Yellow */
+    border-color: #dea123 !important;  /* Darker yellow */
     cursor: pointer;
 }
 
-/* Don't apply hover effect to window buttons */
-button.window-button:hover {
-    background: currentColor;
-    color: inherit;
+/* Hover states for interactive buttons */
+.window-controls .window-button.maximize-button:hover {
+    background: #1e7a28 !important;  /* Use border color for hover */
 }
 
-button.window-button.maximize-button:hover {
-    background: #28cd41;
-}
-
-button.window-button.minimize-button:hover {
-    background: #ffbd2e;
-}
-
-button.window-button.close-button:hover {
-    background: #ff3b30;
+.window-controls .window-button.minimize-button:hover {
+    background: #dea123 !important;  /* Use border color for hover */
 }
 
 /* Base Buttons */

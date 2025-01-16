@@ -167,24 +167,20 @@ main.mac-window.project-window:hover {
 
 /* Project Link Button (upper-right corner) */
 .project-link-button {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
+    background: #2ea538;  /* Muted retro Mac green from style guide */
+    color: var(--window-bg);
+    border: 1px solid #1e7a28;  /* Darker muted green from style guide */
     padding: 2px 8px;
-    background: var(--menu-bg);
-    border: 1px solid var(--window-border);
-    border-radius: 3px;
+    font-size: 12px;
     font-family: "Courier New", monospace;
-    font-size: 11px;
-    color: var(--primary-color);
     text-decoration: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    border-radius: 3px;
+    margin-left: auto;
+    transition: background 0.2s ease;
 }
+
 .project-link-button:hover {
-    background: var(--primary-color);
-    color: var(--menu-bg);
+    background: #1e7a28;  /* Use border color for hover */
 }
 
 /* Preview Window Overlay */
@@ -209,8 +205,8 @@ main.mac-window.project-window:hover {
     height: 24px;
     width: auto;
     padding: 0 12px;
-    background: #ff3b30;
-    border: 1px solid #c41e3a;
+    background: #ff3b30;  /* Apple red from style guide */
+    border: 1px solid #c41e3a;  /* Darker red from style guide */
     border-radius: 5px 5px 0 0;
     border-bottom: none;
     color: var(--window-bg);
@@ -220,11 +216,11 @@ main.mac-window.project-window:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    transition: background 0.2s ease;
     z-index: 2001;
 }
 .project-preview .exit-button:hover {
-    background: #ff1f1f;
+    background: #c41e3a;  /* Use border color for hover, matching our pattern */
 }
 .project-preview .preview-content {
     background: var(--window-bg);
@@ -273,8 +269,11 @@ body.preview-open {
     border-bottom: 1px solid var(--window-border);
 }
 .error-dialog .window-button {
-    background: #ff3b30;
-    border-color: #c41e3a;
+    background: #ff3b30 !important;  /* Apple red from style guide */
+    border-color: #c41e3a !important;  /* Darker red from style guide */
+}
+.error-dialog .window-button:hover {
+    background: #c41e3a !important;  /* Use border color for hover */
 }
 .error-dialog .content {
     padding: 2rem;

@@ -85,6 +85,7 @@ function createProjectWindow(project) {
   const githubUrl = buttons.github || '#';
   const previewUrl = buttons.preview || '/projects/under-construction';
   const linkUrl = buttons.link || '/projects/under-construction';
+  const githubText = buttons.githubText || 'Github';  // Allow custom text for the GitHub button
 
   // Build the window's inner HTML with retro stylings
   windowDiv.innerHTML = `
@@ -93,7 +94,7 @@ function createProjectWindow(project) {
         <button class="window-button minimize-button" aria-label="Minimize window"></button>
       </div>
       <div class="window-title">${project.title || 'Untitled Project'}</div>
-      ${githubUrl !== '#' ? `<a href="${githubUrl}" class="project-link-button">Github</a>` : ''}
+      ${githubUrl !== '#' ? `<a href="${githubUrl}" class="project-link-button">${githubText}</a>` : ''}
     </div>
     <div class="content">
       <h3>${project.subtitle || ''}</h3>

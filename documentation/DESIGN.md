@@ -9,10 +9,14 @@
 - Menu Background: #f5e6d3 (Matches background)
 - Border: #2b2b2b (Dark gray)
 - Grid: rgba(70, 40, 20, 0.1) (Subtle brown)
-- Error/Exit: #ff3b30 (Apple red)
-- Error Border: #c41e3a (Darker red)
-- Github/Action: #2ea538 (Muted retro Mac green)
-- Github/Action Border: #1e7a28 (Darker muted green)
+
+### Window Control Colors
+- Close/Exit: #ff3b30 (Apple red)
+- Close/Exit Border: #c41e3a (Darker red)
+- Maximize: #2ea538 (Muted retro Mac green)
+- Maximize Border: #1e7a28 (Darker muted green)
+- Minimize: #ffbd2e (Yellow)
+- Minimize Border: #dea123 (Darker yellow)
 
 ## Typography
 - Primary Font: "Courier New", monospace
@@ -83,17 +87,21 @@
 2. Control Buttons
    - Size: 12px × 12px
    - Border-radius: 50%
-   - Border: 1px solid var(--window-border)
-   - Special states:
-     - Close: #ff3b30 (Apple red)
-     - Minimize: var(--secondary-color)
-     - Maximize: var(--accent-color)
+   - Border: 1px solid (color varies by type)
+   - Line decoration: 8px × 2px, rgba(0, 0, 0, 0.3), opacity 0.5
+   - States and Colors:
+     - Close: #ff3b30 bg, #c41e3a border, hover #c41e3a
+     - Maximize: #2ea538 bg, #1e7a28 border, hover #1e7a28
+     - Minimize: #ffbd2e bg, #dea123 border, hover #dea123
+   - Consistent "-" symbol across all buttons
+   - Line decoration independent of button color
 
 3. Action Buttons
-   - Github Link: Muted retro Mac green (#2ea538)
+   - Github Link: #2ea538 (Muted retro Mac green)
+   - Border: #1e7a28 (Darker muted green)
+   - Hover: #1e7a28 (Uses border color)
    - Equal width, flex layout
    - 1px border, 3px border radius
-   - Hover darkens color
    - White text for contrast
    - Font size: 11px
    - Padding: 2px 6px
