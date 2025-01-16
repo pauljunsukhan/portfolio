@@ -2,47 +2,6 @@
  * socials.css
  * =============================== */
 
-/* Social Links Grid */
-.social-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
-  list-style: none;
-  margin: 0;
-}
-
-.social-link {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  text-decoration: none;
-  color: var(--primary-color);
-  background: var(--window-bg);
-  border: 1px solid var(--window-border);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.social-link:hover {
-  background: var(--menu-bg);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.social-icon {
-  font-size: 1.2em;
-  min-width: 1.5em;
-  text-align: center;
-}
-
-.social-label {
-  font-family: "Courier New", monospace;
-  font-size: 0.9em;
-}
-
 /* Mac Dialog */
 .mac-dialog {
   position: fixed;
@@ -52,8 +11,7 @@
   background: var(--window-bg);
   border: 1px solid var(--window-border);
   border-radius: 6px;
-  min-width: 300px;
-  max-width: 90vw;
+  width: 300px;
   opacity: 0;
   visibility: hidden;
   transition: all 0.2s ease;
@@ -66,6 +24,32 @@
   visibility: visible;
 }
 
+/* Window Title Bar */
+.mac-dialog .window-title-bar {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  background: var(--menu-bg);
+  border-bottom: 1px solid var(--window-border);
+  padding: 0 8px;
+}
+
+/* Window Controls */
+.mac-dialog .window-controls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+/* Window Title */
+.mac-dialog .window-title {
+  flex: 1;
+  text-align: center;
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+}
+
 .mac-dialog .content {
   padding: 1rem;
 }
@@ -76,26 +60,4 @@
   padding: 0.5rem;
   border-radius: 4px;
   word-break: break-all;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 480px) {
-  .social-grid {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 0.5rem;
-    padding: 0.5rem;
-  }
-
-  .social-link {
-    padding: 0.4rem;
-  }
-
-  .social-label {
-    font-size: 0.8em;
-  }
-
-  .mac-dialog {
-    min-width: 250px;
-    margin: 0 1rem;
-  }
 } 

@@ -7,6 +7,54 @@
 
 import { showDialog, hideDialog } from './global.js';
 
+// Global event handlers for dialog interactions
+document.addEventListener('click', (e) => {
+  // Handle dialog close button clicks
+  if (e.target.closest('.close-button')) {
+    const dialog = e.target.closest('.mac-dialog');
+    if (dialog) hideDialog(dialog);
+    return;
+  }
+
+  // Handle clicks outside active dialogs
+  const activeDialogs = document.querySelectorAll('.mac-dialog.active');
+  activeDialogs.forEach(dialog => {
+    if (!dialog.contains(e.target) && !e.target.closest('.social-link')) {
+      hideDialog(dialog);
+    }
+  });
+});
+
+// Global keyboard event handling
+document.addEventListener('keydown', (e) => {
+  const activeDialogs = document.querySelectorAll('.mac-dialog.active');
+  if (!activeDialogs.length) return;
+
+  switch (e.key) {
+    case 'Escape':
+      activeDialogs.forEach(hideDialog);
+      break;
+    case 'Tab':
+      // If there's an active dialog, trap focus within it
+      const dialog = activeDialogs[0];
+      const focusableElements = dialog.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusableElements.length) {
+        const first = focusableElements[0];
+        const last = focusableElements[focusableElements.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          last.focus();
+          e.preventDefault();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          first.focus();
+          e.preventDefault();
+        }
+      }
+      break;
+  }
+});
+
 function decodeBase64(str) {
   try {
     return atob(str);
@@ -43,6 +91,9 @@ async function loadSocialConfig(pageSpecificConfig) {
  * Optionally pass a custom config path
  */
 export async function generateSocialLinks(pageSpecificConfig) {
+  // Clean up any existing dialogs first
+  document.querySelectorAll('.mac-dialog').forEach(dialog => dialog.remove());
+
   const config = await loadSocialConfig(pageSpecificConfig);
   if (!config) {
     console.error('No social config loaded');
@@ -63,17 +114,23 @@ export async function generateSocialLinks(pageSpecificConfig) {
     try {
       console.log(`Creating social link for ${key}:`, social);
       
-      // Skip if missing required properties
-      if (!social.icon || !social.label) {
+      // Validate required properties
+      if (!social.icon || !social.label || !social.type) {
         console.warn(`Skipping social ${key}: missing required properties`);
         continue;
       }
 
-      const isLink = social.type === 'link' && social.url;
+      const isLink = social.type === 'link';
+      if (isLink && !social.url) {
+        console.warn(`Skipping social ${key}: missing URL for link type`);
+        continue;
+      }
+
       const element = document.createElement(isLink ? 'a' : 'button');
       element.className = `social-link social-${key}`;
       element.setAttribute('role', 'listitem');
       element.setAttribute('aria-label', social.label);
+      element.setAttribute('aria-haspopup', social.type === 'dialog' ? 'dialog' : 'false');
 
       if (isLink) {
         element.href = social.url;
@@ -94,11 +151,12 @@ export async function generateSocialLinks(pageSpecificConfig) {
         dialog.className = 'mac-dialog';
         dialog.setAttribute('role', 'dialog');
         dialog.setAttribute('aria-label', `${social.label} Information`);
+        dialog.setAttribute('aria-modal', 'true');
         
         dialog.innerHTML = `
           <div class="window-title-bar">
             <div class="window-controls">
-              <div class="window-button close-button" aria-label="Close dialog"></div>
+              <button class="window-button close-button" aria-label="Close dialog"></button>
             </div>
             <div class="window-title">${social.label}</div>
           </div>
@@ -112,37 +170,17 @@ export async function generateSocialLinks(pageSpecificConfig) {
         
         document.body.appendChild(dialog);
 
-        // Show/hide dialog
+        // Show dialog on click
         element.addEventListener('click', (e) => {
           e.preventDefault();
           showDialog(dialog);
-        });
-        
-        dialog.querySelector('.close-button').addEventListener('click', () => {
-          hideDialog(dialog);
+          // Focus the close button when dialog opens
+          const closeButton = dialog.querySelector('.close-button');
+          if (closeButton) closeButton.focus();
         });
       }
     } catch (error) {
       console.error(`Error creating social link for ${key}:`, error);
     }
   }
-
-  // Clicking overlay closes any open dialogs
-  const overlay = document.querySelector('.overlay');
-  if (overlay) {
-    overlay.addEventListener('click', () => {
-      document.querySelectorAll('.mac-dialog.active').forEach(dialog => {
-        hideDialog(dialog);
-      });
-    });
-  }
-
-  // ESC key closes dialogs
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.mac-dialog.active').forEach(dialog => {
-        hideDialog(dialog);
-      });
-    }
-  });
 }

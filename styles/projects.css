@@ -53,14 +53,24 @@
     border: 1px solid var(--window-border);
     border-radius: 6px 6px 2px 2px;
     box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
-    cursor: pointer;
     margin-bottom: 1.5rem;
     display: flex;
     flex-direction: column;
     min-height: 300px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, min-height 0.3s ease;
 }
-.project-window:hover {
+
+/* Minimized state */
+.project-window.minimized {
+    min-height: auto;
+}
+
+.project-window.minimized .content {
+    display: none;
+}
+
+/* Keep hover effect only when not minimized */
+.project-window:not(.minimized):hover {
     transform: translateY(-2px);
     box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
 }
@@ -239,7 +249,6 @@ main.mac-window.project-window:hover {
 body.preview-open {
     overflow: hidden;
 }
-
 /* Error Dialog */
 .error-dialog {
     position: fixed;
@@ -582,3 +591,78 @@ body.preview-open {
         font-size: 10px;
     }
 }
+
+/* Dock Windows */
+.dock-window {
+    display: flex;
+    flex-direction: column;
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+}
+
+.dock-window > .window-title-bar > .window-controls > .window-button {
+    background: var(--window-border) !important;  /* Neutral color */
+    cursor: default !important;  /* Remove pointer cursor */
+    opacity: 0.8;  /* Less dim but still indicates non-interactive */
+}
+
+/* Keep the line decoration for dock window buttons */
+.dock-window > .window-title-bar > .window-controls > .window-button:first-child::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 2px;
+    background: var(--window-border);
+    opacity: 0.8;
+}
+
+.dock-window .dock-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    min-height: 100px;  /* Ensure dock is visible even when empty */
+}
+
+/* Minimized windows inside dock */
+.dock-window .project-window.minimized {
+    margin: 0;
+    min-height: auto;
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+}
+
+.dock-window .project-window.minimized .window-title-bar {
+    border-radius: 4px;  /* Round corners when it's just the title bar */
+    cursor: default;
+}
+
+.dock-window .project-window.minimized:hover {
+    background: var(--menu-bg);
+}
+
+/* Ensure maximize button in minimized windows remains clickable */
+.dock-window .project-window.minimized .window-button.maximize-button {
+    cursor: pointer;
+}
+
+/* Transition effects */
+.project-window {
+    transition: all 0.3s ease;
+}
+
+.project-window.minimized {
+    min-height: auto;
+}
+
+.project-window.minimized .content {
+    display: none;
+}
+

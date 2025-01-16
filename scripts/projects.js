@@ -86,11 +86,11 @@ function createProjectWindow(project) {
   const previewUrl = buttons.preview || '/projects/under-construction';
   const linkUrl = buttons.link || '/projects/under-construction';
 
-  // Build the window’s inner HTML with retro stylings
+  // Build the window's inner HTML with retro stylings
   windowDiv.innerHTML = `
     <div class="window-title-bar">
       <div class="window-controls">
-        <div class="window-button maximize-button"></div>
+        <button class="window-button minimize-button" aria-label="Minimize window"></button>
       </div>
       <div class="window-title">${project.title || 'Untitled Project'}</div>
       ${githubUrl !== '#' ? `<a href="${githubUrl}" class="project-link-button">Github</a>` : ''}
@@ -108,10 +108,147 @@ function createProjectWindow(project) {
     </div>
   `;
 
+  // Add minimize/maximize functionality
+  const minMaxButton = windowDiv.querySelector('.window-button');
+  minMaxButton.addEventListener('click', (e) => {
+    e.stopPropagation(); // Keep this to prevent any potential event bubbling
+    toggleMinimize(windowDiv, minMaxButton);
+  });
+
   // Remove the "loading" class after a slight delay to allow CSS transitions
   setTimeout(() => windowDiv.classList.remove('loading'), 100);
 
   return windowDiv;
+}
+
+/**
+ * Manages dock windows for minimized project windows
+ */
+class DockManager {
+  constructor(projectGrid) {
+    this.projectGrid = projectGrid;
+    this.docks = [];
+    this.windowsPerDock = 4;
+    this.originalPositions = new Map(); // Store original positions
+  }
+
+  addMinimizedWindow(window) {
+    // Store original position if not already stored
+    if (!this.originalPositions.has(window)) {
+      const siblings = Array.from(this.projectGrid.children);
+      const position = siblings.indexOf(window);
+      this.originalPositions.set(window, position);
+    }
+
+    let targetDock = this.findAvailableDock() || this.createNewDock();
+    targetDock.querySelector('.dock-content').appendChild(window);
+    this.updateDockTitles();
+    this.moveDocksToEnd();
+  }
+
+  removeMinimizedWindow(window) {
+    const dock = window.closest('.dock-window');
+    if (!dock) return;
+
+    // Get original position
+    const originalPosition = this.originalPositions.get(window);
+    this.originalPositions.delete(window);
+
+    // Move window back to its original position
+    if (typeof originalPosition === 'number') {
+      const siblings = Array.from(this.projectGrid.children);
+      const currentElements = siblings.filter(el => !el.classList.contains('dock-window'));
+      
+      if (originalPosition >= currentElements.length) {
+        this.projectGrid.appendChild(window);
+      } else {
+        this.projectGrid.insertBefore(window, currentElements[originalPosition]);
+      }
+    } else {
+      // Fallback if no position stored
+      this.projectGrid.appendChild(window);
+    }
+    
+    // Check if dock is empty
+    const dockContent = dock.querySelector('.dock-content');
+    if (!dockContent.children.length) {
+      dock.remove();
+      this.docks = this.docks.filter(d => d !== dock);
+    }
+    
+    this.updateDockTitles();
+    this.moveDocksToEnd();
+  }
+
+  moveDocksToEnd() {
+    // Move all dock windows to the end of the grid
+    this.docks.forEach(dock => {
+      this.projectGrid.appendChild(dock);
+    });
+  }
+
+  findAvailableDock() {
+    return this.docks.find(dock => 
+      dock.querySelector('.dock-content').children.length < this.windowsPerDock
+    );
+  }
+
+  createNewDock() {
+    const dock = document.createElement('div');
+    dock.className = 'mac-window dock-window';
+    dock.innerHTML = `
+      <div class="window-title-bar">
+        <div class="window-controls">
+          <button class="window-button" aria-label="Window control"></button>
+        </div>
+        <div class="window-title">Minimized Windows</div>
+      </div>
+      <div class="dock-content"></div>
+    `;
+    
+    this.docks.push(dock);
+    this.projectGrid.appendChild(dock);
+    this.updateDockTitles();
+    return dock;
+  }
+
+  updateDockTitles() {
+    this.docks.forEach((dock, index) => {
+      const title = dock.querySelector('.window-title');
+      const count = dock.querySelector('.dock-content').children.length;
+      title.textContent = `Minimized Windows (${index + 1}/${this.docks.length})`;
+    });
+  }
+}
+
+// Initialize dock manager after DOM is loaded
+let dockManager;
+document.addEventListener('DOMContentLoaded', () => {
+  const projectGrid = document.querySelector('.project-grid');
+  if (projectGrid) {
+    dockManager = new DockManager(projectGrid);
+  }
+});
+
+/**
+ * Toggles the minimize/maximize state of a project window
+ */
+function toggleMinimize(projectWindow, button) {
+  if (projectWindow.classList.contains('minimized')) {
+    // Maximize
+    projectWindow.classList.remove('minimized');
+    button.classList.remove('maximize-button');
+    button.classList.add('minimize-button');
+    button.setAttribute('aria-label', 'Minimize window');
+    dockManager.removeMinimizedWindow(projectWindow);
+  } else {
+    // Minimize
+    projectWindow.classList.add('minimized');
+    button.classList.remove('minimize-button');
+    button.classList.add('maximize-button');
+    button.setAttribute('aria-label', 'Maximize window');
+    dockManager.addMinimizedWindow(projectWindow);
+  }
 }
 
 /**
@@ -233,26 +370,29 @@ function initializeProjectWindows() {
     return;
   }
 
-  // Preview button click handler
-  previewButtons.forEach(button => {
-    button.addEventListener('click', async () => {
-      const projectId = button.dataset.project;
-      try {
-        await loadProjectPreview(projectId, previewWindow, previewContent);
-      } catch (err) {
-        console.error('Error loading project:', err);
-        showPreviewError(previewWindow, previewContent);
-      }
-    });
+  // Add preview button click handler
+  projectWindows.forEach(win => {
+    const previewButton = win.querySelector('.project-button.preview');
+    if (previewButton) {
+      previewButton.addEventListener('click', async () => {
+        try {
+          await loadProjectPreview(
+            previewButton.dataset.project,
+            previewWindow,
+            previewContent
+          );
+        } catch (error) {
+          showError(error.message);
+        }
+      });
+    }
   });
 
-  // Exit button handler
+  // Add exit button click handler
   exitButton.addEventListener('click', () => {
     previewWindow.classList.remove('active');
     document.body.classList.remove('preview-open');
-    setTimeout(() => {
-      previewContent.innerHTML = '';
-    }, 300);
+    previewContent.innerHTML = '';
   });
 
   // ESC key handler
@@ -260,19 +400,6 @@ function initializeProjectWindows() {
     if (e.key === 'Escape' && previewWindow.classList.contains('active')) {
       exitButton.click();
     }
-  });
-
-  // Window click handler for navigation
-  projectWindows.forEach(win => {
-    win.addEventListener('click', (e) => {
-      if (!e.target.closest('.project-link-button') && 
-          !e.target.closest('.project-actions') && 
-          !e.target.closest('.window-controls')) {
-        const projectId = win.dataset.project;
-        const url = getProjectUrl(projectId);
-        if (url) window.location.href = url;
-      }
-    });
   });
 }
 
