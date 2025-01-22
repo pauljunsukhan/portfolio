@@ -24,7 +24,7 @@ website-root/
 │       └── index.html            # Desktop for social links/profiles
 │
 ├── scripts/                      # JavaScript functionality
-│   ├── global.js                 # Global JS features (5.3KB implemented)
+│   ├── globals.js                 # Global JS features (5.3KB implemented)
 │   ├── desktop.js                # Logic for switching between desktops
 │   ├── projects.js               # Project windows and previews (12KB implemented)
 │   ├── socials.js                # Social links handling (3.3KB implemented)

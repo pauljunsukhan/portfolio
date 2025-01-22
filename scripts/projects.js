@@ -7,7 +7,7 @@
  * and optional maximize/minimize.
  */
 
-import { showDialog, hideDialog } from './global.js';
+import { createDialog } from './globals.js';
 
 /**
  * Loads project data from JSON and renders the project windows.
@@ -72,12 +72,15 @@ export async function loadProjects(pageSpecificConfig) {
 }
 
 /**
- * Creates a single retro Mac “window” for the given project data.
+ * Creates a single retro Mac "window" for the given project data.
  * Returns an HTML element.
  */
 function createProjectWindow(project) {
   const windowDiv = document.createElement('div');
   windowDiv.className = 'mac-window project-window loading';
+  if (project.defaultMinimized) {
+    windowDiv.classList.add('minimized');
+  }
   windowDiv.setAttribute('data-project', project.id);
 
   // Default button links
@@ -91,16 +94,17 @@ function createProjectWindow(project) {
   windowDiv.innerHTML = `
     <div class="window-title-bar">
       <div class="window-controls">
-        <button class="window-button minimize-button" aria-label="Minimize window"></button>
+        <button class="window-button ${project.defaultMinimized ? 'maximize-button' : 'minimize-button'}" 
+                aria-label="${project.defaultMinimized ? 'Maximize window' : 'Minimize window'}"></button>
       </div>
       <div class="window-title">${project.title || 'Untitled Project'}</div>
       ${githubUrl !== '#' ? `<a href="${githubUrl}" class="project-link-button">${githubText}</a>` : ''}
     </div>
-    <div class="content">
+    <div class="content auto-linkify">
       <h3>${project.subtitle || ''}</h3>
       <p>${project.description || ''}</p>
       <ul>
-        ${(project.specs || []).map(spec => `<li>${linkifySpec(spec)}</li>`).join('')}
+        ${(project.specs || []).map(spec => `<li>${spec}</li>`).join('')}
       </ul>
       <div class="project-actions">
         <button class="project-button preview" data-project="${project.id}">Preview</button>
@@ -115,6 +119,14 @@ function createProjectWindow(project) {
     e.stopPropagation(); // Keep this to prevent any potential event bubbling
     toggleMinimize(windowDiv, minMaxButton);
   });
+
+  // If window is minimized by default, add it to the dock
+  if (project.defaultMinimized && dockManager) {
+    // Small delay to ensure the dock is ready
+    setTimeout(() => {
+      dockManager.addMinimizedWindow(windowDiv);
+    }, 100);
+  }
 
   // Remove the "loading" class after a slight delay to allow CSS transitions
   setTimeout(() => windowDiv.classList.remove('loading'), 100);
@@ -200,17 +212,58 @@ class DockManager {
     dock.innerHTML = `
       <div class="window-title-bar">
         <div class="window-controls">
-          <button class="window-button" aria-label="Window control"></button>
+          <button class="window-button maximize-button" aria-label="Maximize all windows"></button>
         </div>
         <div class="window-title">Minimized Windows</div>
       </div>
       <div class="dock-content"></div>
     `;
     
+    // Add maximize-all functionality
+    const maximizeButton = dock.querySelector('.window-button.maximize-button');
+    if (maximizeButton) {
+      maximizeButton.addEventListener('click', () => this.maximizeAllInDock(dock));
+    } else {
+      console.error('Failed to find maximize button in newly created dock');
+    }
+    
     this.docks.push(dock);
     this.projectGrid.appendChild(dock);
     this.updateDockTitles();
     return dock;
+  }
+
+  maximizeAllInDock(dock) {
+    try {
+      console.log('Maximizing all windows in dock');
+      const minimizedWindows = Array.from(dock.querySelectorAll('.project-window.minimized'));
+      console.log(`Found ${minimizedWindows.length} minimized windows`);
+      
+      if (minimizedWindows.length === 0) {
+        console.log('No minimized windows found in dock');
+        return;
+      }
+
+      minimizedWindows.forEach((window, index) => {
+        const maximizeButton = window.querySelector('.window-button.maximize-button');
+        if (maximizeButton) {
+          console.log(`Maximizing window ${index + 1}/${minimizedWindows.length}`);
+          maximizeButton.click(); // This will trigger the existing maximize logic
+        } else {
+          console.warn(`No maximize button found for window ${index + 1}`);
+        }
+      });
+
+      // If all windows were maximized, remove the empty dock
+      const dockContent = dock.querySelector('.dock-content');
+      if (!dockContent.children.length) {
+        dock.remove();
+        this.docks = this.docks.filter(d => d !== dock);
+        this.updateDockTitles();
+      }
+    } catch (error) {
+      console.error('Error maximizing windows:', error);
+    }
   }
 
   updateDockTitles() {
@@ -250,19 +303,6 @@ function toggleMinimize(projectWindow, button) {
     button.setAttribute('aria-label', 'Maximize window');
     dockManager.addMinimizedWindow(projectWindow);
   }
-}
-
-/**
- * linkifySpec - transforms "Link: http://something" into a clickable link
- */
-function linkifySpec(spec) {
-  if (!spec) return '';
-  if (spec.startsWith('Link:')) {
-    const [_, url] = spec.split('Link:');
-    const trimmedUrl = url.trim();
-    return `Link: <a href="${trimmedUrl}" target="_blank">${trimmedUrl}</a>`;
-  }
-  return spec;
 }
 
 /**
@@ -343,20 +383,6 @@ function setupPreviewContent(fetchUrl, doc, mainWindow, previewContent) {
 }
 
 /**
- * Shows error message in preview window
- */
-function showPreviewError(previewWindow, previewContent) {
-  previewContent.innerHTML = `
-    <div class="error-message">
-      <h3>Project Coming Soon</h3>
-      <p>This project is currently under development.</p>
-    </div>
-  `;
-  previewWindow.classList.add('active');
-  document.body.classList.add('preview-open');
-}
-
-/**
  * Initialize preview functionality for project windows
  */
 function initializeProjectWindows() {
@@ -383,7 +409,17 @@ function initializeProjectWindows() {
             previewContent
           );
         } catch (error) {
-          showError(error.message);
+          createDialog({
+            title: "Preview Error",
+            content: "This project preview is not available yet.",
+            onClose: () => {
+              // Clean up preview window state when dialog closes
+              previewWindow.classList.remove('active');
+              document.body.classList.remove('preview-open');
+              previewContent.innerHTML = '';
+              console.log('Preview error dialog closed');
+            }
+          });
         }
       });
     }
@@ -403,42 +439,6 @@ function initializeProjectWindows() {
     }
   });
 }
-
-/**
- * If you have a "maximize" feature
- */
-export function maximizeProject(projectWindow) {
-  const maximizedView = document.querySelector('.maximized-project');
-  if (!maximizedView) return;
-
-  const maximizedContent = maximizedView.querySelector('.content');
-  if (!maximizedContent) return;
-
-  const projectContent = projectWindow.querySelector('.content').cloneNode(true);
-  const projectTitle = projectWindow.querySelector('.window-title').textContent;
-
-  maximizedView.querySelector('.window-title').textContent = projectTitle;
-  maximizedContent.innerHTML = '';
-  maximizedContent.appendChild(projectContent);
-
-  maximizedView.style.display = 'block';
-  document.querySelector('.overlay').classList.add('active');
-  setTimeout(() => {
-    maximizedView.classList.add('active');
-  }, 10);
-}
-
-export function minimizeProject() {
-  const maximizedView = document.querySelector('.maximized-project');
-  if (!maximizedView) return;
-
-  maximizedView.classList.remove('active');
-  document.querySelector('.overlay').classList.remove('active');
-  setTimeout(() => {
-    maximizedView.style.display = 'none';
-  }, 300);
-}
-
 /**
  * Helper: build a URL based on project ID.
  * Uses the preview URL from the project data.
@@ -462,3 +462,4 @@ function getProjectUrl(projectId) {
   console.log('No preview URL found, using fallback');
   return '/desktop/infra/under-construction';
 }
+

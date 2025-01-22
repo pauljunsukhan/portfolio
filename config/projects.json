@@ -10,6 +10,7 @@
           "Status: Active Development",
           "Importance: Core Research"
         ],
+        "defaultMinimized": false,
         "buttons": {
           "preview": "/desktop/infra/neural-network",
           "link": "/desktop/infra/neural-network",
@@ -27,6 +28,7 @@
           "Status: Research Phase",
           "Importance: Future Interface"
         ],
+        "defaultMinimized": false,
         "buttons": {
           "preview": "/desktop/infra/under-construction",
           "link": "/desktop/infra/under-construction",
@@ -42,8 +44,9 @@
         "specs": [
           "Tech: Python, HTML, CSS, JavaScript, Heroku",
           "Status: Always useful",
-          "Check this out: http://chatroom.kato.cx/"
+          "Link: http://chatroom.kato.cx Label: Check out the chatroom"
         ],
+        "defaultMinimized": true,
         "buttons": {
           "preview": "/desktop/infra/under-construction",
           "link": "/desktop/infra/under-construction",

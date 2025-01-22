@@ -5,64 +5,7 @@
  * Allows for a default or a page-specific config.
  */
 
-import { showDialog, hideDialog } from './global.js';
-
-// Global event handlers for dialog interactions
-document.addEventListener('click', (e) => {
-  // Handle dialog close button clicks
-  if (e.target.closest('.close-button')) {
-    const dialog = e.target.closest('.mac-dialog');
-    if (dialog) hideDialog(dialog);
-    return;
-  }
-
-  // Handle clicks outside active dialogs
-  const activeDialogs = document.querySelectorAll('.mac-dialog.active');
-  activeDialogs.forEach(dialog => {
-    if (!dialog.contains(e.target) && !e.target.closest('.social-link')) {
-      hideDialog(dialog);
-    }
-  });
-});
-
-// Global keyboard event handling
-document.addEventListener('keydown', (e) => {
-  const activeDialogs = document.querySelectorAll('.mac-dialog.active');
-  if (!activeDialogs.length) return;
-
-  switch (e.key) {
-    case 'Escape':
-      activeDialogs.forEach(hideDialog);
-      break;
-    case 'Tab':
-      // If there's an active dialog, trap focus within it
-      const dialog = activeDialogs[0];
-      const focusableElements = dialog.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
-      if (focusableElements.length) {
-        const first = focusableElements[0];
-        const last = focusableElements[focusableElements.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          last.focus();
-          e.preventDefault();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          first.focus();
-          e.preventDefault();
-        }
-      }
-      break;
-  }
-});
-
-function decodeBase64(str) {
-  try {
-    return atob(str);
-  } catch (e) {
-    console.error('Failed to decode base64:', e);
-    return str;
-  }
-}
+import { createDialog } from './globals.js';
 
 /**
  * Attempt to load social config
@@ -91,9 +34,6 @@ async function loadSocialConfig(pageSpecificConfig) {
  * Optionally pass a custom config path
  */
 export async function generateSocialLinks(pageSpecificConfig) {
-  // Clean up any existing dialogs first
-  document.querySelectorAll('.mac-dialog').forEach(dialog => dialog.remove());
-
   const config = await loadSocialConfig(pageSpecificConfig);
   if (!config) {
     console.error('No social config loaded');
@@ -145,38 +85,26 @@ export async function generateSocialLinks(pageSpecificConfig) {
 
       socialGrid.appendChild(element);
 
-      // If it's a dialog type, build the dialog
+      // If it's a dialog type, set up click handler to show dialog
       if (social.type === 'dialog') {
-        const dialog = document.createElement('div');
-        dialog.className = 'mac-dialog';
-        dialog.setAttribute('role', 'dialog');
-        dialog.setAttribute('aria-label', `${social.label} Information`);
-        dialog.setAttribute('aria-modal', 'true');
-        
-        dialog.innerHTML = `
-          <div class="window-title-bar">
-            <div class="window-controls">
-              <button class="window-button close-button" aria-label="Close dialog"></button>
-            </div>
-            <div class="window-title">${social.label}</div>
-          </div>
-          <div class="content">
-            ${social.dialogContent ? `<p>${social.dialogContent}</p>` : ''}
-            <p class="protected-content">
-              ${social.encrypt ? decodeBase64(social.value) : social.value}
-            </p>
-          </div>
-        `;
-        
-        document.body.appendChild(dialog);
-
-        // Show dialog on click
         element.addEventListener('click', (e) => {
           e.preventDefault();
-          showDialog(dialog);
-          // Focus the close button when dialog opens
-          const closeButton = dialog.querySelector('.close-button');
-          if (closeButton) closeButton.focus();
+          
+          // Build dialog content
+          let content = '';
+          if (social.dialogContent) {
+            content += `<p>${social.dialogContent}</p>`;
+          }
+          content += `<p class="protected-content">${social.value}</p>`;
+
+          createDialog({
+            title: social.label,
+            content: content,
+            isEncoded: Boolean(social.encrypt),
+            onClose: () => {
+              console.log(`${key} dialog closed`);
+            }
+          });
         });
       }
     } catch (error) {

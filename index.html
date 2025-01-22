@@ -195,7 +195,7 @@
   <div class="overlay" aria-hidden="true"></div>
 
   <!-- Scripts -->
-  <script type="module" src="scripts/global.js"></script>
+  <script type="module" src="scripts/globals.js"></script>
   <script type="module" src="scripts/projects.js"></script>
   <script type="module" src="scripts/socials.js"></script>
   <script type="module" src="scripts/desktop.js"></script>
@@ -316,7 +316,7 @@
 
   <!-- Load Our Modular JS (global, socials, projects, etc.) -->
   <script type="module">
-    import { updateVisitorCounter } from './scripts/global.js';
+    import { updateVisitorCounter, initAutoLinkify } from './scripts/globals.js';
     import { generateSocialLinks } from './scripts/socials.js';
     import { loadProjects } from './scripts/projects.js';
 
@@ -339,7 +339,10 @@
         console.error('Error loading projects:', err);
       });
 
-      // 4) (Optional) If you want to load Markdown content for #notes-content
+      // 4) Initialize auto-linkify after content is loaded
+      initAutoLinkify();
+
+      // 5) (Optional) If you want to load Markdown content for #notes-content
       /*
       const mdLoader = new MarkdownLoader();
       const markdownConfigs = [
