@@ -66,7 +66,7 @@
     }
 }
 
-/* The mobile “⋮” toggle button */
+/* The mobile "⋮" toggle button */
 .menu-toggle {
     display: none;
     position: fixed;
@@ -86,5 +86,95 @@
 @media (max-width: 768px) {
     .menu-toggle {
         display: flex;
+    }
+}
+
+/* ===============================
+ * Desktop-Specific Window Styles
+ * =============================== */
+
+/* Main Window (.mac-window) - Desktop specific positioning */
+main.mac-window {
+    width: calc(100% - var(--window-margin) * 2);
+    max-width: var(--max-width);
+    margin: var(--window-margin) auto;
+    position: relative;
+}
+
+/* Main window content padding */
+main.mac-window > .content {
+    padding: var(--spacing);
+}
+
+/* Forms */
+input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--window-border);
+    background-color: var(--window-bg);
+    font-family: "Courier New", monospace;
+    margin-top: 0.25rem;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Notebook Header */
+.notebook-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    font-family: "Courier New", monospace;
+    border-bottom: 1px dashed var(--primary-color);
+    padding-bottom: 1rem;
+    position: relative;
+}
+.notebook-header::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    border-bottom: 1px dashed var(--primary-color);
+    opacity: 0.5;
+}
+.header-left { flex: 1; }
+.header-right {
+    flex-shrink: 0;
+    margin-left: 2rem;
+    width: 45px;
+    height: 45px;
+}
+.headshot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    display: block;
+}
+.date,
+.subject {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+}
+.typewriter {
+    border-bottom: 1px solid var(--primary-color);
+    padding: 0 0.5rem;
+}
+
+/* Responsive: Some generic smaller screen adjustments */
+@media (max-width: 480px) {
+    .window-title {
+        max-width: 150px;
+    }
+    .menu-item {
+        max-width: 40px;
+    }
+    .menu-item:nth-last-child(-n+2) {
+        display: none;
     }
 }

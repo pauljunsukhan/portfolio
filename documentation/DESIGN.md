@@ -17,6 +17,10 @@
 - Maximize Border: #1e7a28 (Darker muted green)
 - Minimize: #ffbd2e (Yellow)
 - Minimize Border: #dea123 (Darker yellow)
+- Quick Link: #008b8b (Vintage teal)
+- Quick Link Border: #006666 (Darker muted teal)
+- Open Page: (Muted retro Mac teal)
+- Open Page Border: #006666 (Darker muted teal)
 
 ## Typography
 - Primary Font: "Courier New", monospace
@@ -93,8 +97,10 @@
      - Close: #ff3b30 bg, #c41e3a border, hover #c41e3a
      - Maximize: #2ea538 bg, #1e7a28 border, hover #1e7a28
      - Minimize: #ffbd2e bg, #dea123 border, hover #dea123
-   - Consistent "-" symbol across all buttons
-   - Line decoration independent of button color
+     - Quick Link: #008b8b bg, #006666 border, hover #006666
+   - Consistent "-" symbol for minimize/maximize/close
+   - Plus symbol for quick link (8px × 2px and 2px × 8px crossed lines)
+   - Line decoration independent of button color, using rgba(0, 0, 0, 0.3) with 0.5 opacity
 
 3. Action Buttons
    - Github Link: #2ea538 (Muted retro Mac green)

@@ -130,145 +130,6 @@ p {
     color: var(--menu-bg);
 }
 
-/* Main Window (.mac-window) */
-main.mac-window {
-    width: calc(100% - var(--window-margin) * 2);
-    max-width: var(--max-width);
-    margin: var(--window-margin) auto;
-    background: var(--window-bg);
-    border: 1px solid var(--window-border);
-    border-radius: 6px 6px 2px 2px;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-
-.window-title-bar {
-    display: flex;
-    align-items: center;
-    background: var(--menu-bg);
-    border-bottom: 1px solid var(--window-border);
-    border-radius: 5px 5px 0 0;
-    padding: 0 8px;
-    height: 24px;
-    font-family: "Courier New", monospace;
-    font-size: 12px;
-    position: relative;
-}
-
-.window-title {
-    flex: 1 1 auto;
-    min-width: 0;
-    text-align: center;
-    font-family: "Courier New", monospace;
-    letter-spacing: 0.05em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 200px;
-    padding: 0 8px;
-}
-
-/* Window Controls */
-.window-controls {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    flex: 0 0 auto;
-}
-
-/* Base window button styles */
-.window-controls .window-button {
-    width: 12px;
-    height: 12px;
-    padding: 0;
-    margin: 0;
-    border: 1px solid var(--window-border);
-    border-radius: 50%;
-    background: var(--window-bg);
-    position: relative;
-    text-transform: none;
-    letter-spacing: normal;
-}
-
-.window-controls .window-button::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 8px;
-    height: 2px;
-    background: rgba(0, 0, 0, 0.3);  /* Dark line with transparency */
-    opacity: 0.5;
-}
-
-/* Close/Exit button styles */
-.window-controls .window-button.close-button,
-.mac-dialog .window-controls .window-button {
-    background: #ff3b30 !important;  /* Apple red from style guide */
-    border-color: #c41e3a !important;  /* Darker red from style guide */
-    cursor: pointer;
-}
-
-.window-controls .window-button.close-button:hover,
-.mac-dialog .window-controls .window-button:hover {
-    background: #c41e3a !important;  /* Use border color for hover */
-}
-
-/* Interactive window buttons */
-.window-controls .window-button.maximize-button {
-    background: #2ea538 !important;  /* Muted retro Mac green */
-    border-color: #1e7a28 !important;  /* Darker muted green */
-    cursor: pointer;
-}
-
-.window-controls .window-button.minimize-button {
-    background: #ffbd2e !important;  /* Yellow */
-    border-color: #dea123 !important;  /* Darker yellow */
-    cursor: pointer;
-}
-
-/* Hover states for interactive buttons */
-.window-controls .window-button.maximize-button:hover {
-    background: #1e7a28 !important;  /* Use border color for hover */
-}
-
-.window-controls .window-button.minimize-button:hover {
-    background: #dea123 !important;  /* Use border color for hover */
-}
-
-/* Base Buttons */
-button {
-    background: var(--menu-bg);
-    color: var(--primary-color);
-    border: 2px solid var(--window-border);
-    padding: 0.5rem 1rem;
-    font-family: "Courier New", monospace;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 12px;
-}
-
-button:hover {
-    background: var(--secondary-color);
-    color: var(--window-bg);
-}
-
-/* Forms */
-input, textarea {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid var(--window-border);
-    background-color: var(--window-bg);
-    font-family: "Courier New", monospace;
-    margin-top: 0.25rem;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
 /* Notebook Header */
 .notebook-header {
     display: flex;
@@ -316,20 +177,145 @@ input, textarea {
     padding: 0 0.5rem;
 }
 
-/* Responsive: Some generic smaller screen adjustments */
-@media (max-width: 480px) {
-    .window-title {
-        max-width: 150px;
-    }
-    .menu-item {
-        max-width: 40px;
-    }
-    .menu-item:nth-last-child(-n+2) {
-        display: none;
-    }
+/* Forms */
+input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--window-border);
+    background-color: var(--window-bg);
+    font-family: "Courier New", monospace;
+    margin-top: 0.25rem;
 }
 
-/* Base Dialog Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Base Buttons */
+button {
+    background: var(--menu-bg);
+    color: var(--primary-color);
+    border: 2px solid var(--window-border);
+    padding: 0.5rem 1rem;
+    font-family: "Courier New", monospace;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 12px;
+}
+
+button:hover {
+    background: var(--secondary-color);
+    color: var(--window-bg);
+}
+
+/* Base Window & Dialog Styles */
+.mac-window {
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+
+.window-title-bar {
+    display: flex;
+    align-items: center;
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
+    border-radius: 5px 5px 0 0;
+    padding: 0 8px;
+    height: 24px;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    position: relative;
+}
+
+.window-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    text-align: center;
+    font-family: "Courier New", monospace;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    padding: 0 8px;
+}
+
+/* Window Controls */
+.window-controls {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+/* Base window button styles */
+.window-controls .window-button {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid var(--window-border);
+    border-radius: 50%;
+    background: var(--window-bg);
+    position: relative;
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+/* Middle bar for all window buttons */
+.window-controls .window-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0.5;
+}
+
+/* Close/Exit button styles */
+.window-controls .window-button.close-button,
+.mac-dialog .window-controls .window-button {
+    background: #ff3b30 !important;  /* Apple red */
+    border-color: #c41e3a !important;  /* Darker red */
+    cursor: pointer;
+}
+
+.window-controls .window-button.close-button:hover,
+.mac-dialog .window-controls .window-button:hover {
+    background: #c41e3a !important;  /* Use border color for hover */
+}
+
+/* Maximize button styles */
+.window-controls .window-button.maximize-button {
+    background: #2ea538 !important;  /* Muted retro Mac green */
+    border-color: #1e7a28 !important;  /* Darker muted green */
+    cursor: pointer;
+}
+
+/* Minimize button styles */
+.window-controls .window-button.minimize-button {
+    background: #ffbd2e !important;  /* Yellow */
+    border-color: #dea123 !important;  /* Darker yellow */
+    cursor: pointer;
+}
+
+/* Hover states for interactive buttons */
+.window-controls .window-button.maximize-button:hover {
+    background: #1e7a28 !important;  /* Use border color for hover */
+}
+
+.window-controls .window-button.minimize-button:hover {
+    background: #dea123 !important;  /* Use border color for hover */
+}
+
+/* Mac Dialog Base Styles */
 .mac-dialog {
     position: fixed;
     top: 50%;
@@ -371,16 +357,17 @@ input, textarea {
     padding: 1rem;
 }
 
-/* Base Window Styles */
-.mac-window {
-    background: var(--window-bg);
-    border: 1px solid var(--window-border);
-    border-radius: 6px 6px 2px 2px;
-    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
-}
-
-/* Responsive Dialog Adjustments */
+/* Responsive: Some generic smaller screen adjustments */
 @media (max-width: 480px) {
+    .menu-item {
+        max-width: 40px;
+    }
+    .menu-item:nth-last-child(-n+2) {
+        display: none;
+    }
+    .window-title {
+        max-width: 150px;
+    }
     .mac-dialog {
         width: 90%;
         max-width: 300px;
