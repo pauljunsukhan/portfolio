@@ -1,0 +1,88 @@
+/* ===============================
+ * header.css
+ * =============================== */
+
+/* Notebook Header */
+.notebook-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    font-family: "Courier New", monospace;
+    border-bottom: 1px dashed var(--primary-color);
+    padding-bottom: 1rem;
+    position: relative;
+}
+
+.notebook-header::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    border-bottom: 1px dashed var(--primary-color);
+    opacity: 0.5;
+}
+
+.header-left { 
+    flex: 1; 
+}
+
+.header-right {
+    flex-shrink: 0;
+    margin-left: 2rem;
+    width: 45px;
+    height: 45px;
+}
+
+.headshot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    display: block;
+}
+
+.date,
+.subject {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+}
+
+.typewriter {
+    border-bottom: 1px solid var(--primary-color);
+    padding: 0 0.5rem;
+}
+
+/* Title and Subtitle */
+#hero-title {
+    font-size: 2rem;
+    border-bottom: 3px double var(--primary-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.subtitle {
+    font-family: "Courier New", monospace;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .header-right {
+        width: 35px;
+        height: 35px;
+    }
+    #hero-title {
+        font-size: 1.5rem;
+    }
+    .subtitle {
+        font-size: 0.9rem;
+    }
+} 

@@ -1,0 +1,155 @@
+{
+    /* Menu Bar Configuration
+     * ---------------------
+     * ARIA Roles:
+     * - menubar: Top-level container (automatically applied)
+     * - menuitem: Basic clickable item
+     * - menu: Submenu container
+     * - menuitemcheckbox: Toggleable item
+     * - menuitemradio: Single-select item from a group
+     * - button: Clickable button (like Apple menu)
+     *
+     * Action Types:
+     * - dialog: Opens a modal dialog
+     * - link: Navigate to URL
+     * - submenu: Shows nested menu items
+     * - preview: Opens a preview panel
+     */
+
+    "apple_menu": {
+        "icon": "🍎",
+        "aria_label": "Apple menu",
+        "role": "button",
+        "action": {
+            "type": "dialog",
+            "content": "About This Mac",
+            "title": "System Information"
+        }
+    },
+    "menu_items": [
+        {
+            "label": "File",
+            "role": "menu",
+            "items": [
+                {
+                    "label": "New Project",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "dialog",
+                        "title": "Create New Project",
+                        "content": "Project creation form goes here"
+                    }
+                },
+                {
+                    "label": "Open Recent",
+                    "role": "menu",
+                    "items": [
+                        {
+                            "label": "Project 1",
+                            "role": "menuitem",
+                            "action": {
+                                "type": "link",
+                                "url": "/projects/1"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label": "Save",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "dialog",
+                        "title": "Save Project",
+                        "content": "Saving..."
+                    }
+                }
+            ]
+        },
+        {
+            "label": "Edit",
+            "role": "menu",
+            "items": [
+                {
+                    "label": "Dark Mode",
+                    "role": "menuitemcheckbox",
+                    "action": {
+                        "type": "toggle",
+                        "target": "theme"
+                    }
+                },
+                {
+                    "label": "Preferences",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "dialog",
+                        "title": "Preferences",
+                        "content": "Settings panel goes here"
+                    }
+                }
+            ]
+        },
+        {
+            "label": "View",
+            "role": "menu",
+            "items": [
+                {
+                    "label": "Project Preview",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "preview",
+                        "content": "project-preview"
+                    }
+                },
+                {
+                    "label": "Layout",
+                    "role": "menu",
+                    "items": [
+                        {
+                            "label": "Compact",
+                            "role": "menuitemradio",
+                            "group": "layout",
+                            "action": {
+                                "type": "toggle",
+                                "target": "layout",
+                                "value": "compact"
+                            }
+                        },
+                        {
+                            "label": "Comfortable",
+                            "role": "menuitemradio",
+                            "group": "layout",
+                            "action": {
+                                "type": "toggle",
+                                "target": "layout",
+                                "value": "comfortable"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "label": "Special",
+            "role": "menu",
+            "items": [
+                {
+                    "label": "GitHub",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "https://github.com/pauljunsukhan",
+                        "external": true
+                    }
+                },
+                {
+                    "label": "Resume",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "preview",
+                        "content": "resume-preview"
+                    }
+                }
+            ]
+        }
+    ]
+} 

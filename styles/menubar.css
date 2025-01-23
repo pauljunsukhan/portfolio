@@ -1,0 +1,62 @@
+/* ===============================
+ * menubar.css
+ * =============================== */
+
+/* Global Menu Bar */
+.global-menu-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    z-index: 2000;
+    font-family: "Chicago", "Helvetica Neue", sans-serif;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.apple-menu {
+    margin-right: 20px;
+    padding: 2px 5px;
+}
+
+.apple-menu:hover {
+    background: var(--primary-color);
+    color: var(--menu-bg);
+}
+
+.menu-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--window-border);
+    margin: 0 10px;
+}
+
+.menu-item {
+    padding: 2px 8px;
+    cursor: default;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.menu-item:hover {
+    background: var(--primary-color);
+    color: var(--menu-bg);
+}
+
+/* Responsive: Some generic smaller screen adjustments */
+@media (max-width: 480px) {
+    .menu-item {
+        max-width: 40px;
+    }
+    .menu-item:nth-last-child(-n+2) {
+        display: none;
+    }
+} 
