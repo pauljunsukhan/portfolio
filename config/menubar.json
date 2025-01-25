@@ -1,28 +1,11 @@
 {
-    /* Menu Bar Configuration
-     * ---------------------
-     * ARIA Roles:
-     * - menubar: Top-level container (automatically applied)
-     * - menuitem: Basic clickable item
-     * - menu: Submenu container
-     * - menuitemcheckbox: Toggleable item
-     * - menuitemradio: Single-select item from a group
-     * - button: Clickable button (like Apple menu)
-     *
-     * Action Types:
-     * - dialog: Opens a modal dialog
-     * - link: Navigate to URL
-     * - submenu: Shows nested menu items
-     * - preview: Opens a preview panel
-     */
-
     "apple_menu": {
-        "icon": "🍎",
+        "icon": "▶︎ •၊၊||၊|၊||‌။",
         "aria_label": "Apple menu",
         "role": "button",
         "action": {
             "type": "dialog",
-            "content": "About This Mac",
+            "content": "It feels like the future!",
             "title": "System Information"
         }
     },
@@ -41,18 +24,12 @@
                     }
                 },
                 {
-                    "label": "Open Recent",
-                    "role": "menu",
-                    "items": [
-                        {
-                            "label": "Project 1",
-                            "role": "menuitem",
-                            "action": {
-                                "type": "link",
-                                "url": "/projects/1"
-                            }
-                        }
-                    ]
+                    "label": "Project 1",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "/projects/1"
+                    }
                 },
                 {
                     "label": "Save",
@@ -96,57 +73,82 @@
                     "label": "Project Preview",
                     "role": "menuitem",
                     "action": {
-                        "type": "preview",
-                        "content": "project-preview"
-                    }
-                },
-                {
-                    "label": "Layout",
-                    "role": "menu",
-                    "items": [
-                        {
-                            "label": "Compact",
-                            "role": "menuitemradio",
-                            "group": "layout",
-                            "action": {
-                                "type": "toggle",
-                                "target": "layout",
-                                "value": "compact"
-                            }
-                        },
-                        {
-                            "label": "Comfortable",
-                            "role": "menuitemradio",
-                            "group": "layout",
-                            "action": {
-                                "type": "toggle",
-                                "target": "layout",
-                                "value": "comfortable"
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "label": "Special",
-            "role": "menu",
-            "items": [
-                {
-                    "label": "GitHub",
-                    "role": "menuitem",
-                    "action": {
                         "type": "link",
-                        "url": "https://github.com/pauljunsukhan",
-                        "external": true
+                        "url": "/project-preview"
                     }
                 },
                 {
                     "label": "Resume",
                     "role": "menuitem",
                     "action": {
-                        "type": "preview",
-                        "content": "resume-preview"
+                        "type": "link",
+                        "url": "./assets/docs/Han_Paul Resume_SW.pdf"
+                    }
+                },
+                {
+                    "label": "GitHub Profile",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "https://github.com/pauljunsukhan"
+                    }
+                },
+                {
+                    "label": "Compact Layout",
+                    "role": "menuitemradio",
+                    "group": "layout",
+                    "action": {
+                        "type": "toggle",
+                        "target": "layout",
+                        "value": "compact"
+                    }
+                },
+                {
+                    "label": "Comfortable Layout",
+                    "role": "menuitemradio",
+                    "group": "layout",
+                    "action": {
+                        "type": "toggle",
+                        "target": "layout",
+                        "value": "comfortable"
+                    }
+                }
+            ]
+        },
+        {
+            "label": "Help",
+            "role": "menu",
+            "items": [
+                {
+                    "label": "Architecture Docs",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "./documentation/ARCHITECTURE.md"
+                    }
+                },
+                {
+                    "label": "Design Docs",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "./documentation/DESIGN.md"
+                    }
+                },
+                {
+                    "label": "GitHub",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "https://github.com/pauljunsukhan"
+                    }
+                },
+                {
+                    "label": "LinkedIn",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "https://linkedin.com/in/pauljunsukhan"
                     }
                 }
             ]

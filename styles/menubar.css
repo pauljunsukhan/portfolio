@@ -2,13 +2,24 @@
  * menubar.css
  * =============================== */
 
+/* Menu Overlay */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1999; /* Just below menu bar */
+    background: transparent;
+}
+
 /* Global Menu Bar */
 .global-menu-bar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    height: 20px;
+    height: 22px; /* Reduced from 26px by ~15% */
     background: var(--menu-bg);
     border-bottom: 1px solid var(--window-border);
     display: flex;
@@ -16,46 +27,122 @@
     padding: 0 8px;
     z-index: 2000;
     font-family: "Chicago", "Helvetica Neue", sans-serif;
-    font-size: 12px;
+    font-size: 14px; /* Reduced from 16px by ~15% */
     white-space: nowrap;
-    overflow: hidden;
+    overflow: visible;
+}
+
+/* Menu Items */
+.menu-item {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.menu-item button {
+    padding: 2px 8px; /* Reduced from 2px 10px */
+    background: none;
+    border: none;
+    font: inherit;
+    color: inherit;
+    cursor: default;
+    white-space: nowrap;
+    text-align: left;
+    width: 100%;
+}
+
+.menu-item button:hover,
+.menu-item.active > button {
+    background: var(--primary-color);
+    color: var(--menu-bg);
+}
+
+/* Apple Menu */
+.apple-menu-container {
+    display: flex;
+    align-items: center;
 }
 
 .apple-menu {
-    margin-right: 20px;
-    padding: 2px 5px;
+    background: none;
+    border: none;
+    padding: 2px 4px;
+    margin-right: 5px;
+    cursor: pointer;
+    border-radius: 2px;
+    height: calc(100% - 4px);
+    display: flex;
+    align-items: center;
 }
 
 .apple-menu:hover {
-    background: var(--primary-color);
-    color: var(--menu-bg);
+    background: var(--menu-hover);
 }
 
+/* Menu Divider */
 .menu-divider {
     width: 1px;
-    height: 16px;
+    height: 17px; /* Reduced from 20px by ~15% */
     background: var(--window-border);
-    margin: 0 10px;
+    margin: 0 5px;
 }
 
-.menu-item {
-    padding: 2px 8px;
-    cursor: default;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+/* Submenus */
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px; /* Reduced from 260px by ~15% */
+    background: var(--menu-bg);
+    border: 1px solid var(--window-border);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+    z-index: 2001;
+    padding: 4px 0;
 }
 
-.menu-item:hover {
-    background: var(--primary-color);
-    color: var(--menu-bg);
+.submenu.active {
+    display: block;
 }
 
-/* Responsive: Some generic smaller screen adjustments */
+.submenu .menu-item {
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
+.submenu button {
+    padding: 4px 22px; /* Reduced from 5px 26px */
+}
+
+/* Checkbox/Radio items */
+button[role="menuitemcheckbox"]::before {
+    content: "☐";
+    margin-right: 7px; /* Increased from 5px */
+}
+
+button[role="menuitemcheckbox"][aria-checked="true"]::before {
+    content: "☑";
+}
+
+button[role="menuitemradio"]::before {
+    content: "○";
+    margin-right: 7px; /* Increased from 5px */
+}
+
+button[role="menuitemradio"][aria-checked="true"]::before {
+    content: "●";
+}
+
+/* Responsive adjustments */
 @media (max-width: 480px) {
-    .menu-item {
-        max-width: 40px;
+    .menu-item > button {
+        max-width: 78px; /* Increased from 60px by 30% */
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
+    
     .menu-item:nth-last-child(-n+2) {
         display: none;
     }

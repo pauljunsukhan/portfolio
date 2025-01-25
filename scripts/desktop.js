@@ -123,3 +123,51 @@ export async function generateDesktopIcons(pageSpecificConfig) {
         });
     }
 }
+
+// ===============================
+// Desktop.js - Desktop-specific functionality
+// ===============================
+
+//////////////////////////
+// Visitor Counter      //
+//////////////////////////
+export function updateVisitorCounter() {
+    try {
+        const badge = document.getElementById('visitor-badge');
+        const digits = document.querySelectorAll('.counter-digit');
+        if (!badge || !digits.length) {
+            throw new Error('Visitor counter elements not found');
+        }
+
+        function updateDisplay() {
+            try {
+                console.log('Attempting to update visitor count...');
+                badge.crossOrigin = 'anonymous';
+
+                // Hard-coded example
+                const defaultCount = '001998';
+                const paddedCount = defaultCount.padStart(6, '0');
+                digits.forEach((digit, idx) => {
+                    digit.textContent = paddedCount[idx] || '0';
+                });
+
+                badge.onerror = () => {
+                    console.log('Badge load failed, using default count');
+                };
+                badge.onload = () => {
+                    console.log('Badge loaded successfully');
+                };
+            } catch (err) {
+                console.error('Error in updateDisplay:', err);
+            }
+        }
+
+        console.log('Initializing visitor counter...');
+        updateDisplay();
+        // Update every 5 minutes
+        setInterval(updateDisplay, 300000);
+
+    } catch (error) {
+        console.error('Visitor counter error:', error);
+    }
+}

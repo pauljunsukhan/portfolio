@@ -9,7 +9,7 @@
     right: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 22px;
     z-index: 1;
     transition: transform 0.3s ease;
 }
@@ -18,7 +18,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: 64px;
+    width: 72px;
     cursor: pointer;
     transition: transform 0.2s ease;
     text-decoration: none;
@@ -28,22 +28,22 @@
     transform: scale(1.05);
 }
 .icon-image {
-    width: 32px;
-    height: 32px;
-    margin-bottom: 5px;
+    width: 36px;
+    height: 36px;
+    margin-bottom: 6px;
     background: var(--menu-bg);
     border: 1px solid var(--window-border);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 22px;
 }
 .icon-label {
     font-family: "Courier New", monospace;
-    font-size: 11px;
+    font-size: 12px;
     color: var(--window-border);
     background: var(--menu-bg);
-    padding: 2px 4px;
+    padding: 2px 5px;
     border-radius: 0;
     border: 1px solid var(--window-border);
 }
@@ -51,8 +51,8 @@
 /* Mobile toggling for .desktop-icons */
 @media (max-width: 768px) {
     .desktop-icons {
-        right: 5px;
-        gap: 10px;
+        right: 6px;
+        gap: 11px;
         transform: translateX(100%);
     }
     .desktop-icons.active {
@@ -62,7 +62,7 @@
         transform: scale(0.8);
     }
     .icon-label {
-        font-size: 10px;
+        font-size: 11px;
     }
 }
 
@@ -72,8 +72,8 @@
     position: fixed;
     top: 50%;
     right: 0;
-    width: 20px;
-    height: 40px;
+    width: 26px;
+    height: 52px;
     background: var(--menu-bg);
     border: 1px solid var(--window-border);
     border-right: none;
@@ -99,11 +99,23 @@ main.mac-window {
     max-width: var(--max-width);
     margin: var(--window-margin) auto;
     position: relative;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Main window content padding */
 main.mac-window > .content {
     padding: var(--spacing);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0; /* Reset min-height to allow flex to work properly */
+}
+
+/* Sections within main content */
+main.mac-window > .content > section {
+    margin-bottom: 2rem;
 }
 
 /* Forms */
@@ -177,4 +189,39 @@ input, textarea {
     .menu-item:nth-last-child(-n+2) {
         display: none;
     }
+}
+
+/* Visitor Counter - positioned at bottom */
+.visitor-counter {
+    text-align: center;
+    margin-top: auto !important; /* Force to bottom */
+    padding: 10px;
+    margin-bottom: 20px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--window-bg);
+}
+
+.counter-display {
+    display: inline-flex;
+    background: #000;
+    padding: 4px;
+    border-radius: 2px;
+    gap: 1px;
+    border: 1px solid #444;
+}
+
+.counter-digit {
+    width: 12px;
+    height: 18px;
+    background: #001100;
+    color: #32CD32;
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 0 5px #32CD32;
 }

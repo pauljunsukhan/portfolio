@@ -46,14 +46,21 @@ export function linkifyText(text) {
   });
 }
 
-/**
- * Automatically linkify elements with the 'auto-linkify' class
- */
+//////////////////////////
+// 5) AUTO-LINKIFY     //
+//////////////////////////
 export function initAutoLinkify() {
-  const elements = document.querySelectorAll('.auto-linkify');
-  elements.forEach(element => {
-    element.innerHTML = linkifyText(element.innerHTML);
-  });
+    try {
+        const links = document.querySelectorAll('a[href^="http"]');
+        links.forEach(link => {
+            if (!link.target) {
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+            }
+        });
+    } catch (error) {
+        console.error('Auto-linkify error:', error);
+    }
 }
 
 //////////////////////
@@ -314,79 +321,35 @@ export function createDialog({
  * Shows an error dialog with default text (or you can pass custom text).
  */
 export function showError() {
-  return createDialog(); // Uses default title/content from createDialog’s defaults
+  return createDialog(); // Uses default title/content from createDialog's defaults
 }
-  
-//////////////////////////
-// 6) VISITOR COUNTER   //
-//////////////////////////
-  export function updateVisitorCounter() {
-    try {
-      const badge = document.getElementById('visitor-badge');
-      const digits = document.querySelectorAll('.counter-digit');
-      if (!badge || !digits.length) {
-        throw new Error('Visitor counter elements not found');
-      }
-  
-      function updateDisplay() {
-        try {
-          console.log('Attempting to update visitor count...');
-          badge.crossOrigin = 'anonymous';
-  
-          // Hard-coded example
-          const defaultCount = '001998';
-          const paddedCount = defaultCount.padStart(6, '0');
-          digits.forEach((digit, idx) => {
-            digit.textContent = paddedCount[idx] || '0';
-          });
-  
-          badge.onerror = () => {
-            console.log('Badge load failed, using default count');
-          };
-          badge.onload = () => {
-            console.log('Badge loaded successfully');
-          };
-        } catch (err) {
-          console.error('Error in updateDisplay:', err);
-        }
-      }
-  
-      console.log('Initializing visitor counter...');
-      updateDisplay();
-      // Update every 5 minutes
-      setInterval(updateDisplay, 300000);
-  
-    } catch (error) {
-      console.error('Visitor counter error:', error);
-    }
-  }
   
 ///////////////////////////
 // 7) TYPEWRITER EFFECT  //
 ///////////////////////////
-  export function typewriterEffect(element) {
-    const text = element.textContent;
-    element.textContent = '';
-    let i = 0;
-    function type() {
-      if (i < text.length) {
-        element.textContent += text.charAt(i);
-        i++;
-        setTimeout(type, 100);
-      }
+export function typewriterEffect(element) {
+  const text = element.textContent;
+  element.textContent = '';
+  let i = 0;
+  function type() {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      i++;
+      setTimeout(type, 100);
     }
-    type();
   }
+  type();
+}
 
 //////////////////////////////
 // 8) INIT CONSTRUCTION PAGE //
 //////////////////////////////
-  export function initConstructionPage() {
-    const dateElement = document.querySelector('.construction-date .typewriter');
-    if (dateElement) {
-      typewriterEffect(dateElement);
-    }
+export function initConstructionPage() {
+  const dateElement = document.querySelector('.construction-date .typewriter');
+  if (dateElement) {
+    typewriterEffect(dateElement);
   }
+}
   
 /////////////////////////////
 // 9) MAIN INIT SEQUENCE  //
