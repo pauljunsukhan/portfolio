@@ -9,7 +9,6 @@ async function loadDesktopConfig(pageSpecificConfig) {
     // If a specific config path is provided, try that first
     if (pageSpecificConfig) {
         try {
-            console.log(`Loading specific desktop config from: ${pageSpecificConfig}`);
             const response = await fetch(pageSpecificConfig);
             if (response.ok) {
                 const data = await response.json();
@@ -17,29 +16,26 @@ async function loadDesktopConfig(pageSpecificConfig) {
                 return data;
             }
         } catch (error) {
-            console.warn(`Failed to load specific config from ${pageSpecificConfig}:`, error);
+            // Silently continue to next option
         }
     }
 
     // Try to load from current directory
     try {
-        const currentPath = './desktop.json';
-        console.log(`Trying to load desktop config from current directory: ${currentPath}`);
-        const response = await fetch(currentPath);
+        const response = await fetch('./desktop.json');
         if (response.ok) {
             const data = await response.json();
             console.log('Local desktop config loaded successfully');
             return data;
         }
     } catch (error) {
-        console.warn('No local desktop.json found in current directory');
+        // Silently continue to default config
     }
 
     // Fall back to default config
     try {
-        const defaultPath = './config/desktop.json';
-        console.log(`Loading default desktop config from: ${defaultPath}`);
-        const response = await fetch(defaultPath);
+        console.log('Loading default desktop config from: ./config/desktop.json');
+        const response = await fetch('./config/desktop.json');
         if (!response.ok) {
             throw new Error(`Failed to load default desktop config: ${response.status}`);
         }

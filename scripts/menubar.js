@@ -75,20 +75,16 @@ export async function generateMenuBar(pageSpecificConfig) {
         menuBar.appendChild(divider);
     }
 
-    // Add menu items
-    config.menu_items?.forEach((item, index) => {
-        console.log(`Creating menu item ${index}:`, item);
-        const menuItem = createMenuItem(item);
-        menuBar.appendChild(menuItem);
+    // Create menu items
+    config.menu_items.forEach((item, index) => {
+        createMenuItem(item, menuBar);
     });
-
-    // Initialize menu closing behavior
-    initializeMenuClosing(menuBar);
 
     // Initialize keyboard navigation
     initializeKeyboardNav(menuBar);
 
     console.log('Menu bar generation complete');
+    return menuBar;
 }
 
 function createAppleMenu(config) {
@@ -122,7 +118,7 @@ function createAppleMenu(config) {
     return container;
 }
 
-function createMenuItem(config) {
+function createMenuItem(config, menuBar) {
     console.log('Creating menu item:', { label: config.label, role: config.role });
     
     const container = document.createElement('div');
@@ -147,14 +143,7 @@ function createMenuItem(config) {
             e.stopPropagation();
             const isExpanded = button.getAttribute('aria-expanded') === 'true';
             
-            console.log('Menu clicked:', {
-                label: config.label,
-                wasExpanded: isExpanded,
-                willBe: !isExpanded
-            });
-            
             // Close all other top-level menus
-            const menuBar = container.closest('.global-menu-bar');
             if (menuBar) {
                 menuBar.querySelectorAll('.menu-item > button[aria-expanded="true"]').forEach(btn => {
                     if (btn !== button) {
@@ -180,7 +169,6 @@ function createMenuItem(config) {
         // For top-level menus, add hover behavior
         container.addEventListener('mouseenter', () => {
             // If any menu is open, open this one too
-            const menuBar = container.closest('.global-menu-bar');
             if (menuBar && menuBar.querySelector('.menu-item.active')) {
                 button.click();
             }
@@ -198,6 +186,8 @@ function createMenuItem(config) {
         });
     }
     
+    // Append the menu item to the menu bar
+    menuBar.appendChild(container);
     return container;
 }
 

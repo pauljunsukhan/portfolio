@@ -11,39 +11,35 @@ async function loadHeaderConfig(pageSpecificConfig) {
             const response = await fetch(pageSpecificConfig);
             if (response.ok) {
                 const data = await response.json();
-                console.log('Specific header config loaded successfully');
                 return data;
             }
         } catch (error) {
-            console.warn(`Failed to load specific header config from ${pageSpecificConfig}:`, error);
+            // Silently continue to next option
         }
     }
 
     // Try to load from current directory
     try {
-        const currentPath = './header.json';
-        const response = await fetch(currentPath);
+        const response = await fetch('./header.json');
         if (response.ok) {
             const data = await response.json();
-            console.log('Local header config loaded successfully');
             return data;
         }
     } catch (error) {
-        console.warn('No local header.json found in current directory');
+        // Silently continue to default config
     }
 
     // Fall back to default config
     try {
-        const defaultPath = './config/header.json';
-        const response = await fetch(defaultPath);
+        const response = await fetch('./config/header.json');
         if (!response.ok) {
-            throw new Error(`Failed to load default header config: ${response.status}`);
+            throw new Error('Failed to load header config');
         }
         const data = await response.json();
         console.log('Default header config loaded successfully');
         return data;
     } catch (error) {
-        console.error('Error loading default header config:', error);
+        console.error('Error loading header config:', error);
         return null;
     }
 }
