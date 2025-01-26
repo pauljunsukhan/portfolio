@@ -65,22 +65,28 @@
 .apple-menu-container {
     display: flex;
     align-items: center;
+    height: 100%;
 }
 
 .apple-menu {
     background: none;
     border: none;
-    padding: calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.3);
+    padding: 0 calc(var(--font-size-base) * 0.3);
     margin-right: calc(var(--font-size-base) * 0.35);
     cursor: pointer;
     border-radius: 2px;
-    height: calc(100% - calc(var(--font-size-base) * 0.3));
+    height: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-size: var(--font-size-menu);
+    transform: translateY(calc(var(--font-size-base) * -0.15)); /* Increased upward shift */
 }
 
 .apple-menu:hover {
-    background: var(--menu-hover);
+    background: var(--primary-color);
+    color: var(--menu-bg);
 }
 
 /* Menu Divider */

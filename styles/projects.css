@@ -114,7 +114,7 @@ main.mac-window.project-window:hover {
     flex: 1;
     background: var(--menu-bg);
     border: 1px solid var(--window-border);
-    border-radius: 4px;
+    border-radius: 3px;
     padding: 2px 6px;
     font-family: var(--font-primary);
     font-size: var(--font-size-sm);
