@@ -2,6 +2,9 @@
  * 1) global.css
  * =============================== */
 
+/* Import fonts */
+@import 'fonts.css';
+
 /* 1) Root Variables & Base Reset */
 :root {
     --primary-color: #2b2b2b;
@@ -27,6 +30,9 @@
 
 /* Engineering Paper Background, Body Reset */
 body {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
     background-color: var(--background-color);
     padding-top: 40px;
     margin: 0;
@@ -55,26 +61,28 @@ body::after {
 
 /* Typography - Engineering Style */
 h1, h2, h3 {
-    font-family: "Courier New", monospace;
+    font-family: var(--font-primary);
     margin-bottom: 1.5rem;
     color: var(--primary-color);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: var(--letter-spacing-normal);
 }
 
 h2 {
-    font-size: 1.5rem;
+    font-size: var(--font-size-subtitle);
     border-bottom: 1px solid var(--primary-color);
     padding-bottom: 0.3rem;
 }
 
 h3 {
-    font-size: 1.2rem;
+    font-size: var(--font-size-heading);
 }
 
 p {
+    font-family: var(--font-primary);
     margin-bottom: 1rem;
     color: var(--text-color);
+    line-height: var(--line-height-normal);
 }
 
 /* Forms */
@@ -83,12 +91,12 @@ input, textarea {
     padding: 0.5rem;
     border: 1px solid var(--window-border);
     background-color: var(--window-bg);
-    font-family: "Courier New", monospace;
+    font-family: var(--font-primary);
     margin-top: 0.25rem;
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: calc(var(--font-size-base) * 1.5);
 }
 
 /* Base Buttons */
@@ -97,11 +105,11 @@ button {
     color: var(--primary-color);
     border: 2px solid var(--window-border);
     padding: 0.5rem 1rem;
-    font-family: "Courier New", monospace;
+    font-family: var(--font-primary);
     cursor: pointer;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 12px;
+    letter-spacing: var(--letter-spacing-normal);
+    font-size: var(--font-size-sm);
 }
 
 button:hover {
@@ -113,8 +121,8 @@ button:hover {
 .mac-window {
     background: var(--window-bg);
     border: 1px solid var(--window-border);
-    border-radius: 6px 6px 2px 2px;
-    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    border-radius: calc(var(--font-size-base) * 0.4) calc(var(--font-size-base) * 0.4) calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.15);
+    box-shadow: calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.15) 0 rgba(0,0,0,0.1);
 }
 
 /* Window Title Bar */
@@ -125,9 +133,9 @@ button:hover {
     border-bottom: 1px solid var(--window-border);
     border-radius: 5px 5px 0 0;
     padding: 0 8px;
-    height: 24px;
-    font-family: "Courier New", monospace;
-    font-size: 12px;
+    height: calc(var(--font-size-base) * 1.7);
+    font-family: var(--font-primary);
+    font-size: var(--font-size-sm);
     position: relative;
 }
 
@@ -135,13 +143,13 @@ button:hover {
     flex: 1 1 auto;
     min-width: 0;
     text-align: center;
-    font-family: "Courier New", monospace;
-    letter-spacing: 0.05em;
+    font-family: var(--font-primary);
+    letter-spacing: var(--letter-spacing-tight);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 200px;
-    padding: 0 8px;
+    max-width: calc(var(--font-size-base) * 14);
+    padding: 0 calc(var(--font-size-base) * 0.6);
 }
 
 /* Main window content padding */
@@ -160,15 +168,15 @@ main.mac-window {
 /* Window Controls */
 .window-controls {
     display: flex;
-    gap: 6px;
+    gap: calc(var(--font-size-base) * 0.4);
     align-items: center;
     flex: 0 0 auto;
 }
 
 /* Base window button styles */
 .window-controls .window-button {
-    width: 12px;
-    height: 12px;
+    width: calc(var(--font-size-base) * 0.85);
+    height: calc(var(--font-size-base) * 0.85);
     padding: 0;
     margin: 0;
     border: 1px solid var(--window-border);
@@ -187,7 +195,7 @@ main.mac-window {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 8px;
+    width: calc(var(--font-size-base) * 0.6);
     height: 2px;
     background: rgba(0, 0, 0, 0.3);
     opacity: 0.5;

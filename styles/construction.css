@@ -2,6 +2,8 @@
  * Construction Page Styles
  * =============================== */
 
+@import 'fonts.css';
+
 /* Construction Page Content */
 .construction-content {
     display: flex;
@@ -10,39 +12,39 @@
     justify-content: center;
     height: 100%;
     text-align: center;
-    padding: 2rem;
-    font-family: "Courier New", monospace;
+    padding: calc(var(--font-size-base) * 2);
+    font-family: var(--font-primary);
 }
 
 .construction-title {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    letter-spacing: 0.2em;
+    font-size: var(--font-size-title);
+    margin-bottom: calc(var(--font-size-base) * 2);
+    letter-spacing: var(--letter-spacing-wide);
     border-bottom: none;
     animation: blink 2s infinite;
 }
 
 .construction-message {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    line-height: 1.5;
+    font-size: var(--font-size-lg);
+    margin-bottom: calc(var(--font-size-base) * 2);
+    line-height: var(--line-height-normal);
 }
 
 .construction-animation {
-    font-size: 2rem;
-    margin: 2rem 0;
-    padding: 1rem;
-    border: 2px dashed var(--primary-color);
-    border-radius: 4px;
+    font-size: var(--font-size-title);
+    margin: calc(var(--font-size-base) * 2) 0;
+    padding: calc(var(--font-size-base) * 0.75);
+    border: calc(var(--font-size-base) * 0.15) dashed var(--primary-color);
+    border-radius: calc(var(--font-size-base) * 0.3);
     text-align: center;
 }
 
 .construction-animation a {
     color: var(--secondary-color);
     text-decoration: none;
-    font-weight: bold;
-    padding: 0 4px;
-    border-bottom: 2px solid var(--secondary-color);
+    font-weight: var(--font-weight-bold);
+    padding: 0 calc(var(--font-size-base) * 0.3);
+    border-bottom: calc(var(--font-size-base) * 0.15) solid var(--secondary-color);
     transition: all 0.2s ease;
 }
 
@@ -58,13 +60,13 @@
 
 .construction-divider {
     width: 50%;
-    height: 2px;
+    height: calc(var(--font-size-base) * 0.15);
     background: repeating-linear-gradient(
         90deg,
         var(--primary-color),
-        var(--primary-color) 10px,
-        transparent 10px,
-        transparent 20px
+        var(--primary-color) calc(var(--font-size-base) * 0.7),
+        transparent calc(var(--font-size-base) * 0.7),
+        transparent calc(var(--font-size-base) * 1.4)
     );
-    margin: 2rem 0;
+    margin: calc(var(--font-size-base) * 2) 0;
 } 

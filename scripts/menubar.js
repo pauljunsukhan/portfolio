@@ -206,6 +206,18 @@ function createSubmenu(items) {
     submenu.className = 'submenu';
     submenu.setAttribute('role', 'menu');
     
+    // First pass: find default radio button in each group
+    const defaultsByGroup = {};
+    items.forEach(item => {
+        if (item.role === 'menuitemradio' && item.group && item.default) {
+            defaultsByGroup[item.group] = true;
+            // Also set the initial layout value
+            if (item.action.target === 'layout') {
+                document.body.setAttribute('data-layout', item.action.value);
+            }
+        }
+    });
+    
     items.forEach(item => {
         const menuItem = document.createElement('div');
         menuItem.className = 'menu-item';
@@ -214,8 +226,13 @@ function createSubmenu(items) {
         button.textContent = item.label;
         button.setAttribute('role', item.role || 'menuitem');
         
-        if (item.role === 'menuitemcheckbox' || item.role === 'menuitemradio') {
+        if (item.role === 'menuitemcheckbox') {
             button.setAttribute('aria-checked', 'false');
+        } else if (item.role === 'menuitemradio') {
+            // Set initial state based on default
+            const isDefault = item.default || 
+                            (!defaultsByGroup[item.group] && item.action.value === 'comfortable');
+            button.setAttribute('aria-checked', isDefault.toString());
         }
         
         button.addEventListener('click', (e) => {
@@ -231,7 +248,7 @@ function createSubmenu(items) {
                     // Uncheck all other radio items in the group
                     const group = item.group;
                     if (group) {
-                        submenu.querySelectorAll(`button[role="menuitemradio"]`).forEach(radio => {
+                        submenu.querySelectorAll(`button[role="menuitemradio"][data-group="${group}"]`).forEach(radio => {
                             radio.setAttribute('aria-checked', 'false');
                         });
                     }
@@ -247,6 +264,11 @@ function createSubmenu(items) {
                 }
             }
         });
+        
+        // Add group data attribute for radio buttons
+        if (item.role === 'menuitemradio' && item.group) {
+            button.setAttribute('data-group', item.group);
+        }
         
         menuItem.appendChild(button);
         submenu.appendChild(menuItem);

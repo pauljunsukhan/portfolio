@@ -2,15 +2,17 @@
  * header.css
  * =============================== */
 
+@import 'fonts.css';
+
 /* Notebook Header */
 .notebook-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 2rem;
-    font-family: "Courier New", monospace;
+    margin-bottom: calc(var(--font-size-base) * 2);
+    font-family: var(--font-primary);
     border-bottom: 1px dashed var(--primary-color);
-    padding-bottom: 1rem;
+    padding-bottom: calc(var(--font-size-base) * 0.75);
     position: relative;
 }
 
@@ -31,9 +33,9 @@
 
 .header-right {
     flex-shrink: 0;
-    margin-left: 2rem;
-    width: 45px;
-    height: 45px;
+    margin-left: calc(var(--font-size-base) * 2);
+    width: calc(var(--font-size-base) * 3.2);
+    height: calc(var(--font-size-base) * 3.2);
 }
 
 .headshot {
@@ -47,42 +49,42 @@
 
 .date,
 .subject {
-    margin: 0.5rem 0;
-    font-size: 0.9rem;
+    margin: calc(var(--font-size-base) * 0.35) 0;
+    font-size: var(--font-size-sm);
     color: var(--primary-color);
 }
 
 .typewriter {
     border-bottom: 1px solid var(--primary-color);
-    padding: 0 0.5rem;
+    padding: 0 calc(var(--font-size-base) * 0.35);
 }
 
 /* Title and Subtitle */
 #hero-title {
-    font-size: 2rem;
+    font-size: var(--font-size-title);
     border-bottom: 3px double var(--primary-color);
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
+    padding-bottom: calc(var(--font-size-base) * 0.35);
+    margin-bottom: calc(var(--font-size-base) * 1.1);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: var(--letter-spacing-normal);
 }
 
 .subtitle {
-    font-family: "Courier New", monospace;
+    font-family: var(--font-primary);
     color: var(--text-color);
-    margin-bottom: 1rem;
+    margin-bottom: calc(var(--font-size-base) * 0.75);
 }
 
 /* Responsive adjustments */
 @media (max-width: 480px) {
     .header-right {
-        width: 35px;
-        height: 35px;
+        width: calc(var(--font-size-base) * 2.5);
+        height: calc(var(--font-size-base) * 2.5);
     }
     #hero-title {
-        font-size: 1.5rem;
+        font-size: var(--font-size-subtitle);
     }
     .subtitle {
-        font-size: 0.9rem;
+        font-size: var(--font-size-sm);
     }
 } 

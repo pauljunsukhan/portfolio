@@ -1,0 +1,60 @@
+/* ===============================
+ * fonts.css - Font Management
+ * =============================== */
+
+/* Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+
+
+/* Font Family Definitions */
+:root {
+    /* Primary Font - Used for most content */
+    --font-primary: "Courier New", monospace;
+    
+    /* Menu Font - Used for menu bar */
+    --font-menu: "Chicago", "Helvetica Neue", sans-serif;
+
+    /* Body Font - Used for paragraphs and long form text */
+    --font-body: 'Libre Baskerville', serif;
+    
+    /* Display Font - Used for special displays like counters */
+    --font-display: "VT323", "Courier New", monospace;
+
+}
+
+/* Font Size Scale */
+:root {
+    --font-size-xs: 11px;
+    --font-size-sm: 12px;
+    --font-size-base: 14px;
+    --font-size-lg: 16px;
+    --font-size-xl: 18px;
+    --font-size-2xl: 24px;
+    
+    /* Special sizes */
+    --font-size-menu: 14px;
+    --font-size-title: 2rem;
+    --font-size-subtitle: 1.5rem;
+    --font-size-heading: 1.2rem;
+}
+
+/* Font Weights */
+:root {
+    --font-weight-normal: 400;
+    --font-weight-bold: 700;
+}
+
+/* Letter Spacing */
+:root {
+    --letter-spacing-tight: 0.05em;
+    --letter-spacing-normal: 0.1em;
+    --letter-spacing-wide: 0.2em;
+}
+
+/* Line Heights */
+:root {
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.5;
+    --line-height-loose: 1.8;
+} 

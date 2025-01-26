@@ -2,11 +2,13 @@
  * 3) projects.css
  * =============================== */
 
+@import 'fonts.css';
+
 /* Project Grid & Windows */
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(calc(var(--font-size-base) * 21.4), 1fr));
+    gap: calc(var(--font-size-base) * 2);
     margin: calc(-1 * var(--spacing));
     margin-top: 0;
     padding: var(--spacing);
@@ -20,10 +22,10 @@
     border: 1px solid var(--window-border);
     border-radius: 6px 6px 2px 2px;
     box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
-    margin-bottom: 1.5rem;
+    margin-bottom: calc(var(--font-size-base) * 1.5);
     display: flex;
     flex-direction: column;
-    min-height: 300px;
+    min-height: calc(var(--font-size-base) * 21.4);
     transition: transform 0.2s ease, box-shadow 0.2s ease, min-height 0.3s ease;
     pointer-events: auto;
 }
@@ -31,6 +33,7 @@
 /* Minimized state */
 .project-window.minimized {
     min-height: auto;
+    border: none; /* Remove the outer border */
 }
 
 /* Keep preview button visible even in minimized state */
@@ -42,6 +45,8 @@
 .project-window.minimized .window-title-bar {
     cursor: pointer;
     pointer-events: all;
+    border: 1px solid var(--window-border); /* Move border to title bar */
+    border-radius: 4px; /* Consistent border radius */
 }
 
 /* Keep hover effect only when not minimized */
@@ -72,27 +77,27 @@ main.mac-window.project-window:hover {
 }
 .project-window .content h3 {
     margin-top: 0;
-    font-size: 1.1rem;
+    font-size: var(--font-size-heading);
     color: var(--primary-color);
     border-bottom: 1px solid var(--primary-color);
-    padding-bottom: 0.3rem;
-    margin-bottom: 1rem;
+    padding-bottom: calc(var(--font-size-base) * 0.2);
+    margin-bottom: calc(var(--font-size-base) * 0.75);
 }
 .project-window .content p {
-    font-family: "Courier New", monospace;
-    line-height: 1.5;
-    margin-bottom: 1rem;
+    font-family: var(--font-primary);
+    line-height: var(--line-height-normal);
+    margin-bottom: calc(var(--font-size-base) * 0.75);
     color: var(--text-color);
 }
 .project-window .content ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    font-family: "Courier New", monospace;
+    font-family: var(--font-primary);
 }
 .project-window .content ul li {
-    margin: 0.5rem 0;
-    padding-left: 1rem;
+    margin: calc(var(--font-size-base) * 0.35) 0;
+    padding-left: calc(var(--font-size-base) * 0.75);
     border-left: 2px solid var(--secondary-color);
     color: var(--text-color);
 }
@@ -100,19 +105,19 @@ main.mac-window.project-window:hover {
 /* Project Buttons */
 .project-actions {
     margin-top: auto;
-    padding-top: 1rem;
+    padding-top: calc(var(--font-size-base) * 0.75);
     border-top: 1px solid var(--window-border);
     display: flex;
-    gap: 1rem;
+    gap: calc(var(--font-size-base) * 0.75);
 }
 .project-button {
     flex: 1;
     background: var(--menu-bg);
     border: 1px solid var(--window-border);
     border-radius: 4px;
-    padding: 0.5rem 1rem;
-    font-family: "Courier New", monospace;
-    font-size: 12px;
+    padding: 2px 6px;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-sm);
     color: var(--primary-color);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -150,20 +155,21 @@ main.mac-window.project-window:hover {
 
 /* Project Link Button (upper-right corner) */
 .project-link-button {
-    background: #2ea538;  /* Muted retro Mac green from style guide */
+    background: #2ea538;
     color: var(--window-bg);
-    border: 1px solid #1e7a28;  /* Darker muted green from style guide */
-    padding: 2px 8px;
-    font-size: 12px;
-    font-family: "Courier New", monospace;
+    border: 1px solid #1e7a28;
+    padding: 0 3px;
+    font-size: var(--font-size-xs);
+    font-family: var(--font-primary);
     text-decoration: none;
-    border-radius: 3px;
+    border-radius: 4px;
     margin-left: auto;
     transition: background 0.2s ease;
+    line-height: 1.4;
 }
 
 .project-link-button:hover {
-    background: #1e7a28;  /* Use border color for hover */
+    background: #1e7a28;
 }
 
 /* Preview Window Overlay */
@@ -183,18 +189,18 @@ main.mac-window.project-window:hover {
 }
 .project-preview .exit-button {
     position: absolute;
-    top: -24px;
+    top: calc(var(--font-size-base) * -1.7);
     left: 0;
-    height: 24px;
+    height: calc(var(--font-size-base) * 1.7);
     width: auto;
-    padding: 0 12px;
-    background: #ff3b30;  /* Apple red from style guide */
-    border: 1px solid #c41e3a;  /* Darker red from style guide */
-    border-radius: 5px 5px 0 0;
+    padding: 0 calc(var(--font-size-base) * 0.85);
+    background: #ff3b30;
+    border: 1px solid #c41e3a;
+    border-radius: calc(var(--font-size-base) * 0.35) calc(var(--font-size-base) * 0.35) 0 0;
     border-bottom: none;
     color: var(--window-bg);
-    font-family: "Courier New", monospace;
-    font-size: 12px;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-sm);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -216,9 +222,9 @@ main.mac-window.project-window:hover {
     overflow: hidden;
 }
 .project-preview .preview-content main.mac-window {
-    margin: 20px;
-    width: calc(100% - 40px);
-    height: calc(100% - 44px);
+    margin: calc(var(--font-size-base) * 1.4);
+    width: calc(100% - calc(var(--font-size-base) * 2.8));
+    height: calc(100% - calc(var(--font-size-base) * 3.15));
     border: 1px solid var(--window-border);
     border-radius: 6px 6px 2px 2px;
     overflow: auto;
@@ -238,7 +244,7 @@ body.preview-open {
     border: 1px solid var(--window-border);
     border-radius: 6px 6px 2px 2px;
     box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
-    width: 300px;
+    width: calc(var(--font-size-base) * 21.4);
     z-index: 2100;
     display: none;
     flex-direction: column;
@@ -247,7 +253,7 @@ body.preview-open {
     display: flex;
 }
 .error-dialog .window-title-bar {
-    height: 24px;
+    height: calc(var(--font-size-base) * 1.7);
     background: var(--menu-bg);
     border-bottom: 1px solid var(--window-border);
 }
@@ -259,10 +265,10 @@ body.preview-open {
     background: #c41e3a !important;  /* Use border color for hover */
 }
 .error-dialog .content {
-    padding: 2rem;
+    padding: calc(var(--font-size-base) * 2);
     text-align: center;
-    font-family: "Courier New", monospace;
-    font-size: 14px;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-base);
     color: var(--primary-color);
 }
 
@@ -281,25 +287,25 @@ body.preview-open {
 /* Social Links, Email Dialog, etc. */
 .social-links {
     padding: var(--spacing);
-    margin-bottom: 0.5rem;
+    margin-bottom: calc(var(--font-size-base) * 0.35);
 }
 .social-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
-    gap: 1rem;
-    padding: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(calc(var(--font-size-base) * 10.7), 1fr));
+    gap: calc(var(--font-size-base) * 0.75);
+    padding: calc(var(--font-size-base) * 0.75);
 }
 .social-link {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem;
+    gap: calc(var(--font-size-base) * 0.35);
+    padding: calc(var(--font-size-base) * 0.55);
     background: var(--menu-bg);
     border: 1px solid var(--window-border);
-    border-radius: 4px;
+    border-radius: calc(var(--font-size-base) * 0.3);
     text-decoration: none;
     color: var(--primary-color);
-    font-family: "Courier New", monospace;
+    font-family: var(--font-primary);
     transition: all 0.2s ease;
     text-transform: none;
 }
@@ -310,13 +316,13 @@ body.preview-open {
     box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
 }
 .social-icon {
-    font-size: 1.2rem;
+    font-size: var(--font-size-xl);
     min-width: 24px;
     text-align: center;
 }
 .social-label {
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
+    font-size: var(--font-size-sm);
+    letter-spacing: var(--letter-spacing-tight);
 }
 
 /* Email Button & Dialog */
@@ -324,14 +330,14 @@ body.preview-open {
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem;
+    gap: calc(var(--font-size-base) * 0.35);
+    padding: calc(var(--font-size-base) * 0.55);
     background: var(--menu-bg);
     border: 1px solid var(--window-border);
-    border-radius: 4px;
+    border-radius: calc(var(--font-size-base) * 0.3);
     text-decoration: none;
     color: var(--primary-color);
-    font-family: "Courier New", monospace;
+    font-family: var(--font-primary);
     transition: all 0.2s ease;
     cursor: pointer;
 }
@@ -350,7 +356,7 @@ body.preview-open {
     border: 1px solid var(--window-border);
     border-radius: 6px 6px 2px 2px;
     box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
-    width: 300px;
+    width: calc(var(--font-size-base) * 21.4);
     z-index: 2100;
     display: none;
     flex-direction: column;
@@ -359,7 +365,7 @@ body.preview-open {
     display: flex;
 }
 .email-dialog .window-title-bar {
-    height: 24px;
+    height: calc(var(--font-size-base) * 1.7);
     background: var(--menu-bg);
     border-bottom: 1px solid var(--window-border);
 }
@@ -368,23 +374,24 @@ body.preview-open {
     border-color: #c41e3a;
 }
 .email-dialog .content {
-    padding: 2rem;
+    padding: calc(var(--font-size-base) * 2);
     text-align: center;
-    font-family: "Courier New", monospace;
-    font-size: 14px;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-base);
     color: var(--primary-color);
 }
 
 /* Additional Mac Dialog (generic) */
 .mac-dialog {
     position: fixed;
-    top: 50%; left: 50%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     background: var(--window-bg);
     border: 1px solid var(--window-border);
     border-radius: 6px 6px 2px 2px;
     box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
-    width: 300px;
+    width: calc(var(--font-size-base) * 21.4);
     z-index: 2100;
     display: none;
     flex-direction: column;
@@ -393,7 +400,7 @@ body.preview-open {
     display: flex;
 }
 .mac-dialog .window-title-bar {
-    height: 24px;
+    height: calc(var(--font-size-base) * 1.7);
     background: var(--menu-bg);
     border-bottom: 1px solid var(--window-border);
 }
@@ -402,20 +409,20 @@ body.preview-open {
     border-color: #c41e3a;
 }
 .mac-dialog .content {
-    padding: 2rem;
+    padding: calc(var(--font-size-base) * 2);
     text-align: center;
-    font-family: "Courier New", monospace;
-    font-size: 14px;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-base);
     color: var(--primary-color);
 }
 .mac-dialog .content p {
-    margin: 0.5rem 0;
+    margin: calc(var(--font-size-base) * 0.35) 0;
 }
 
 /* Visitor Counter */
 .visitor-counter {
     text-align: center;
-    margin: 0 auto 1rem;
+    margin: 0 auto calc(var(--font-size-base) * 0.75);
     width: fit-content;
     background: var(--window-bg);
 }
@@ -423,12 +430,12 @@ body.preview-open {
 /* Window Title Bar Link (GitHub or similar) */
 .window-link {
     position: absolute;
-    right: 8px;
+    right: calc(var(--font-size-base) * 0.6);
     color: var(--window-bg);
     text-decoration: none;
-    font-size: 11px;
-    padding: 2px 6px;
-    background: #2ea538; /* Muted retro Mac green */
+    font-size: var(--font-size-xs);
+    padding: calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.4);
+    background: #2ea538;
     border: 1px solid #1e7a28;
     border-radius: 3px;
     transition: all 0.2s ease;
@@ -455,15 +462,15 @@ body.preview-open {
     border: 1px solid var(--window-border);
     border-radius: 6px 6px 2px 2px;
     box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
-    margin-bottom: 1.5rem;
+    margin-bottom: calc(var(--font-size-base) * 1.5);
 }
 
 .dock-window .dock-content {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 1rem;
-    min-height: 100px;  /* Ensure dock is visible even when empty */
+    gap: calc(var(--font-size-base) * 0.35);
+    padding: calc(var(--font-size-base) * 0.75);
+    min-height: calc(var(--font-size-base) * 7.15);  /* Convert 100px to font-based */
 }
 
 /* Minimized windows inside dock */
@@ -473,10 +480,12 @@ body.preview-open {
     cursor: default;
     transform: none;
     box-shadow: none;
+    border: none; /* Ensure no border on minimized dock windows */
 }
 
 .dock-window .project-window.minimized .window-title-bar {
-    border-radius: 4px;  /* Round corners when it's just the title bar */
+    border: 1px solid var(--window-border); /* Consistent border on title bar */
+    border-radius: 4px; /* Consistent border radius */
     cursor: default;
 }
 

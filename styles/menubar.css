@@ -2,6 +2,8 @@
  * menubar.css
  * =============================== */
 
+@import 'fonts.css';
+
 /* Menu Overlay */
 .menu-overlay {
     position: fixed;
@@ -19,15 +21,15 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 22px; /* Reduced from 26px by ~15% */
+    height: calc(var(--font-size-menu) * 1.6);
     background: var(--menu-bg);
     border-bottom: 1px solid var(--window-border);
     display: flex;
     align-items: center;
-    padding: 0 8px;
+    padding: 0 calc(var(--font-size-base) * 0.6);
     z-index: 2000;
-    font-family: "Chicago", "Helvetica Neue", sans-serif;
-    font-size: 14px; /* Reduced from 16px by ~15% */
+    font-family: var(--font-menu);
+    font-size: var(--font-size-menu);
     white-space: nowrap;
     overflow: visible;
 }
@@ -41,10 +43,11 @@
 }
 
 .menu-item button {
-    padding: 2px 8px; /* Reduced from 2px 10px */
+    padding: calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.6);
     background: none;
     border: none;
-    font: inherit;
+    font-family: var(--font-menu);
+    font-size: var(--font-size-menu);
     color: inherit;
     cursor: default;
     white-space: nowrap;
@@ -67,11 +70,11 @@
 .apple-menu {
     background: none;
     border: none;
-    padding: 2px 4px;
-    margin-right: 5px;
+    padding: calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.3);
+    margin-right: calc(var(--font-size-base) * 0.35);
     cursor: pointer;
     border-radius: 2px;
-    height: calc(100% - 4px);
+    height: calc(100% - calc(var(--font-size-base) * 0.3));
     display: flex;
     align-items: center;
 }
@@ -82,10 +85,10 @@
 
 /* Menu Divider */
 .menu-divider {
-    width: 1px;
-    height: 17px; /* Reduced from 20px by ~15% */
+    width: calc(var(--font-size-base) * 0.07);  /* Convert 1px to font-based */
+    height: calc(var(--font-size-menu) * 1.2);
     background: var(--window-border);
-    margin: 0 5px;
+    margin: 0 calc(var(--font-size-base) * 0.35);
 }
 
 /* Submenus */
@@ -94,12 +97,12 @@
     position: absolute;
     top: 100%;
     left: 0;
-    min-width: 220px; /* Reduced from 260px by ~15% */
+    min-width: calc(var(--font-size-base) * 15);
     background: var(--menu-bg);
     border: 1px solid var(--window-border);
     box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
     z-index: 2001;
-    padding: 4px 0;
+    padding: calc(var(--font-size-base) * 0.3) 0;
 }
 
 .submenu.active {
@@ -113,13 +116,13 @@
 }
 
 .submenu button {
-    padding: 4px 22px; /* Reduced from 5px 26px */
+    padding: calc(var(--font-size-base) * 0.3) calc(var(--font-size-base) * 1.6);
 }
 
 /* Checkbox/Radio items */
 button[role="menuitemcheckbox"]::before {
     content: "☐";
-    margin-right: 7px; /* Increased from 5px */
+    margin-right: calc(var(--font-size-base) * 0.5);
 }
 
 button[role="menuitemcheckbox"][aria-checked="true"]::before {
@@ -128,7 +131,7 @@ button[role="menuitemcheckbox"][aria-checked="true"]::before {
 
 button[role="menuitemradio"]::before {
     content: "○";
-    margin-right: 7px; /* Increased from 5px */
+    margin-right: calc(var(--font-size-base) * 0.5);
 }
 
 button[role="menuitemradio"][aria-checked="true"]::before {
@@ -138,7 +141,7 @@ button[role="menuitemradio"][aria-checked="true"]::before {
 /* Responsive adjustments */
 @media (max-width: 480px) {
     .menu-item > button {
-        max-width: 78px; /* Increased from 60px by 30% */
+        max-width: calc(var(--font-size-base) * 5.6);
         overflow: hidden;
         text-overflow: ellipsis;
     }
@@ -146,4 +149,18 @@ button[role="menuitemradio"][aria-checked="true"]::before {
     .menu-item:nth-last-child(-n+2) {
         display: none;
     }
+}
+
+/* Window Title Bar Link (GitHub or similar) */
+.window-link {
+    position: absolute;
+    right: calc(var(--font-size-base) * 0.6);
+    color: var(--window-bg);
+    text-decoration: none;
+    font-size: var(--font-size-xs);
+    padding: calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.4);
+    background: #2ea538; /* Muted retro Mac green */
+    border: 1px solid #1e7a28;
+    border-radius: 3px;
+    transition: all 0.2s ease;
 } 

@@ -2,14 +2,16 @@
  * 2) desktop.css
  * =============================== */
 
+@import 'fonts.css';
+
 /* Desktop Icons & Layout */
 .desktop-icons {
     position: fixed;
-    top: 40px;
-    right: 20px;
+    top: calc(var(--font-size-base) * 2.85);
+    right: calc(var(--font-size-base) * 1.4);
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: calc(var(--font-size-base) * 1.6);
     z-index: 1;
     transition: transform 0.3s ease;
 }
@@ -18,7 +20,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: 72px;
+    width: calc(var(--font-size-base) * 5.15);
     cursor: pointer;
     transition: transform 0.2s ease;
     text-decoration: none;
@@ -28,19 +30,19 @@
     transform: scale(1.05);
 }
 .icon-image {
-    width: 36px;
-    height: 36px;
-    margin-bottom: 6px;
+    width: calc(var(--font-size-base) * 2.6);
+    height: calc(var(--font-size-base) * 2.6);
+    margin-bottom: calc(var(--font-size-base) * 0.4);
     background: var(--menu-bg);
     border: 1px solid var(--window-border);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
+    font-size: var(--font-size-2xl);
 }
 .icon-label {
-    font-family: "Courier New", monospace;
-    font-size: 12px;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-sm);
     color: var(--window-border);
     background: var(--menu-bg);
     padding: 2px 5px;
@@ -51,8 +53,8 @@
 /* Mobile toggling for .desktop-icons */
 @media (max-width: 768px) {
     .desktop-icons {
-        right: 6px;
-        gap: 11px;
+        right: calc(var(--font-size-base) * 0.4);
+        gap: calc(var(--font-size-base) * 0.8);
         transform: translateX(100%);
     }
     .desktop-icons.active {
@@ -62,7 +64,7 @@
         transform: scale(0.8);
     }
     .icon-label {
-        font-size: 11px;
+        font-size: var(--font-size-xs);
     }
 }
 
@@ -72,8 +74,8 @@
     position: fixed;
     top: 50%;
     right: 0;
-    width: 26px;
-    height: 52px;
+    width: calc(var(--font-size-base) * 1.85);
+    height: calc(var(--font-size-base) * 3.7);
     background: var(--menu-bg);
     border: 1px solid var(--window-border);
     border-right: none;
@@ -115,20 +117,20 @@ main.mac-window > .content {
 
 /* Sections within main content */
 main.mac-window > .content > section {
-    margin-bottom: 2rem;
+    margin-bottom: calc(var(--font-size-base) * 2);
 }
 
 /* Forms */
 input, textarea {
     width: 100%;
-    padding: 0.5rem;
+    padding: calc(var(--font-size-base) * 0.35);
     border: 1px solid var(--window-border);
     background-color: var(--window-bg);
-    font-family: "Courier New", monospace;
-    margin-top: 0.25rem;
+    font-family: var(--font-primary);
+    margin-top: calc(var(--font-size-base) * 0.2);
 }
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: calc(var(--font-size-base) * 1.5);
 }
 
 /* Notebook Header */
@@ -137,7 +139,7 @@ input, textarea {
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 2rem;
-    font-family: "Courier New", monospace;
+    font-family: var(--font-primary);
     border-bottom: 1px dashed var(--primary-color);
     padding-bottom: 1rem;
     position: relative;
@@ -170,7 +172,7 @@ input, textarea {
 .date,
 .subject {
     margin: 0.5rem 0;
-    font-size: 0.9rem;
+    font-size: var(--font-size-sm);
     color: var(--primary-color);
 }
 .typewriter {
@@ -194,32 +196,47 @@ input, textarea {
 /* Visitor Counter - positioned at bottom */
 .visitor-counter {
     text-align: center;
-    margin-top: auto !important; /* Force to bottom */
-    padding: 10px;
-    margin-bottom: 20px;
+    margin-top: auto !important;
+    padding: calc(var(--font-size-base) * 0.7);
+    margin-bottom: calc(var(--font-size-base) * 1.4);
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
     background: var(--window-bg);
 }
 
+.project-window {
+    position: relative;
+    width: 100%;
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: calc(var(--font-size-base) * 0.4) calc(var(--font-size-base) * 0.4) calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.15);
+    box-shadow: calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.15) 0 rgba(0,0,0,0.1);
+    margin-bottom: calc(var(--font-size-base) * 1.5);
+    display: flex;
+    flex-direction: column;
+    min-height: calc(var(--font-size-base) * 21.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, min-height 0.3s ease;
+    pointer-events: auto;
+}
+
 .counter-display {
     display: inline-flex;
     background: #000;
-    padding: 4px;
-    border-radius: 2px;
-    gap: 1px;
+    padding: calc(var(--font-size-base) * 0.3);
+    border-radius: calc(var(--font-size-base) * 0.15);
+    gap: calc(var(--font-size-base) * 0.07);
     border: 1px solid #444;
 }
 
 .counter-digit {
-    width: 12px;
-    height: 18px;
+    width: calc(var(--font-size-base) * 0.85);
+    height: calc(var(--font-size-base) * 1.3);
     background: #001100;
     color: #32CD32;
-    font-family: "VT323", "Courier New", monospace;
-    font-size: 14px;
-    font-weight: bold;
+    font-family: var(--font-display);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
     display: flex;
     align-items: center;
     justify-content: center;

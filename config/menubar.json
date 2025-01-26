@@ -15,29 +15,21 @@
             "role": "menu",
             "items": [
                 {
-                    "label": "New Project",
+                    "label": "Export Page",
                     "role": "menuitem",
                     "action": {
                         "type": "dialog",
-                        "title": "Create New Project",
-                        "content": "Project creation form goes here"
+                        "title": "Export Page as PDF",
+                        "content": "Roadmap: convert current page to pdf for offline viewing."
                     }
                 },
                 {
-                    "label": "Project 1",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "/projects/1"
-                    }
-                },
-                {
-                    "label": "Save",
+                    "label": "Export Site",
                     "role": "menuitem",
                     "action": {
                         "type": "dialog",
-                        "title": "Save Project",
-                        "content": "Saving..."
+                        "title": "Export Site as PDF",
+                        "content": "Roadmap: convert entire site to pdf for offline viewing."
                     }
                 }
             ]
@@ -46,8 +38,18 @@
             "label": "Edit",
             "role": "menu",
             "items": [
+
                 {
-                    "label": "Dark Mode",
+                    "label": "Preferences",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "dialog",
+                        "title": "Preferences",
+                        "content": "It's good as is."
+                    }
+                },
+                                {
+                    "label": "Dark Mode (TODO)",
                     "role": "menuitemcheckbox",
                     "action": {
                         "type": "toggle",
@@ -55,46 +57,7 @@
                     }
                 },
                 {
-                    "label": "Preferences",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "dialog",
-                        "title": "Preferences",
-                        "content": "Settings panel goes here"
-                    }
-                }
-            ]
-        },
-        {
-            "label": "View",
-            "role": "menu",
-            "items": [
-                {
-                    "label": "Project Preview",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "/project-preview"
-                    }
-                },
-                {
-                    "label": "Resume",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "./assets/docs/Han_Paul Resume_SW.pdf"
-                    }
-                },
-                {
-                    "label": "GitHub Profile",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "https://github.com/pauljunsukhan"
-                    }
-                },
-                {
-                    "label": "Compact Layout",
+                    "label": "Compromised (TODO)",
                     "role": "menuitemradio",
                     "group": "layout",
                     "action": {
@@ -104,15 +67,64 @@
                     }
                 },
                 {
-                    "label": "Comfortable Layout",
+                    "label": "Idealized",
                     "role": "menuitemradio",
                     "group": "layout",
                     "action": {
                         "type": "toggle",
                         "target": "layout",
                         "value": "comfortable"
+                    },
+                    "default": true
+                }
+            ]
+        },
+        {
+            "label": "View",
+            "role": "menu",
+            "items": [
+
+                {
+                    "label": "Resume (SW)",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "./assets/docs/Han_Paul Resume_SW.pdf"
+                    }
+                },
+                {
+                    "label": "Resume (HW)",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "./assets/docs/Han_Paul Resume.pdf"
+                    }
+                },
+                {
+                    "label": "GitHub",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "https://github.com/pauljunsukhan"
+                    }
+                },
+                {
+                    "label": "Hugging Face",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "https://huggingface.co/pauljunsukhan"
+                    }
+                },
+                {
+                    "label": "Old Site",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "https://paulside.com"
                     }
                 }
+
             ]
         },
         {
@@ -120,7 +132,23 @@
             "role": "menu",
             "items": [
                 {
-                    "label": "Architecture Docs",
+                    "label": "Twitter",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "https://x.com/pauljunsukhan"
+                    }
+                },
+                {
+                    "label": "LinkedIn",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "https://linkedin.com/in/pauljunsukhan"
+                    }
+                },
+                {
+                    "label": "System Docs",
                     "role": "menuitem",
                     "action": {
                         "type": "link",
@@ -133,22 +161,6 @@
                     "action": {
                         "type": "link",
                         "url": "./documentation/DESIGN.md"
-                    }
-                },
-                {
-                    "label": "GitHub",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "https://github.com/pauljunsukhan"
-                    }
-                },
-                {
-                    "label": "LinkedIn",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "https://linkedin.com/in/pauljunsukhan"
                     }
                 }
             ]
