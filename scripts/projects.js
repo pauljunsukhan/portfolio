@@ -11,7 +11,7 @@
  *     "Link: https://example.com Label: MyLink" => <a href="...">MyLink</a>
  */
 
-import { createDialog } from './globals.js';
+import { createDialog, linkifyText } from './globals.js';
 
 /**
  * Loads project data from JSON and renders the project windows.
@@ -98,7 +98,7 @@ function createProjectWindow(project) {
   const githubText = buttons.githubText || 'Github'; // allow custom text for the GitHub button
 
   // Build the window's inner HTML with retro stylings
-  // Mark the <ul> with .auto-linkify to let the global linkify function process specs.
+  // Process specs through linkifyText before rendering
   windowDiv.innerHTML = `
     <div class="window-title-bar">
       <div class="window-controls">
@@ -119,7 +119,7 @@ function createProjectWindow(project) {
       <h3>${project.subtitle || ''}</h3>
       <p>${project.description || ''}</p>
       <ul class="auto-linkify">
-        ${(project.specs || []).map(spec => `<li>${spec}</li>`).join('')}
+        ${(project.specs || []).map(spec => `<li>${linkifyText(spec)}</li>`).join('')}
       </ul>
       <div class="project-actions">
         <button class="project-button preview" data-project="${project.id}">Preview</button>

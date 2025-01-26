@@ -1,0 +1,26 @@
+{
+  "id": "project-docs",
+  "title": "Project Documentation",
+  "content": [
+    {
+      "type": "markdown",
+      "content": "# Project Documentation\n\nTechnical documentation and implementation details for current projects.\n\n## System Architecture\n\nThe system is built using a modular approach with the following components:",
+      "style": {
+        "margin": "normal"
+      }
+    },
+    {
+      "type": "code",
+      "content": "// Component structure\ncomponents/\n  ├── document/\n  │   ├── document.js\n  │   └── document.css\n  ├── projects/\n  └── socials/",
+      "language": "plaintext",
+      "style": {
+        "theme": "retro-mac"
+      }
+    }
+  ],
+  "metadata": {
+    "author": "Paul Han",
+    "date": "2024-03-19",
+    "tags": ["documentation", "architecture"]
+  }
+} 

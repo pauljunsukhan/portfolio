@@ -13,37 +13,22 @@
  * -------------------------
  * These functions provide automatic link generation from text.
  * 
- * Usage:
- * 1. Add the 'auto-linkify' class to any element containing text you want to process:
- *    <div class="auto-linkify">
- *      Link: https://example.com Label: My Example Site
- *    </div>
- * 
- * 2. The text should follow this format:
- *    "Link: URL Label: Link Text"
- *    - If Label is omitted, the URL will be used as the link text
- *    - Example: "Link: https://github.com Label: View on GitHub"
- *    - Example: "Link: https://github.com" (URL will be the link text)
- * 
- * 3. The result will be an anchor tag:
- *    <a href="URL" target="_blank" rel="noopener noreferrer">Link Text</a>
- * 
- * Note: initAutoLinkify() is called automatically on DOMContentLoaded,
- * so you don't need to call it manually unless you're adding content dynamically.
+ * Format: 'Link: URL Label: "Link Text"'
+ * Examples:
+ *   Link: https://github.com Label: "View on GitHub"
+ *   Link: https://github.com Label: "View Project (v2.0)"
+ *   Link: https://github.com (URL will be the link text if no label)
+ *   For quotes in label use: Label: "Contains \"quoted\" text"
  */
 export function linkifyText(text) {
-  // Capture groups:
-  // 1) The portion after "Link:" up to "Label:" or end-of-string
-  // 2) The portion after "Label:" if present
-  // This regex is flexible if there's spacing changes.
-  const linkRegex = /Link:\s*(\S+)(?:\s+Label:\s*(.+))?/gi;
-
-  return text.replace(linkRegex, (match, url, label) => {
-    // If no label is provided, use the URL itself as the link text
-    const displayText = label || url;
-    // You could further sanitize or validate URL if needed
-    return `<a href="${url}" target="_blank" rel="noopener noreferrer">${displayText}</a>`;
-  });
+    // Match "Link: URL Label: "Text"" pattern
+    const linkPattern = /Link:\s*(https?:\/\/[^\s]+)(?:\s+Label:\s*"((?:[^"\\]|\\"|\\\\)*)")?/g;
+    
+    return text.replace(linkPattern, (match, url, label) => {
+        // If label exists, unescape any escaped quotes
+        const displayText = label ? label.replace(/\\"/g, '"').replace(/\\\\/g, '\\') : url;
+        return `<a href="${url}" target="_blank" rel="noopener noreferrer">${displayText}</a>`;
+    });
 }
 
 //////////////////////////
@@ -51,6 +36,14 @@ export function linkifyText(text) {
 //////////////////////////
 export function initAutoLinkify() {
     try {
+        // First handle explicit Link: format
+        document.querySelectorAll('.markdown-block, .code-block').forEach(block => {
+            if (block.innerHTML.includes('Link:')) {
+                block.innerHTML = linkifyText(block.innerHTML);
+            }
+        });
+
+        // Then handle any remaining external links
         const links = document.querySelectorAll('a[href^="http"]');
         links.forEach(link => {
             if (!link.target) {

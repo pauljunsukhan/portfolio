@@ -4,6 +4,7 @@
 
 /* Import fonts */
 @import 'fonts.css';
+@import 'documents.css';
 
 /* 1) Root Variables & Base Reset */
 :root {
@@ -83,6 +84,22 @@ p {
     margin-bottom: 1rem;
     color: var(--text-color);
     line-height: var(--line-height-normal);
+}
+
+/* Links - Classic Mac Style */
+a:not(.project-link-button):not(.project-button):not(.social-link) {
+    color: var(--primary-color);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--primary-color);
+    transition: all 0.2s ease;
+    padding: 0 2px;
+    display: inline-block;
+}
+
+a:not(.project-link-button):not(.project-button):not(.social-link):hover {
+    background: var(--primary-color);
+    color: var(--window-bg);
+    border-bottom: 1px solid var(--primary-color);
 }
 
 /* Forms */
@@ -272,4 +289,41 @@ main.mac-window {
         width: 90%;
         max-width: 300px;
     }
+}
+
+.window-controls .window-button.commentary-button {
+    background: #666 !important;
+    border-color: #444 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.window-controls .window-button.commentary-button:hover {
+    background: #444 !important;
+}
+
+.window-controls .window-button.commentary-button::after {
+    content: '?';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: none !important;
+    border: none;
+    width: auto;
+    height: auto;
+    color: rgba(0, 0, 0, 0.3);
+    font-family: var(--font-primary);
+    font-size: calc(var(--font-size-base) * 0.7);
+    text-align: center;
+}
+
+.markdown-block img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    display: block;
 }

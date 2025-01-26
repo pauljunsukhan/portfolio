@@ -1,0 +1,50 @@
+{
+  "id": "field-notes",
+  "title": "Field Notes",
+  "commentary": "These field notes represent my current research directions and ongoing experiments. The silent speech interface project has shown promising initial results with a 92% accuracy rate in early testing phases. \n\nThe AI-human intelligence augmentation work is particularly exciting as it combines multiple disciplines including neuroscience, machine learning, and human-computer interaction.",
+  "content": [
+    {
+      "type": "markdown",
+      "content": "# FIELD NOTES\n\nThoughts and observations on current projects and research directions.\n\n## RECENT UPDATES\n\n* Working on silent speech interfaces (Link: https://github.com/paulhan221/silent-speech Label: \"View Project\")\n* Exploring AI-human intelligence augmentation\n* Testing various LLM architectures (Link: https://huggingface.co/models Label: \"Browse Models\")"
+    },
+    {
+      "type": "flex-container",
+      "style": {
+        "span": 12,
+        "justify": "between",
+        "gap": "normal",
+        "align": "start"
+      },
+      "content": [
+        {
+          "type": "markdown",
+          "content": "![Silent Speech Interface](/assets/images/thegirlonthecouch.png)",
+          "style": {
+            "flex": "40"
+          }
+        },
+        {
+          "type": "markdown",
+          "content": "## Silent Speech Interface\n\nEarly prototype testing shows promising results with a 92% accuracy rate and 150ms latency. The system successfully interprets subvocalized speech patterns and converts them to text output. Link: https://arxiv.org/abs/2303.11341 Label: \"Read Research Paper\"\n\nNext steps include:\n* Reducing latency further\n* Expanding the command vocabulary\n* Testing in noisy environments",
+          "style": {
+            "flex": "50"
+          }
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "# Example observation\nmodel_performance = {\n    'accuracy': 0.92,\n    'latency': '150ms',\n    'notes': 'Improved response time'\n}\n\n# Link: https://colab.research.google.com/drive/example Label: \"View Full Results\"",
+      "style": {
+        "theme": "retro-mac",
+        "span": 12
+      }
+    }
+  ],
+  "metadata": {
+    "author": "Paul Han",
+    "date": "2024-03-19",
+    "tags": ["research", "notes"]
+  }
+} 

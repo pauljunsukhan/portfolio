@@ -111,8 +111,8 @@
       <section id="about" aria-labelledby="about-title">
         <div class="technical-sketch">
           <h2 id="about-title">Field Notes</h2>
-          <div id="notes-content" class="notes-content">
-            <!-- Optionally load markdown or static HTML content here -->
+          <div id="field-notes-container">
+            <!-- Document content will be loaded here -->
           </div>
         </div>
       </section>
@@ -120,12 +120,11 @@
       <!-- Projects Section -->
       <section id="projects" aria-labelledby="projects-title">
         <h2 id="projects-title">Project Documentation</h2>
-        <div
-          class="project-grid dynamic-projects"
-          role="list"
-          aria-label="Project list"
-          lang="en"
-        >
+        <div id="project-docs-container">
+          <!-- Document content will be loaded here -->
+        </div>
+        
+        <div class="project-grid dynamic-projects" role="list" aria-label="Project list" lang="en">
           <!-- Projects loaded dynamically from JSON -->
         </div>
 
@@ -193,6 +192,7 @@
     import { generateHeader } from './scripts/header.js';
     import { generateSocialLinks } from './scripts/socials.js';
     import { loadProjects } from './scripts/projects.js';
+    import { loadDocument } from './scripts/documents.js';
 
     document.addEventListener('DOMContentLoaded', async () => {
       console.log('Initializing homepage...');
@@ -227,6 +227,10 @@
 
       // 7) Initialize auto-linkify after content is loaded
       initAutoLinkify();
+
+      // Load documents when DOM is ready
+      loadDocument('./assets/document_blocks/field_notes.json', 'field-notes-container');
+      loadDocument('./assets/document_blocks/project_docs.json', 'project-docs-container');
 
       console.log('Homepage initialization complete.');
     });

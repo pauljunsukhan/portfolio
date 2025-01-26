@@ -1,0 +1,334 @@
+/* Document Component Styles */
+.document-window {
+    margin-bottom: calc(var(--font-size-base) * 2);
+    width: 100%;
+    transition: margin 0.3s ease, box-shadow 0.3s ease, border-radius 0.3s ease;
+}
+
+.document-window .window-title {
+    opacity: 0;
+    transform: translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.document-window.minimized {
+    margin-bottom: calc(var(--font-size-base) * 0.5);
+    box-shadow: none;
+    border-radius: calc(var(--font-size-base) * 0.4) calc(var(--font-size-base) * 0.4) 0 0;
+}
+
+.document-window.minimized .window-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.document-window.minimized .document-content {
+    display: none;
+}
+
+.document-window.minimized .window-title-bar {
+    border-bottom: none;
+    border-radius: calc(var(--font-size-base) * 0.4) calc(var(--font-size-base) * 0.4) 0 0;
+}
+
+.document-window .window-controls {
+    display: flex;
+    gap: calc(var(--font-size-base) * 0.3);
+    align-items: center;
+}
+
+.document-window .window-title-bar {
+    cursor: pointer;
+}
+
+.document-content {
+    padding: var(--spacing);
+    font-family: var(--font-body);
+    line-height: var(--line-height-normal);
+    color: var(--text-color);
+}
+
+/* Grid container */
+.document-content {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: calc(var(--font-size-base) * 0.5);
+}
+
+/* Default full width content */
+.document-content > * {
+    grid-column: 1 / -1;
+}
+
+/* Grid column spans */
+.span-4 {
+    grid-column: span 4;
+}
+
+.span-6 {
+    grid-column: span 6;
+}
+
+.span-8 {
+    grid-column: span 8;
+}
+
+.span-12 {
+    grid-column: span 12;
+}
+
+/* Grid alignment */
+.align-left {
+    justify-self: start;
+}
+
+.align-center {
+    justify-self: center;
+}
+
+.align-right {
+    justify-self: end;
+}
+
+/* Markdown content styles */
+.markdown-block {
+    margin-bottom: calc(var(--font-size-base) * 0.75);
+}
+
+/* When markdown block is in a flex container, remove the full width default */
+.flex-container .markdown-block {
+    width: 100%;
+    margin-bottom: 0;
+    max-width: 100%;
+}
+
+/* Ensure text content in flex containers has appropriate width */
+.flex-container .markdown-block h2 {
+    margin-top: 0;  /* Remove top margin since we're next to an image */
+}
+
+/* Remove bottom margin from last element in flex container */
+.flex-container .markdown-block > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Ensure images in flex containers maintain aspect ratio */
+.flex-container .markdown-block img {
+    max-height: none;
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+    margin-bottom: 0;  /* Remove margin since we handle spacing with flex gap */
+}
+
+.markdown-block h1 {
+    font-family: var(--font-body);
+    font-size: calc(var(--font-size-base) * 1.2);
+    font-weight: bold;
+    margin-bottom: calc(var(--font-size-base) * 0.75);
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+    padding-bottom: calc(var(--font-size-base) * 0.15);
+    letter-spacing: 0.03em;
+}
+
+.markdown-block h2 {
+    font-family: var(--font-body);
+    font-size: calc(var(--font-size-base) * 1.1);
+    font-weight: bold;
+    margin: calc(var(--font-size-base) * 0.75) 0 calc(var(--font-size-base) * 0.5);
+    color: var(--primary-color);
+    letter-spacing: 0.02em;
+}
+
+.markdown-block p {
+    margin-bottom: calc(var(--font-size-base) * 0.75);
+    font-family: var(--font-body);
+}
+
+.markdown-block ul, .markdown-block ol {
+    margin: calc(var(--font-size-base) * 0.75) 0;
+    padding-left: calc(var(--font-size-base) * 1.5);
+    font-family: var(--font-body);
+}
+
+.markdown-block li {
+    margin: calc(var(--font-size-base) * 0.35) 0;
+}
+
+/* Image styles */
+.markdown-block img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    display: block;
+}
+
+.markdown-block img + p {
+    color: var(--text-color);
+    font-size: var(--font-size-sm);
+    text-align: center;
+    font-style: italic;
+    margin-top: calc(var(--font-size-base) * 0.25);
+    margin-bottom: calc(var(--font-size-base) * 0.75);
+}
+
+/* Image size variants */
+.markdown-block.size-small img {
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.markdown-block.size-medium img {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.markdown-block.size-large img {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .markdown-block.size-medium img {
+        max-width: 100%;
+    }
+    .markdown-block.size-large img {
+        max-width: 100%;
+    }
+}
+
+/* Code block styles */
+.code-block {
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: calc(var(--font-size-base) * 0.3);
+    padding: calc(var(--font-size-base) * 1);
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-code);
+    overflow-x: auto;
+}
+
+.code-block pre {
+    margin: 0;
+    padding: 0;
+}
+
+.code-block code {
+    display: block;
+    padding: calc(var(--font-size-base) * 0.5);
+}
+
+/* Theme variations */
+.code-block.theme-retro-mac {
+    background: var(--window-bg);
+    color: var(--primary-color);
+}
+
+/* Margin utilities */
+.markdown-block.margin-compact {
+    margin-bottom: calc(var(--font-size-base) * 0.75);
+}
+
+.markdown-block.margin-wide {
+    margin-bottom: calc(var(--font-size-base) * 2.25);
+}
+
+/* Error message styling */
+.error-message {
+    padding: calc(var(--font-size-base) * 1.5);
+    text-align: center;
+    color: #ff3b30;
+    font-family: var(--font-body);
+}
+
+/* Flex container within grid */
+.flex-container {
+    display: flex;
+    gap: calc(var(--font-size-base) * 1);
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: calc(var(--font-size-base) * 1.5);
+}
+
+/* Flex item width variants */
+.flex-container > .flex-30 {
+    width: 30%;
+    flex: 0 0 30%;
+}
+
+.flex-container > .flex-40 {
+    width: 40%;
+    flex: 0 0 40%;
+}
+
+.flex-container > .flex-50 {
+    width: 50%;
+    flex: 0 0 50%;
+}
+
+.flex-container > .flex-60 {
+    width: 60%;
+    flex: 0 0 60%;
+}
+
+.flex-container > .flex-70 {
+    width: 70%;
+    flex: 0 0 70%;
+}
+
+/* Flex container alignment */
+.flex-container.justify-start {
+    justify-content: flex-start;
+}
+
+.flex-container.justify-center {
+    justify-content: center;
+}
+
+.flex-container.justify-end {
+    justify-content: flex-end;
+}
+
+.flex-container.justify-between {
+    justify-content: space-between;
+}
+
+.flex-container.justify-around {
+    justify-content: space-around;
+}
+
+/* Gap variations */
+.flex-container.gap-small {
+    gap: calc(var(--font-size-base) * 0.5);
+}
+
+.flex-container.gap-normal {
+    gap: calc(var(--font-size-base) * 1);
+}
+
+.flex-container.gap-wide {
+    gap: calc(var(--font-size-base) * 2);
+}
+
+/* Vertical alignment options */
+.flex-container.align-start {
+    align-items: flex-start;
+}
+
+.flex-container.align-center {
+    align-items: center;
+}
+
+.flex-container.align-end {
+    align-items: flex-end;
+} 
