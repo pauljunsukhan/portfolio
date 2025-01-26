@@ -21,7 +21,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: calc(var(--font-size-menu) * 1.6);
+    height: calc(var(--font-size-menu) * 1.7);
     background: var(--menu-bg);
     border-bottom: 1px solid var(--window-border);
     display: flex;
