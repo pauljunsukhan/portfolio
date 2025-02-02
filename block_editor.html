@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Block Editor Demo</title>
+  <style>
+    /* Basic styling for demonstration */
+    body {
+      font-family: sans-serif;
+      margin: 1rem;
+      background: #fafafa;
+    }
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+    .block-editor {
+      display: flex;
+      gap: 1rem;
+    }
+    .block-list,
+    .preview-pane {
+      flex: 1;
+      border: 1px solid #ccc;
+      padding: 1rem;
+      background: #fff;
+    }
+    .block-list h2 {
+      margin-top: 0;
+    }
+    .block-actions button {
+      margin-right: 0.5rem;
+    }
+    .block {
+      border: 1px dashed #aaa;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      background: #fdfdfd;
+    }
+    .block-type {
+      font-weight: bold;
+    }
+    .block-controls {
+      text-align: right;
+    }
+    .btn-remove {
+      color: #c00;
+      margin-left: 0.5rem;
+    }
+    .preview-output {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      background: #f9f9f9;
+    }
+    .output-json {
+      margin-top: 1rem;
+      white-space: pre;
+      background: #eee;
+      padding: 0.5rem;
+    }
+    /* A simple styles for "live preview" */
+    .block-text h3 {
+      margin: 0.5rem 0 0.25rem;
+    }
+    .block-text p {
+      margin: 0 0 0.5rem;
+    }
+    .block-image figure {
+      margin: 0;
+      text-align: center;
+    }
+    .block-image img {
+      max-width: 100%;
+    }
+    .block-quote blockquote {
+      margin: 0.5rem 0;
+      padding: 0.5rem 1rem;
+      border-left: 4px solid #aaa;
+    }
+    .block-quote footer {
+      font-size: 0.9em;
+      font-style: italic;
+      text-align: right;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Block Editor Demo</h1>
+  <p>
+    This is a simple example of how you can create a block-based editor that generates JSON,
+    which you can feed into your static site.
+  </p>
+
+  <div class="block-editor">
+    <!-- Left side: block list / editing area -->
+    <div class="block-list">
+      <h2>Blocks</h2>
+
+      <div id="blocks-container"></div>
+
+      <div class="block-actions">
+        <button onclick="addTextBlock()">+ Text Block</button>
+        <button onclick="addImageBlock()">+ Image Block</button>
+        <button onclick="addQuoteBlock()">+ Quote Block</button>
+      </div>
+
+      <hr>
+      <button onclick="exportJSON()">Export JSON</button>
+    </div>
+
+    <!-- Right side: preview pane -->
+    <div class="preview-pane">
+      <h2>Live Preview</h2>
+      <div class="preview-output" id="preview-output">
+        <!-- We will render live block preview here -->
+      </div>
+      <h3>Block JSON</h3>
+      <pre class="output-json" id="output-json"></pre>
+    </div>
+  </div>
+
+  <script>
+    // Keep track of all blocks in an array
+    const blocks = [];
+
+    // Rerender the entire editor UI and preview
+    function rerender() {
+      const container = document.getElementById('blocks-container');
+      container.innerHTML = ''; // Clear old UI
+
+      const previewOut = document.getElementById('preview-output');
+      previewOut.innerHTML = ''; // Clear preview
+
+      blocks.forEach((block, index) => {
+        // 1. Render Editor UI for each block
+        const blockDiv = document.createElement('div');
+        blockDiv.className = 'block';
+
+        // Build block form fields based on type
+        if (block.type === 'TextBlock') {
+          blockDiv.innerHTML = `
+            <div class="block-type">Text Block</div>
+            <label>Heading: <input type="text" oninput="updateBlock(${index}, 'heading', this.value)" value="${block.heading || ''}"></label><br>
+            <label>Body: <textarea oninput="updateBlock(${index}, 'body', this.value)">${block.body || ''}</textarea></label>
+            <div class="block-controls">
+              <button class="btn-remove" onclick="removeBlock(${index})">Remove</button>
+            </div>
+          `;
+        } else if (block.type === 'ImageBlock') {
+          blockDiv.innerHTML = `
+            <div class="block-type">Image Block</div>
+            <label>Image URL: <input type="text" oninput="updateBlock(${index}, 'imageUrl', this.value)" value="${block.imageUrl || ''}"></label><br>
+            <label>Caption: <input type="text" oninput="updateBlock(${index}, 'caption', this.value)" value="${block.caption || ''}"></label>
+            <div class="block-controls">
+              <button class="btn-remove" onclick="removeBlock(${index})">Remove</button>
+            </div>
+          `;
+        } else if (block.type === 'QuoteBlock') {
+          blockDiv.innerHTML = `
+            <div class="block-type">Quote Block</div>
+            <label>Quote: <textarea oninput="updateBlock(${index}, 'quote', this.value)">${block.quote || ''}</textarea></label><br>
+            <label>Author: <input type="text" oninput="updateBlock(${index}, 'author', this.value)" value="${block.author || ''}"></label>
+            <div class="block-controls">
+              <button class="btn-remove" onclick="removeBlock(${index})">Remove</button>
+            </div>
+          `;
+        } else {
+          // Unknown block type
+          blockDiv.innerHTML = `
+            <div class="block-type">Unknown Block Type</div>
+            <div class="block-controls">
+              <button class="btn-remove" onclick="removeBlock(${index})">Remove</button>
+            </div>
+          `;
+        }
+
+        container.appendChild(blockDiv);
+
+        // 2. Render the preview
+        const previewBlock = document.createElement('div');
+        previewBlock.className = 'block-' + block.type.replace('Block','').toLowerCase();
+        if (block.type === 'TextBlock') {
+          previewBlock.innerHTML = `
+            <h3>${escapeHTML(block.heading || '')}</h3>
+            <p>${escapeHTML(block.body || '')}</p>
+          `;
+        } else if (block.type === 'ImageBlock') {
+          previewBlock.innerHTML = `
+            <figure>
+              <img src="${escapeHTML(block.imageUrl || '')}" alt="${escapeHTML(block.caption || '')}">
+              <figcaption>${escapeHTML(block.caption || '')}</figcaption>
+            </figure>
+          `;
+        } else if (block.type === 'QuoteBlock') {
+          previewBlock.innerHTML = `
+            <blockquote>
+              <p>${escapeHTML(block.quote || '')}</p>
+              <footer>— ${escapeHTML(block.author || '')}</footer>
+            </blockquote>
+          `;
+        }
+        previewOut.appendChild(previewBlock);
+      });
+
+      // Finally, update JSON output
+      document.getElementById('output-json').textContent = JSON.stringify(blocks, null, 2);
+    }
+
+    // Utility to sanitize text
+    function escapeHTML(str) {
+      if (!str) return '';
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // Each block is an object with a "type" and content fields
+    function addTextBlock() {
+      blocks.push({ type: 'TextBlock', heading: '', body: '' });
+      rerender();
+    }
+    function addImageBlock() {
+      blocks.push({ type: 'ImageBlock', imageUrl: '', caption: '' });
+      rerender();
+    }
+    function addQuoteBlock() {
+      blocks.push({ type: 'QuoteBlock', quote: '', author: '' });
+      rerender();
+    }
+
+    // Update a block’s field
+    function updateBlock(index, field, value) {
+      blocks[index][field] = value;
+      rerender(); // You may decide to do partial re-renders for performance
+    }
+
+    // Remove a block
+    function removeBlock(index) {
+      blocks.splice(index, 1);
+      rerender();
+    }
+
+    // Export JSON
+    function exportJSON() {
+      const jsonStr = JSON.stringify(blocks, null, 2);
+      alert('Block JSON:\n' + jsonStr);
+      // In real usage, you might POST this JSON to a server or download it
+    }
+
+    // Initial Render
+    rerender();
+  </script>
+</body>
+</html>

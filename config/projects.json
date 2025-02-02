@@ -1,161 +1,173 @@
 {
-  "projects": [
-    {
-      "id": "neural-network",
-      "title": "LLM et. all work",
-      "subtitle": "ML Study",
-      "description": "Various ML projects for education",
-      "specs": [
-        "Tech: Python, PyTorch, TensorFlow, CUDA",
-        "Status: Active Development",
-        "Importance: Core Research"
-      ],
-      "buttons": {
-        "preview": "/projects/neural-network",
-        "link": "/projects/neural-network",
-        "github": "https://github.com/pauljunsukhan/neural-network"
+    "projects": [
+      {
+        "id": "neural-network",
+        "title": "LLM et. all work",
+        "subtitle": "ML Study",
+        "description": "Various ML projects for education",
+        "specs": [
+          "Tech: Python, PyTorch, TensorFlow, CUDA",
+          "Status: Active Development",
+          "Importance: Core Research"
+        ],
+        "defaultMinimized": false,
+        "buttons": {
+          "preview": "/desktop/infra/neural-network",
+          "link": "/desktop/infra/neural-network",
+          "github": "https://github.com/pauljunsukhan/neural-network",
+          "githubText": "Github"
+        }
+      },
+      {
+        "id": "silent-speech",
+        "title": "Silent Speech",
+        "subtitle": "Silent Speech Interfaces",
+        "description": "Developing silent speech interfaces for AI-Human interfaces",
+        "specs": [
+          "Tech: Signal Processing, ML, Hardware",
+          "Status: Research Phase",
+          "Importance: Future Interface"
+        ],
+        "defaultMinimized": false,
+        "buttons": {
+          "preview": "/desktop/infra/under-construction",
+          "link": "/desktop/infra/under-construction",
+          "github": "https://github.com/pauljunsukhan/throatmicdata",
+          "githubText": "Github"
+        }
+      },
+      {
+        "id": "software-et-all",
+        "title": "General Software Projects",
+        "subtitle": "Learning coding and building useful things",
+        "description": "Chatroom, web apps, utilities, tools of the trade",
+        "specs": [
+          "Tech: Python, HTML, CSS, JavaScript, Heroku",
+          "Status: Always useful",
+          "Link: https://chatroomkatocx-24f05df15390.herokuapp.com/ Label: \"View Project\" "
+        ],
+        "defaultMinimized": true,
+        "buttons": {
+          "preview": "/desktop/infra/under-construction",
+          "link": "/desktop/infra/under-construction",
+          "github": "https://github.com/pauljunsukhan/chatroomkatocx",
+          "githubText": "Github"
+        }
+      },
+      {
+        "id": "llm-verb-originality-benchmark",
+        "title": "Benchmarking LLMs",
+        "subtitle": "Ranked written report on LLM verbal originality.",
+        "description": "I will collaborate with your LLM for one hour on an original verbal topic and create a 500 word ranked written report.",
+        "specs": [
+          "Price: $175"
+        ],
+        "buttons": {
+          "preview": "/desktop/infra/under-construction",
+          "link": "/desktop/infra/under-construction",
+          "github": "https://github.com/pauljunsukhan/chatroomkatocx",
+          "githubText": "Github"
+        }
+      },
+      {
+        "id": "electronics-et-all",
+        "title": "General EE Projects",
+        "subtitle": "PCB, micros, systems, wearables, being an EE",
+        "description": "What all EEs need to know",
+        "specs": [
+          "Tech: KiCad, Altium, OrCAD, Art of Electronics, ESP32, Arduino, TTL",
+          "Status: How I make a living (right now)",
+          "Newest thing: wearable ESP32 PCB for sports"
+        ],
+        "buttons": {
+          "preview": "/desktop/infra/under-construction",
+          "link": "/desktop/infra/under-construction",
+          "github": "https://github.com/pauljunsukhan/portfolio",
+          "githubText": "Github"
+        }
+      },
+      {
+        "id": "3d-printing",
+        "title": "3D Printing",
+        "subtitle": "3D Printing & CAD",
+        "description": "Various 3D prints + CAD/3DP education. I like industrial design & useful utility for projects.",
+        "specs": [
+          "Tech: Bambu, FDM, PC/PA, Onshape, Design",
+          "Status: Semi-cracked after a summer",
+          "Role: Designer & Developer"
+        ],
+        "buttons": {
+          "preview": "/desktop/infra/under-construction",
+          "link": "/desktop/infra/under-construction",
+          "github": "https://github.com/pauljunsukhan/portfolio",
+          "githubText": "Github"
+        }
+      },
+      {
+        "id": "tesla-coils",
+        "title": "High Voltage",
+        "subtitle": "Tesla Coils, Plasma Speakers, HV",
+        "description": "High voltage power electronics that make sparks, music, and melted metal.",
+        "specs": [
+          "Tech: SSTC, DRSSTC, VTTC, ZVS, HV",
+          "Status: Not active",
+          "Importance: Foundational EE knowledge"
+        ],
+        "buttons": {
+          "preview": "/desktop/infra/under-construction",
+          "link": "/desktop/infra/under-construction",
+          "github": "https://github.com/pauljunsukhan/portfolio",
+          "githubText": "Github"
+        }
+      },
+      {
+        "id": "power-electronics",
+        "title": "Power Electronics, Big Silicon, & Wireless Charging",
+        "subtitle": "Induction heating, wireless energy transfer, DC/DC converters",
+        "description": "High power electronics & power electronics",
+        "specs": [
+          "Tech: H-bridge, PWM, Buck/Boost, Induction heating, Wireless charging",
+          "Status: Old",
+          "Importance: Foundational EE knowledge"
+        ],
+        "buttons": {
+          "preview": "/desktop/infra/under-construction",
+          "link": "/desktop/infra/under-construction",
+          "github": "https://github.com/pauljunsukhan/portfolio",
+          "githubText": "Github"
+        }
+      },
+      {
+        "id": "audio-electronics",
+        "title": "Audio, cassette, radios",
+        "subtitle": "Audio electronics, vacuum tubes, radios, cassette decks",
+        "description": "Childhood hobby that got me started",
+        "specs": [
+          "Tech: Old old stuff",
+          "Status: Historical",
+          "Importance: Foundational EE knowledge"
+        ],
+        "buttons": {
+          "preview": "/desktop/infra/under-construction",
+          "link": "/desktop/infra/under-construction",
+          "github": "https://github.com/pauljunsukhan/portfolio",
+          "githubText": "Github"
+        }
+      },
+      {
+        "id": "ai-guardian",
+        "title": "AI Guardian",
+        "subtitle": "AI-Human Intelligence Augmentation",
+        "description": "Exploratory notes on AI-Human intelligence augmentation. tFUS/BCI/neurotech. Silent speech interfaces.",
+        "specs": [
+          "Tech: Pen and paper",
+          "Status: Cooking",
+          "Importance: Long term"
+        ],
+        "buttons": {
+          "preview": "/desktop/infra/under-construction",
+          "link": "/desktop/infra/under-construction"
+        }
       }
-    },
-    {
-      "id": "silent-speech",
-      "title": "Silent Speech",
-      "subtitle": "Silent Speech Interfaces",
-      "description": "Developing silent speech interfaces for AI-Human interfaces",
-      "specs": [
-        "Tech: Signal Processing, ML, Hardware",
-        "Status: Research Phase",
-        "Importance: Future Interface"
-      ],
-      "buttons": {
-        "preview": "/projects/under-construction",
-        "link": "/projects/under-construction",
-        "github": "https://github.com/pauljunsukhan/throatmicdata"
-      }
-    },
-    {
-      "id": "software-et-all",
-      "title": "General Software Projects",
-      "subtitle": "Learning coding and building useful things",
-      "description": "Chatroom, web apps, utilities, tools of the trade",
-      "specs": [
-        "Tech: Python, HTML, CSS, JavaScript, Heroku",
-        "Status: Always useful",
-        "Check this out: http://chatroom.kato.cx/"
-      ],
-      "buttons": {
-        "preview": "/projects/under-construction",
-        "link": "/projects/under-construction",
-        "github": "https://github.com/pauljunsukhan/chatroomkatocx"
-      }
-    },
-    {
-      "id": "llm-verb-originality-benchmark",
-      "title": "Benchmarking LLMs",
-      "subtitle": "Ranked written report on LLM verbal originality.",
-      "description": "I will collaborate with your LLM for one hour on an original verbal topic and create a 500 word ranked written report.",
-      "specs": [
-        "Price: $175"
-      ],
-      "buttons": {
-        "preview": "/projects/under-construction",
-        "link": "/projects/under-construction",
-        "github": "https://github.com/pauljunsukhan/chatroomkatocx"
-      }
-    },
-    {
-      "id": "electronics-et-all",
-      "title": "General EE Projects",
-      "subtitle": "PCB, micros, systems, wearables, being an EE",
-      "description": "What all EEs need to know",
-      "specs": [
-        "Tech: KiCad, Altium, OrCAD, Art of Electronics, ESP32, Arduino, TTL",
-        "Status: How I make a living (right now)",
-        "Newest thing: wearable ESP32 PCB for sports"
-      ],
-      "buttons": {
-        "preview": "/projects/under-construction",
-        "link": "/projects/under-construction",
-        "github": "https://github.com/pauljunsukhan/portfolio"
-      }
-    },
-    {
-      "id": "3d-printing",
-      "title": "3D Printing",
-      "subtitle": "3D Printing & CAD",
-      "description": "Various 3D prints + CAD/3DP education. I like industrial design & useful utility for projects.",
-      "specs": [
-        "Tech: Bambu, FDM, PC/PA, Onshape, Design",
-        "Status: Semi-cracked after a summer",
-        "Role: Designer & Developer"
-      ],
-      "buttons": {
-        "preview": "/projects/under-construction",
-        "link": "/projects/under-construction",
-        "github": "https://github.com/pauljunsukhan/portfolio"
-      }
-    },
-    {
-      "id": "tesla-coils",
-      "title": "High Voltage",
-      "subtitle": "Tesla Coils, Plasma Speakers, HV",
-      "description": "High voltage power electronics that make sparks, music, and melted metal.",
-      "specs": [
-        "Tech: SSTC, DRSSTC, VTTC, ZVS, HV",
-        "Status: Not active",
-        "Importance: Foundational EE knowledge"
-      ],
-      "buttons": {
-        "preview": "/projects/under-construction",
-        "link": "/projects/under-construction",
-        "github": "https://github.com/pauljunsukhan/portfolio"
-      }
-    },
-    {
-      "id": "power-electronics",
-      "title": "Power Electronics, Big Silicon, & Wireless Charging",
-      "subtitle": "Induction heating, wireless energy transfer, DC/DC converters",
-      "description": "High power electronics & power electronics",
-      "specs": [
-        "Tech: H-bridge, PWM, Buck/Boost, Induction heating, Wireless charging",
-        "Status: Old",
-        "Importance: Foundational EE knowledge"
-      ],
-      "buttons": {
-        "preview": "/projects/under-construction",
-        "link": "/projects/under-construction",
-        "github": "https://github.com/pauljunsukhan/portfolio"
-      }
-    },
-    {
-      "id": "audio-electronics",
-      "title": "Audio, cassette, radios",
-      "subtitle": "Audio electronics, vacuum tubes, radios, cassette decks",
-      "description": "Childhood hobby that got me started",
-      "specs": [
-        "Tech: Old old stuff",
-        "Status: Historical",
-        "Importance: Foundational EE knowledge"
-      ],
-      "buttons": {
-        "preview": "/projects/under-construction",
-        "link": "/projects/under-construction",
-        "github": "https://github.com/pauljunsukhan/portfolio"
-      }
-    },
-    {
-      "id": "ai-guardian",
-      "title": "AI Guardian",
-      "subtitle": "AI-Human Intelligence Augmentation",
-      "description": "Exploratory notes on AI-Human intelligence augmentation. tFUS/BCI/neurotech. Silent speech interfaces.",
-      "specs": [
-        "Tech: Pen and paper",
-        "Status: Cooking",
-        "Importance: Long term"
-      ],
-      "buttons": {
-        "preview": "/projects/under-construction",
-        "link": "/projects/under-construction"
-      }
-    }
-  ]
-} 
+    ]
+  } 

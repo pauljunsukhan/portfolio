@@ -1,0 +1,64 @@
+/* ===============================
+ * socials.css
+ * =============================== */
+
+/* Mac Dialog */
+.mac-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: var(--window-bg);
+  border: 1px solid var(--window-border);
+  border-radius: 6px;
+  width: 300px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: 2000;
+}
+
+.mac-dialog.active {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Window Title Bar */
+.mac-dialog .window-title-bar {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  background: var(--menu-bg);
+  border-bottom: 1px solid var(--window-border);
+  padding: 0 8px;
+}
+
+/* Window Controls */
+.mac-dialog .window-controls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+/* Window Title */
+.mac-dialog .window-title {
+  flex: 1;
+  text-align: center;
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+}
+
+.mac-dialog .content {
+  padding: 1rem;
+}
+
+.protected-content {
+  font-family: "Courier New", monospace;
+  background: rgba(0,0,0,0.05);
+  padding: 0.5rem;
+  border-radius: 4px;
+  word-break: break-all;
+  margin-top: 0.5rem;
+} 

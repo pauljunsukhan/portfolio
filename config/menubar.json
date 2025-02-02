@@ -1,0 +1,169 @@
+{
+    "apple_menu": {
+        "icon": "▶︎ •၊၊||၊|၊||‌။",
+        "aria_label": "Apple menu",
+        "role": "button",
+        "action": {
+            "type": "dialog",
+            "content": "It feels like the future!",
+            "title": "System Information"
+        }
+    },
+    "menu_items": [
+        {
+            "label": "File",
+            "role": "menu",
+            "items": [
+                {
+                    "label": "Export Page",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "dialog",
+                        "title": "Export Page as PDF",
+                        "content": "Roadmap: convert current page to pdf for offline viewing."
+                    }
+                },
+                {
+                    "label": "Export Site",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "dialog",
+                        "title": "Export Site as PDF",
+                        "content": "Roadmap: convert entire site to pdf for offline viewing."
+                    }
+                }
+            ]
+        },
+        {
+            "label": "Edit",
+            "role": "menu",
+            "items": [
+
+                {
+                    "label": "Preferences",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "dialog",
+                        "title": "Preferences",
+                        "content": "It's good as is."
+                    }
+                },
+                                {
+                    "label": "Dark Mode (TODO)",
+                    "role": "menuitemcheckbox",
+                    "action": {
+                        "type": "toggle",
+                        "target": "theme"
+                    }
+                },
+                {
+                    "label": "Compromised (TODO)",
+                    "role": "menuitemradio",
+                    "group": "layout",
+                    "action": {
+                        "type": "toggle",
+                        "target": "layout",
+                        "value": "compact"
+                    }
+                },
+                {
+                    "label": "Idealized",
+                    "role": "menuitemradio",
+                    "group": "layout",
+                    "action": {
+                        "type": "toggle",
+                        "target": "layout",
+                        "value": "comfortable"
+                    },
+                    "default": true
+                }
+            ]
+        },
+        {
+            "label": "View",
+            "role": "menu",
+            "items": [
+
+                {
+                    "label": "Resume (SW)",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "./assets/docs/Han_Paul Resume_SW.pdf"
+                    }
+                },
+                {
+                    "label": "Resume (HW)",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "./assets/docs/Han_Paul Resume.pdf"
+                    }
+                },
+                {
+                    "label": "GitHub",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "https://github.com/pauljunsukhan"
+                    }
+                },
+                {
+                    "label": "Hugging Face",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "https://huggingface.co/pauljunsukhan"
+                    }
+                },
+                {
+                    "label": "Old Site",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "https://paulside.com"
+                    }
+                }
+
+            ]
+        },
+        {
+            "label": "Help",
+            "role": "menu",
+            "items": [
+                {
+                    "label": "Twitter",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "https://x.com/pauljunsukhan"
+                    }
+                },
+                {
+                    "label": "LinkedIn",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "https://linkedin.com/in/pauljunsukhan"
+                    }
+                },
+                {
+                    "label": "System Docs",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "./documentation/ARCHITECTURE.md"
+                    }
+                },
+                {
+                    "label": "Design Docs",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "./documentation/DESIGN.md"
+                    }
+                }
+            ]
+        }
+    ]
+} 

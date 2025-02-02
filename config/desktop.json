@@ -1,0 +1,26 @@
+{
+    "home": {
+        "icon": "💾",
+        "label": "Home",
+        "url": "/",
+        "aria_label": "Home"
+    },
+    "projects": {
+        "icon": "📁",
+        "label": "Projects",
+        "url": "#projects",
+        "aria_label": "Projects"
+    },
+    "notes": {
+        "icon": "📝",
+        "label": "Notes",
+        "url": "#about",
+        "aria_label": "Notes"
+    },
+    "contact": {
+        "icon": "✉️",
+        "label": "Contact",
+        "url": "#contact",
+        "aria_label": "Contact"
+    }
+} 

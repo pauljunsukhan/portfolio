@@ -1,0 +1,172 @@
+/* ===============================
+ * menubar.css
+ * =============================== */
+
+@import 'fonts.css';
+
+/* Menu Overlay */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1999; /* Just below menu bar */
+    background: transparent;
+}
+
+/* Global Menu Bar */
+.global-menu-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc(var(--font-size-menu) * 1.7);
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
+    display: flex;
+    align-items: center;
+    padding: 0 calc(var(--font-size-base) * 0.6);
+    z-index: 2000;
+    font-family: var(--font-menu);
+    font-size: var(--font-size-menu);
+    white-space: nowrap;
+    overflow: visible;
+}
+
+/* Menu Items */
+.menu-item {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.menu-item button {
+    padding: calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.6);
+    background: none;
+    border: none;
+    font-family: var(--font-menu);
+    font-size: var(--font-size-menu);
+    color: inherit;
+    cursor: default;
+    white-space: nowrap;
+    text-align: left;
+    width: 100%;
+}
+
+.menu-item button:hover,
+.menu-item.active > button {
+    background: var(--primary-color);
+    color: var(--menu-bg);
+}
+
+/* Apple Menu */
+.apple-menu-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.apple-menu {
+    background: none;
+    border: none;
+    padding: 0 calc(var(--font-size-base) * 0.3);
+    margin-right: calc(var(--font-size-base) * 0.35);
+    cursor: pointer;
+    border-radius: 2px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-size: var(--font-size-menu);
+    transform: translateY(calc(var(--font-size-base) * -0.15)); /* Increased upward shift */
+}
+
+.apple-menu:hover {
+    background: var(--primary-color);
+    color: var(--menu-bg);
+}
+
+/* Menu Divider */
+.menu-divider {
+    width: calc(var(--font-size-base) * 0.07);  /* Convert 1px to font-based */
+    height: calc(var(--font-size-menu) * 1.2);
+    background: var(--window-border);
+    margin: 0 calc(var(--font-size-base) * 0.35);
+}
+
+/* Submenus */
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: calc(var(--font-size-base) * 15);
+    background: var(--menu-bg);
+    border: 1px solid var(--window-border);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+    z-index: 2001;
+    padding: calc(var(--font-size-base) * 0.3) 0;
+}
+
+.submenu.active {
+    display: block;
+}
+
+.submenu .menu-item {
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
+.submenu button {
+    padding: calc(var(--font-size-base) * 0.3) calc(var(--font-size-base) * 1.6);
+}
+
+/* Checkbox/Radio items */
+button[role="menuitemcheckbox"]::before {
+    content: "☐";
+    margin-right: calc(var(--font-size-base) * 0.5);
+}
+
+button[role="menuitemcheckbox"][aria-checked="true"]::before {
+    content: "☑";
+}
+
+button[role="menuitemradio"]::before {
+    content: "○";
+    margin-right: calc(var(--font-size-base) * 0.5);
+}
+
+button[role="menuitemradio"][aria-checked="true"]::before {
+    content: "●";
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .menu-item > button {
+        max-width: calc(var(--font-size-base) * 5.6);
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .menu-item:nth-last-child(-n+2) {
+        display: none;
+    }
+}
+
+/* Window Title Bar Link (GitHub or similar) */
+.window-link {
+    position: absolute;
+    right: calc(var(--font-size-base) * 0.6);
+    color: var(--window-bg);
+    text-decoration: none;
+    font-size: var(--font-size-xs);
+    padding: calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.4);
+    background: #2ea538; /* Muted retro Mac green */
+    border: 1px solid #1e7a28;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+} 

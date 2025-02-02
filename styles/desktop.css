@@ -1,0 +1,244 @@
+/* ===============================
+ * 2) desktop.css
+ * =============================== */
+
+@import 'fonts.css';
+
+/* Desktop Icons & Layout */
+.desktop-icons {
+    position: fixed;
+    top: calc(var(--font-size-base) * 2.85);
+    right: calc(var(--font-size-base) * 1.4);
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--font-size-base) * 1.6);
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+.desktop-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: calc(var(--font-size-base) * 5.15);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+}
+.desktop-icon:hover {
+    transform: scale(1.05);
+}
+.icon-image {
+    width: calc(var(--font-size-base) * 2.6);
+    height: calc(var(--font-size-base) * 2.6);
+    margin-bottom: calc(var(--font-size-base) * 0.4);
+    background: var(--menu-bg);
+    border: 1px solid var(--window-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-2xl);
+}
+.icon-label {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-sm);
+    color: var(--window-border);
+    background: var(--menu-bg);
+    padding: 2px 5px;
+    border-radius: 0;
+    border: 1px solid var(--window-border);
+}
+
+/* Mobile toggling for .desktop-icons */
+@media (max-width: 768px) {
+    .desktop-icons {
+        right: calc(var(--font-size-base) * 0.4);
+        gap: calc(var(--font-size-base) * 0.8);
+        transform: translateX(100%);
+    }
+    .desktop-icons.active {
+        transform: translateX(0);
+    }
+    .desktop-icon {
+        transform: scale(0.8);
+    }
+    .icon-label {
+        font-size: var(--font-size-xs);
+    }
+}
+
+/* The mobile "⋮" toggle button */
+.menu-toggle {
+    display: none;
+    position: fixed;
+    top: 50%;
+    right: 0;
+    width: calc(var(--font-size-base) * 1.85);
+    height: calc(var(--font-size-base) * 3.7);
+    background: var(--menu-bg);
+    border: 1px solid var(--window-border);
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    cursor: pointer;
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
+}
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+}
+
+/* ===============================
+ * Desktop-Specific Window Styles
+ * =============================== */
+
+/* Main Window (.mac-window) - Desktop specific positioning */
+main.mac-window {
+    width: calc(100% - var(--window-margin) * 2);
+    max-width: var(--max-width);
+    margin: var(--window-margin) auto;
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main window content padding */
+main.mac-window > .content {
+    padding: var(--spacing);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0; /* Reset min-height to allow flex to work properly */
+}
+
+/* Sections within main content */
+main.mac-window > .content > section {
+    margin-bottom: calc(var(--font-size-base) * 2);
+}
+
+/* Forms */
+input, textarea {
+    width: 100%;
+    padding: calc(var(--font-size-base) * 0.35);
+    border: 1px solid var(--window-border);
+    background-color: var(--window-bg);
+    font-family: var(--font-primary);
+    margin-top: calc(var(--font-size-base) * 0.2);
+}
+.form-group {
+    margin-bottom: calc(var(--font-size-base) * 1.5);
+}
+
+/* Notebook Header */
+.notebook-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    font-family: var(--font-primary);
+    border-bottom: 1px dashed var(--primary-color);
+    padding-bottom: 1rem;
+    position: relative;
+}
+.notebook-header::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    border-bottom: 1px dashed var(--primary-color);
+    opacity: 0.5;
+}
+.header-left { flex: 1; }
+.header-right {
+    flex-shrink: 0;
+    margin-left: 2rem;
+    width: 45px;
+    height: 45px;
+}
+.headshot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    display: block;
+}
+.date,
+.subject {
+    margin: 0.5rem 0;
+    font-size: var(--font-size-sm);
+    color: var(--primary-color);
+}
+.typewriter {
+    border-bottom: 1px solid var(--primary-color);
+    padding: 0 0.5rem;
+}
+
+/* Responsive: Some generic smaller screen adjustments */
+@media (max-width: 480px) {
+    .window-title {
+        max-width: 150px;
+    }
+    .menu-item {
+        max-width: 40px;
+    }
+    .menu-item:nth-last-child(-n+2) {
+        display: none;
+    }
+}
+
+/* Visitor Counter - positioned at bottom */
+.visitor-counter {
+    text-align: center;
+    margin-top: auto !important;
+    padding: calc(var(--font-size-base) * 0.7);
+    margin-bottom: calc(var(--font-size-base) * 1.4);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--window-bg);
+}
+
+.project-window {
+    position: relative;
+    width: 100%;
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: calc(var(--font-size-base) * 0.4) calc(var(--font-size-base) * 0.4) calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.15);
+    box-shadow: calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.15) 0 rgba(0,0,0,0.1);
+    margin-bottom: calc(var(--font-size-base) * 1.5);
+    display: flex;
+    flex-direction: column;
+    min-height: calc(var(--font-size-base) * 21.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, min-height 0.3s ease;
+    pointer-events: auto;
+}
+
+.counter-display {
+    display: inline-flex;
+    background: #000;
+    padding: calc(var(--font-size-base) * 0.3);
+    border-radius: calc(var(--font-size-base) * 0.15);
+    gap: calc(var(--font-size-base) * 0.07);
+    border: 1px solid #444;
+}
+
+.counter-digit {
+    width: calc(var(--font-size-base) * 0.85);
+    height: calc(var(--font-size-base) * 1.3);
+    background: #001100;
+    color: #32CD32;
+    font-family: var(--font-display);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 0 5px #32CD32;
+}

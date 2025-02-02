@@ -1,0 +1,329 @@
+/* ===============================
+ * 1) global.css
+ * =============================== */
+
+/* Import fonts */
+@import 'fonts.css';
+@import 'documents.css';
+
+/* 1) Root Variables & Base Reset */
+:root {
+    --primary-color: #2b2b2b;
+    --secondary-color: #008b8b;  /* Vintage teal */
+    --accent-color: #d4a017;     /* Mustard yellow */
+    --background-color: #f5e6d3; /* Aged paper */
+    --text-color: #2b2b2b;
+    --menu-bg: #f5e6d3;
+    --window-bg: #fff9f0;        /* Slightly warmer white */
+    --window-border: #2b2b2b;
+    --grid-color: rgba(70, 40, 20, 0.1); /* Subtle brown grid */
+    --max-width: 1000px;
+    --spacing: 2rem;
+    --window-margin: 40px; /* Space around main window */
+}
+
+@media (max-width: 768px) {
+    :root {
+        --window-margin: 10px;
+        --spacing: 1rem;
+    }
+}
+
+/* Engineering Paper Background, Body Reset */
+body {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    background-color: var(--background-color);
+    padding-top: 40px;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image:
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 20px 20px;
+    position: relative;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+        radial-gradient(circle at 50% 50%,
+                        rgba(255, 255, 240, 0.1) 0%,
+                        rgba(255, 240, 200, 0.2) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Typography - Engineering Style */
+h1, h2, h3 {
+    font-family: var(--font-primary);
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-normal);
+}
+
+h2 {
+    font-size: var(--font-size-subtitle);
+    border-bottom: 1px solid var(--primary-color);
+    padding-bottom: 0.3rem;
+}
+
+h3 {
+    font-size: var(--font-size-heading);
+}
+
+p {
+    font-family: var(--font-primary);
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    line-height: var(--line-height-normal);
+}
+
+/* Links - Classic Mac Style */
+a:not(.project-link-button):not(.project-button):not(.social-link):not(.desktop-icon) {
+    color: var(--primary-color);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--primary-color);
+    transition: all 0.2s ease;
+    padding: 0 2px;
+    display: inline-block;
+}
+
+a:not(.project-link-button):not(.project-button):not(.social-link):not(.desktop-icon):hover {
+    background: var(--primary-color);
+    color: var(--window-bg);
+    border-bottom: 1px solid var(--primary-color);
+}
+
+/* Forms */
+input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--window-border);
+    background-color: var(--window-bg);
+    font-family: var(--font-primary);
+    margin-top: 0.25rem;
+}
+
+.form-group {
+    margin-bottom: calc(var(--font-size-base) * 1.5);
+}
+
+/* Base Buttons */
+button {
+    background: var(--menu-bg);
+    color: var(--primary-color);
+    border: 2px solid var(--window-border);
+    padding: 0.5rem 1rem;
+    font-family: var(--font-primary);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-normal);
+    font-size: var(--font-size-sm);
+}
+
+button:hover {
+    background: var(--secondary-color);
+    color: var(--window-bg);
+}
+
+/* Base Window & Dialog Styles */
+.mac-window {
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: calc(var(--font-size-base) * 0.4) calc(var(--font-size-base) * 0.4) calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.15);
+    box-shadow: calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.15) 0 rgba(0,0,0,0.1);
+}
+
+/* Window Title Bar */
+.window-title-bar {
+    display: flex;
+    align-items: center;
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
+    border-radius: 5px 5px 0 0;
+    padding: 0 8px;
+    height: calc(var(--font-size-base) * 1.7);
+    font-family: var(--font-primary);
+    font-size: var(--font-size-sm);
+    position: relative;
+}
+
+.window-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    text-align: center;
+    font-family: var(--font-primary);
+    letter-spacing: var(--letter-spacing-tight);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(var(--font-size-base) * 14);
+    padding: 0 calc(var(--font-size-base) * 0.6);
+}
+
+/* Main window content padding */
+main.mac-window > .content {
+    padding: var(--spacing);
+}
+
+/* Main Window (.mac-window) - Desktop specific positioning */
+main.mac-window {
+    width: calc(100% - var(--window-margin) * 2);
+    max-width: var(--max-width);
+    margin: var(--window-margin) auto;
+    position: relative;
+}
+
+/* Window Controls */
+.window-controls {
+    display: flex;
+    gap: calc(var(--font-size-base) * 0.4);
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+/* Base window button styles */
+.window-controls .window-button {
+    width: calc(var(--font-size-base) * 0.85);
+    height: calc(var(--font-size-base) * 0.85);
+    padding: 0;
+    margin: 0;
+    border: 1px solid var(--window-border);
+    border-radius: 50%;
+    background: var(--window-bg);
+    position: relative;
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+/* Middle bar for all window buttons */
+.window-controls .window-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(var(--font-size-base) * 0.6);
+    height: 2px;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0.5;
+}
+
+/* Close/Exit button styles */
+.window-controls .window-button.close-button,
+.mac-dialog .window-controls .window-button {
+    background: #ff3b30 !important;  /* Apple red */
+    border-color: #c41e3a !important;  /* Darker red */
+    cursor: pointer;
+}
+
+.window-controls .window-button.close-button:hover,
+.mac-dialog .window-controls .window-button:hover {
+    background: #c41e3a !important;  /* Use border color for hover */
+}
+
+/* Maximize button styles */
+.window-controls .window-button.maximize-button {
+    background: #2ea538 !important;  /* Muted retro Mac green */
+    border-color: #1e7a28 !important;  /* Darker muted green */
+    cursor: pointer;
+}
+
+/* Minimize button styles */
+.window-controls .window-button.minimize-button {
+    background: #ffbd2e !important;  /* Yellow */
+    border-color: #dea123 !important;  /* Darker yellow */
+    cursor: pointer;
+}
+
+/* Hover states for interactive buttons */
+.window-controls .window-button.maximize-button:hover {
+    background: #1e7a28 !important;  /* Use border color for hover */
+}
+
+.window-controls .window-button.minimize-button:hover {
+    background: #dea123 !important;  /* Use border color for hover */
+}
+
+/* Mac Dialog Base Styles */
+.mac-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 6px;
+    width: 300px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    z-index: 2000;
+}
+
+.mac-dialog.active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    visibility: visible;
+}
+
+.mac-dialog .content {
+    padding: 1rem;
+}
+
+/* Responsive: Some generic smaller screen adjustments */
+@media (max-width: 480px) {
+    .window-title {
+        max-width: 150px;
+    }
+    .mac-dialog {
+        width: 90%;
+        max-width: 300px;
+    }
+}
+
+.window-controls .window-button.commentary-button {
+    background: #666 !important;
+    border-color: #444 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.window-controls .window-button.commentary-button:hover {
+    background: #444 !important;
+}
+
+.window-controls .window-button.commentary-button::after {
+    content: '?';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: none !important;
+    border: none;
+    width: auto;
+    height: auto;
+    color: rgba(0, 0, 0, 0.3);
+    font-family: var(--font-primary);
+    font-size: calc(var(--font-size-base) * 0.7);
+    text-align: center;
+}
+
+.markdown-block img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    display: block;
+}
