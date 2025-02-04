@@ -62,6 +62,20 @@
 </head>
 
 <body>
+  <script>
+    // Check if we're in preview mode
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('preview') === 'true') {
+      // Remove menu elements as soon as possible
+      document.addEventListener('DOMContentLoaded', () => {
+        const menuBar = document.querySelector('.menu-bar');
+        const menu = document.querySelector('.menu');
+        if (menuBar) menuBar.remove();
+        if (menu) menu.remove();
+      });
+    }
+  </script>
+
   <!-- Classic Mac Menu Bar -->
   <nav class="global-menu-bar" role="navigation" aria-label="Main navigation">
     <!-- Menu bar is now generated dynamically by menubar.js -->

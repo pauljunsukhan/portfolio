@@ -351,82 +351,70 @@ function getProjectUrl(projectId) {
  * Loads and displays remote project content in the preview window
  */
 async function loadProjectPreview(projectId, previewWindow, previewContent) {
-  const url = getProjectUrl(projectId);
-  // If user gave a direct .html link, use it. Otherwise, append index.html
-  const fetchUrl = url.endsWith('.html') ? url : `${url}${url.endsWith('/') ? '' : '/'}index.html`;
-
-  const response = await fetch(fetchUrl, {
-    cache: 'no-store',
-    headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
-  });
-
-  if (!response.ok) {
-    throw new Error(`Project content not found: ${response.status}`);
-  }
-
-  const content = await response.text();
-  const doc = new DOMParser().parseFromString(content, 'text/html');
-  const mainWindow = doc.querySelector('main.mac-window');
-
-  if (!mainWindow) {
-    throw new Error('Invalid project content structure (no <main.mac-window>)');
-  }
-
-  // Show preview overlay
-  previewWindow.classList.add('active');
-  document.body.classList.add('preview-open');
-
-  // Clear old preview content
-  previewContent.innerHTML = '';
-
-  // Re-inject remote page content (styles, scripts, main window)
-  setupPreviewContent(fetchUrl, doc, mainWindow, previewContent);
-}
-
-/**
- * Sets up the content of the preview window, including injecting base href, styles, scripts, etc.
- */
-function setupPreviewContent(fetchUrl, doc, mainWindow, previewContent) {
-  // 1) Base tag for correct relative paths
-  const baseUrl = new URL(fetchUrl, window.location.origin).href;
-  const baseTag = document.createElement('base');
-  baseTag.href = baseUrl.endsWith('/')
-    ? baseUrl
-    : baseUrl.substring(0, baseUrl.lastIndexOf('/') + 1);
-  previewContent.appendChild(baseTag);
-
-  // 2) Copy over <link rel="stylesheet" ... >
-  doc.querySelectorAll('link[rel="stylesheet"]').forEach(styleLink => {
-    if (!styleLink.href) return;
-    const newLink = document.createElement('link');
-    newLink.rel = 'stylesheet';
-    try {
-      const absoluteUrl = new URL(styleLink.href, baseUrl);
-      newLink.href = absoluteUrl.href;
-      previewContent.appendChild(newLink);
-    } catch (e) {
-      console.warn('Invalid stylesheet URL:', styleLink.href);
-    }
-  });
-
-  // 3) Copy <script> tags
-  doc.querySelectorAll('script').forEach(script => {
-    const newScript = document.createElement('script');
-    if (script.src) {
+  try {
+    const url = getProjectUrl(projectId);
+    // If user gave a direct .html link, use it. Otherwise, append index.html
+    const pageUrl = url.endsWith('.html') ? url : `${url}${url.endsWith('/') ? '' : '/'}index.html`;
+    
+    // Show preview overlay
+    previewWindow.classList.add('active');
+    document.body.classList.add('preview-open');
+    
+    // Clear old preview content
+    previewContent.innerHTML = '';
+    
+    // Create and add iframe
+    const iframe = document.createElement('iframe');
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.border = 'none';
+    
+    // Add load event listener to modify iframe content
+    iframe.onload = () => {
       try {
-        const absoluteUrl = new URL(script.src, baseUrl);
-        newScript.src = absoluteUrl.href;
-      } catch (e) {
-        console.warn('Invalid script URL:', script.src);
-        return;
+        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+        // Remove menu elements
+        const menuBar = iframeDoc.querySelector('.global-menu-bar');
+        const menuToggle = iframeDoc.querySelector('.menu-toggle');
+        const desktopIcons = iframeDoc.querySelector('.desktop-icons');
+        
+        if (menuBar) menuBar.remove();
+        if (menuToggle) menuToggle.remove();
+        if (desktopIcons) desktopIcons.remove();
+        
+        // Add CSS to remove background and adjust window positioning
+        const style = iframeDoc.createElement('style');
+        style.textContent = `
+          body { 
+            padding-top: 0 !important; 
+            background: none !important;
+            display: block !important;
+            align-items: start !important;
+          }
+          body::after {
+            display: none !important;
+          }
+          main.mac-window { 
+            margin: 0 !important;
+            width: 100% !important;
+            max-width: none !important;
+          }
+          .overlay {
+            display: none !important;
+          }
+        `;
+        iframeDoc.head.appendChild(style);
+      } catch (err) {
+        console.error('Error modifying iframe content:', err);
       }
-    }
-    newScript.textContent = script.textContent;
-    previewContent.appendChild(newScript);
-  });
-
-  // 4) Finally, clone the <main.mac-window> content
-  previewContent.appendChild(mainWindow.cloneNode(true));
+    };
+    
+    iframe.src = pageUrl;
+    previewContent.appendChild(iframe);
+  } catch (error) {
+    console.error('Error loading preview:', error);
+    throw new Error(`Failed to load preview: ${error.message}`);
+  }
 }
 
 /**

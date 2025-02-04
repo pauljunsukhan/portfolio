@@ -405,3 +405,11 @@ main.mac-window {
         min-width: 120px; /* Ensure cells don't get too narrow */
     }
 }
+
+/* Hide menu and menubar in preview mode */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-preview="true"] .menu-bar,
+  html[data-preview="true"] .menu {
+    display: none !important;
+  }
+}

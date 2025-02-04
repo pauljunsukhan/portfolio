@@ -361,5 +361,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Placeholder: you might do stuff here
   // e.g., updateVisitorCounter();
   // or call a page-specific script
+
+  // Check if page is in preview mode
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('preview') === 'true') {
+    document.documentElement.setAttribute('data-preview', 'true');
+  }
 });
   
