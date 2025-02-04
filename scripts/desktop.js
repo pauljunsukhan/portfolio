@@ -132,27 +132,38 @@ export function updateVisitorCounter() {
         const badge = document.getElementById('visitor-badge');
         const digits = document.querySelectorAll('.counter-digit');
         if (!badge || !digits.length) {
-            throw new Error('Visitor counter elements not found');
+            console.warn('Visitor counter elements not found');
+            return;
         }
 
         function updateDisplay() {
             try {
-                console.log('Attempting to update visitor count...');
-                badge.crossOrigin = 'anonymous';
+                console.log('Updating visitor count...');
+                
+                // Use a local counter if the external service is unavailable
+                let count = localStorage.getItem('visitorCount');
+                if (!count) {
+                    count = '000001';
+                    localStorage.setItem('visitorCount', count);
+                } else {
+                    // Increment the count
+                    const newCount = String(parseInt(count) + 1).padStart(6, '0');
+                    localStorage.setItem('visitorCount', newCount);
+                    count = newCount;
+                }
 
-                // Hard-coded example
-                const defaultCount = '001998';
-                const paddedCount = defaultCount.padStart(6, '0');
+                // Update the display
+                const paddedCount = count.padStart(6, '0');
                 digits.forEach((digit, idx) => {
                     digit.textContent = paddedCount[idx] || '0';
                 });
 
-                badge.onerror = () => {
-                    console.log('Badge load failed, using default count');
-                };
-                badge.onload = () => {
-                    console.log('Badge loaded successfully');
-                };
+                // Try to fetch the external count in the background
+                fetch('https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fpauljunsukhan.com&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=visits&edge_flat=false', {
+                    mode: 'no-cors'
+                }).catch(err => {
+                    console.warn('External visitor counter service unavailable:', err);
+                });
             } catch (err) {
                 console.error('Error in updateDisplay:', err);
             }

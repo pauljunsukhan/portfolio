@@ -11,10 +11,11 @@ async function loadHeaderConfig(pageSpecificConfig) {
             const response = await fetch(pageSpecificConfig);
             if (response.ok) {
                 const data = await response.json();
+                console.log('Specific header config loaded:', data);
                 return data;
             }
         } catch (error) {
-            // Silently continue to next option
+            console.warn(`Failed to load specific header config from ${pageSpecificConfig}:`, error);
         }
     }
 
@@ -23,15 +24,16 @@ async function loadHeaderConfig(pageSpecificConfig) {
         const response = await fetch('./header.json');
         if (response.ok) {
             const data = await response.json();
+            console.log('Local header config loaded:', data);
             return data;
         }
     } catch (error) {
-        // Silently continue to default config
+        console.warn('No local header config found, trying default');
     }
 
-    // Fall back to default config
+    // Fall back to default config in /config directory
     try {
-        const response = await fetch('./config/header.json');
+        const response = await fetch('/config/header.json');
         if (!response.ok) {
             throw new Error('Failed to load header config');
         }

@@ -1,0 +1,216 @@
+{
+  "id": "biohacking-stack",
+  "title": "Biohacking Stack",
+  "commentary": "This is my current biohacking stack, optimized for longevity, cognitive enhancement, and physical performance. The protocol has been refined over months of research and self-experimentation.",
+  "content": [
+    {
+      "type": "markdown",
+      "content": "# BIOHACKING STACK\n\nA comprehensive breakdown of my current longevity and performance protocol."
+    },
+    {
+      "type": "table",
+      "style": {
+        "theme": "retro-mac",
+        "striped": false,
+        "bordered": false,
+        "hover": false,
+        "compact": false,
+        "span": 12
+      },
+      "headers": [],
+      "rows": [
+        [
+          "Intervention",
+          "Form",
+          "Application",
+          "",
+          "Notes",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Copper",
+          "Copper Glycinate Pills or Copper Sulfate Drops",
+          "~3mg a day, usually morning, best at different time than zinc",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Iodine",
+          "Lugol's Solution 2%",
+          "2-4 drops a day, added to soda, protein shake, (though it may curdle the taste if not drunk immediately)",
+          "Lugol's solution is like an old fashioned medical remedy before the modern antibiotic era, which was brought on by sulfa drugs. There's this crazy guy called \"Dr.\" David Brownstein who advocates for large doses of iodine and there is usually mention of Japanese studies of extremely high iodine intake, though I vaguely recall they have some reason to be taken with a grain of salt (iodized)",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Calcium Hydroxyapatite",
+          "NOW Foods Pills",
+          "one a day at any time",
+          "There is a more bioavailable form called Calcium MCHA which is ground up cow bones, but it is about 3 times more expensive. I didn't see anything strong suggesting it's worth it. Look into the whole calcium, Vit K, Vit D, Magnesium thing where like taking all those things makes sure that the calcium goes inside the bones instead of calcifying the arteries?",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Magnesium",
+          "Magnesium Glycinate (Solray) 350mg per 4 pills",
+          "once a day at bedtime",
+          "So the CALM supplement brand uses magnesium citrate, which has a sour taste making it good in a lemon mix or gummies. It's just very expensive for the amount of magnesium you need, which is ideally around 500mg a day. It's getting harder and harder to find honest magnesium glycinate because many bottles will simply say \"Magnesium\" and have it be magnesium oxide, or even they will say magnesium glycinate & magnesium oxide and provide a qty for the combination of the two, which is incredibly dishonest. For reasons I also cannot understand, it is difficult to find magnesium in a high density per pill swallowed. Another trick is providing the weight of \"magnesium glycinate\" which is different from \"magnesium (from magnesium glycinate)\" You want the weight of the element not the weight of the compound",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Lithium",
+          "Lithium Orotate 1mg",
+          "1mg/day",
+          "Now lithium gets a bad rap due to its association with the treatment of mental disorder, mainly bipolar, however again, it is the dose that makes the medicine. Towns with lithium in the drinking water have some studies showing lower crime rates, and 7Up used to be a lithum drink. The doses used in bipolar is 600-1200mg of lithium carbonate. The orotate form is available OTC, and interesting may have unique effects? It's a bit unclear because a crackpot racist guy advocated for lithium orotate in the 20th century - he was German - and it might happen to be that he was correct in some sense?",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Raw Garlic",
+          "Some large qty of freeze dried garlic",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    }
+
+  ],
+  "metadata": {
+    "author": "Paul Han",
+    "date": "2024-03-19",
+    "tags": [
+      "biohacking",
+      "longevity",
+      "health"
+    ]
+  }
+} 

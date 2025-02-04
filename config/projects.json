@@ -1,21 +1,18 @@
 {
     "projects": [
       {
-        "id": "neural-network",
-        "title": "LLM et. all work",
-        "subtitle": "ML Study",
-        "description": "Various ML projects for education",
+        "id": "biohacking",
+        "title": "30 Pills to Live Forever",
+        "subtitle": "Supplements, Peptides, & Regimens",
+        "description": "Engineered Health",
         "specs": [
-          "Tech: Python, PyTorch, TensorFlow, CUDA",
-          "Status: Active Development",
-          "Importance: Core Research"
+          "Iodine, Raw Garlic, Ozempic, TRT"
+          
         ],
         "defaultMinimized": false,
         "buttons": {
-          "preview": "/desktop/infra/neural-network",
-          "link": "/desktop/infra/neural-network",
-          "github": "https://github.com/pauljunsukhan/neural-network",
-          "githubText": "Github"
+          "preview": "/desktop/projects/biohacking",
+          "link": "/desktop/projects/biohacking"
         }
       },
       {

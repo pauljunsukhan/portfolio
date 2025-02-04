@@ -331,4 +331,114 @@
 
 .flex-container.align-end {
     align-items: flex-end;
+}
+
+/* Table Block Styles */
+.table-block {
+    margin: calc(var(--font-size-base) * 1.5) 0;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    box-shadow: none;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.table-block table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: #fff;
+    color: #333;
+}
+
+.table-block th {
+    background: #f7f7f7;
+    color: #333;
+    font-weight: bold;
+    text-align: left;
+    padding: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    border-bottom: 1px solid #ccc;
+}
+
+.table-block td {
+    padding: 8px;
+    line-height: 1.4;
+    vertical-align: top;
+    color: #333;
+    background: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    border-bottom: 1px solid #eee;
+}
+
+/* Theme Variations */
+.table-block.theme-retro-mac {
+    border: 1px solid var(--window-border);
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+
+.table-block.theme-retro-mac th {
+    background: var(--background-color);
+    font-size: calc(var(--font-size-base) * 0.8);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-tight);
+    border-bottom: 1px solid var(--window-border);
+}
+
+.table-block.theme-retro-mac td {
+    border-bottom: 1px solid var(--window-border);
+    background: var(--window-bg);
+}
+
+/* Support for markdown content in cells */
+.table-block td p {
+    margin: 0;
+    padding: 0;
+    color: var(--primary-color);
+    font-family: var(--font-primary);
+}
+
+.table-block td p + p {
+    margin-top: calc(var(--font-size-base) * 0.5);
+}
+
+.table-block td strong {
+    color: var(--primary-color);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    .table-block {
+        margin: 1rem -1rem;
+        width: calc(100% + 2rem);
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        padding: 0;
+    }
+    
+    .table-block td {
+        min-width: 120px;
+    }
+
+    .table-block {
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    .table-block::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .table-block::-webkit-scrollbar-track {
+        background: var(--window-bg);
+    }
+
+    .table-block::-webkit-scrollbar-thumb {
+        background: var(--window-border);
+        border-radius: 3px;
+    }
 } 

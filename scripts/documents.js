@@ -123,22 +123,48 @@ export async function loadDocument(configPath, containerId) {
                 
                 document.body.appendChild(dialog);
                 
-                // Position dialog next to the document
+                // Position dialog with smart placement
                 const rect = docWindow.getBoundingClientRect();
+                const dialogWidth = 300;
+                const dialogHeight = dialog.offsetHeight;
                 const viewportWidth = window.innerWidth;
-                
-                // Calculate left position
-                let leftPos = rect.right + 20;
-                // If dialog would go off screen, position it to the left instead
-                if (leftPos + 300 > viewportWidth) {
-                    leftPos = rect.left - 320;
+                const viewportHeight = window.innerHeight;
+                const padding = 20; // Minimum padding from viewport edges
+
+                // Calculate optimal position
+                let leftPos = rect.right + padding;
+                let topPos = window.scrollY + rect.top;
+
+                // If dialog would go off right side, try left side
+                if (leftPos + dialogWidth > viewportWidth - padding) {
+                    leftPos = rect.left - dialogWidth - padding;
                 }
-                
+
+                // If dialog would still be off screen (too narrow viewport)
+                // center it horizontally
+                if (leftPos < padding) {
+                    leftPos = Math.max(padding, (viewportWidth - dialogWidth) / 2);
+                }
+
+                // Check vertical positioning
+                if (topPos + dialogHeight > window.scrollY + viewportHeight - padding) {
+                    // If dialog is too tall for the viewport, align to top with padding
+                    if (dialogHeight > viewportHeight - 2 * padding) {
+                        topPos = window.scrollY + padding;
+                    } else {
+                        // Otherwise, position it to fit within viewport
+                        topPos = window.scrollY + viewportHeight - dialogHeight - padding;
+                    }
+                }
+
+                // Apply the calculated position
                 dialog.style.position = 'absolute';
-                dialog.style.top = `${window.scrollY + rect.top}px`;
+                dialog.style.top = `${topPos}px`;
                 dialog.style.left = `${leftPos}px`;
-                dialog.style.width = '300px';
+                dialog.style.maxHeight = `${viewportHeight - 2 * padding}px`;
+                dialog.style.width = `${dialogWidth}px`;
                 dialog.style.zIndex = '1000';
+                dialog.style.overflowY = 'auto';
                 
                 // Add active class after a small delay to trigger transition
                 requestAnimationFrame(() => {
@@ -257,6 +283,76 @@ function createBlock(block) {
             code.textContent = block.content;
             pre.appendChild(code);
             wrapper.appendChild(pre);
+            break;
+
+        case 'table':
+            wrapper.className = 'table-block';
+            if (block.style?.theme) {
+                wrapper.classList.add(`theme-${block.style.theme}`);
+            }
+            
+            const table = document.createElement('table');
+            const thead = document.createElement('thead');
+            const tbody = document.createElement('tbody');
+            
+            // Create header row
+            if (block.headers) {
+                const headerRow = document.createElement('tr');
+                block.headers.forEach(header => {
+                    const th = document.createElement('th');
+                    // Support for merged header cells
+                    if (typeof header === 'object') {
+                        th.textContent = header.content;
+                        if (header.colspan) th.setAttribute('colspan', header.colspan);
+                        if (header.rowspan) th.setAttribute('rowspan', header.rowspan);
+                    } else {
+                        th.textContent = header;
+                    }
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+            }
+            
+            // Create data rows
+            block.rows.forEach(row => {
+                const tr = document.createElement('tr');
+                row.forEach(cell => {
+                    // Skip null cells (used for rowspan/colspan)
+                    if (cell === null) return;
+                    
+                    const td = document.createElement('td');
+                    // Support for merged data cells
+                    if (typeof cell === 'object') {
+                        // Support markdown in merged cells
+                        td.innerHTML = marked.parse(cell.content);
+                        if (cell.colspan) td.setAttribute('colspan', cell.colspan);
+                        if (cell.rowspan) td.setAttribute('rowspan', cell.rowspan);
+                    } else {
+                        // Support markdown in regular cells
+                        td.innerHTML = marked.parse(cell);
+                    }
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+            
+            // Add any table-specific classes
+            if (block.style?.striped) {
+                table.classList.add('striped');
+            }
+            if (block.style?.bordered) {
+                table.classList.add('bordered');
+            }
+            if (block.style?.hover) {
+                table.classList.add('hover');
+            }
+            if (block.style?.compact) {
+                table.classList.add('compact');
+            }
+            
+            wrapper.appendChild(table);
             break;
             
         default:

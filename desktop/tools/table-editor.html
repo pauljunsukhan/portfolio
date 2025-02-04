@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Block Editor</title>
+    <link rel="stylesheet" href="/styles/global.css">
+    <style>
+        /* Editor-specific styles */
+        .editor-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .editor-panel {
+            background: var(--window-bg);
+            border: 1px solid var(--window-border);
+            border-radius: 6px;
+            padding: 1rem;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .toolbar button {
+            font-size: 0.8rem;
+            padding: 0.3rem 0.6rem;
+            background: var(--menu-bg);
+            border: 1px solid var(--window-border);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .toolbar button:hover {
+            background: var(--background-color);
+        }
+
+        .table-container {
+            overflow: auto;
+            margin-bottom: 1rem;
+            max-height: 400px;
+        }
+
+        .editor-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--font-primary);
+        }
+
+        .editor-table td, .editor-table th {
+            border: 1px solid var(--window-border);
+            padding: 0.5rem;
+            position: relative;
+            min-width: 100px;
+        }
+
+        .editor-table td.selected, .editor-table th.selected {
+            background: rgba(45, 170, 219, 0.1);
+        }
+
+        .editor-table td.merging, .editor-table th.merging {
+            background: rgba(39, 174, 96, 0.1);
+        }
+
+        .cell-editor {
+            width: 100%;
+            min-height: 1.5em;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: inherit;
+            resize: none;
+            overflow: hidden;
+        }
+
+        .cell-editor:focus {
+            outline: 2px solid var(--secondary-color);
+            background: var(--window-bg);
+        }
+
+        .context-menu {
+            position: fixed;
+            background: var(--window-bg);
+            border: 1px solid var(--window-border);
+            border-radius: 4px;
+            padding: 0.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .context-menu button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .context-menu button:hover {
+            background: var(--background-color);
+        }
+
+        .context-menu hr {
+            margin: 0.5rem 0;
+            border: none;
+            border-top: 1px solid var(--window-border);
+        }
+
+        .json-output {
+            width: 100%;
+            height: 200px;
+            font-family: monospace;
+            padding: 1rem;
+            background: var(--window-bg);
+            border: 1px solid var(--window-border);
+            border-radius: 4px;
+            margin-top: 1rem;
+            resize: vertical;
+        }
+
+        .copy-button {
+            margin-top: 0.5rem;
+        }
+
+        /* Preview panel */
+        .preview-panel {
+            background: var(--window-bg);
+            border: 1px solid var(--window-border);
+            border-radius: 6px;
+            padding: 1rem;
+        }
+
+        .style-controls {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--background-color);
+            border-radius: 4px;
+        }
+
+        .style-controls label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .style-controls input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+
+        /* Merge preview overlay */
+        .merge-preview {
+            position: absolute;
+            background: rgba(39, 174, 96, 0.2);
+            border: 2px dashed #27ae60;
+            pointer-events: none;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <main class="mac-window">
+        <header class="window-title-bar">
+            <div class="window-controls">
+                <button class="window-button close-button" aria-label="Close window"></button>
+                <button class="window-button minimize-button" aria-label="Minimize window"></button>
+            </div>
+            <div class="window-title">Table Block Editor</div>
+        </header>
+
+        <div class="editor-container">
+            <!-- Editor Panel -->
+            <div class="editor-panel">
+                <div class="toolbar">
+                    <button id="addRow">Add Row</button>
+                    <button id="addColumn">Add Column</button>
+                    <button id="deleteRow">Delete Row</button>
+                    <button id="deleteColumn">Delete Column</button>
+                    <button id="mergeSelected">Merge Selected</button>
+                    <button id="unmergeSelected">Unmerge</button>
+                    <button id="addHeader">Toggle Header</button>
+                    <button id="toggleMergeMode">Merge Mode: OFF</button>
+                </div>
+                <div class="dimension-controls" style="margin: 1rem 0;"></div>
+                    <label>Total Rows: <input type="number" id="totalRows" min="1" value="3"></label>
+                    <label>Total Columns: <input type="number" id="totalColumns" min="1" value="3"></label>
+                    <button id="applyDimensions">Apply Dimensions</button>
+                </div>
+                <div class="table-container">
+                    <table class="editor-table">
+                        <tbody>
+                            <tr>
+                                <td><div class="cell-editor" contenteditable="true"></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="style-controls">
+                    <label>
+                        <input type="checkbox" id="striped"> Striped Rows
+                    </label>
+                    <label>
+                        <input type="checkbox" id="bordered"> Bordered
+                    </label>
+                    <label>
+                        <input type="checkbox" id="hover"> Hover Effect
+                    </label>
+                    <label>
+                        <input type="checkbox" id="compact"> Compact
+                    </label>
+                </div>
+
+                <textarea class="json-output" readonly></textarea>
+                <button class="copy-button">Copy JSON</button>
+            </div>
+
+            <!-- Preview Panel -->
+            <div class="preview-panel">
+                <h3>Live Preview</h3>
+                <div id="preview-container"></div>
+            </div>
+        </div>
+
+        <!-- Context Menu (hidden by default) -->
+        <div class="context-menu" style="display: none;">
+            <button data-action="merge">Merge Cells</button>
+            <button data-action="unmerge">Unmerge Cells</button>
+            <hr>
+            <button data-action="insert-row-above">Insert Row Above</button>
+            <button data-action="insert-row-below">Insert Row Below</button>
+            <button data-action="insert-col-left">Insert Column Left</button>
+            <button data-action="insert-col-right">Insert Column Right</button>
+            <hr>
+            <button data-action="delete-row">Delete Row</button>
+            <button data-action="delete-col">Delete Column</button>
+            <hr>
+            <button data-action="toggle-header">Toggle Header</button>
+        </div>
+    </main>
+
+    <script type="module">
+        // Table editor state
+        const state = {
+            selection: {
+                start: null,
+                end: null,
+                cells: new Set()
+            },
+            merging: false,
+            mergeMode: false,
+            table: {
+                headers: [],
+                rows: []
+            },
+            style: {
+                theme: 'retro-mac',
+                striped: false,
+                bordered: false,
+                hover: false,
+                compact: false
+            }
+        };
+
+        // Initialize editor
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeEditor();
+            initializeContextMenu();
+            initializeToolbar();
+            initializeDimensionControls();
+            initializeStyleControls();
+            initializeMergeModeToggle();
+            updatePreview();
+        });
+
+        function initializeEditor() {
+            const table = document.querySelector('.editor-table');
+            
+            // Cell selection handling
+            table.addEventListener('mousedown', startCellSelection);
+            table.addEventListener('mouseover', updateCellSelection);
+            document.addEventListener('mouseup', endCellSelection);
+            
+            // Cell editing
+            table.addEventListener('input', (e) => {
+                if (e.target.classList.contains('cell-editor')) {
+                    updateTableData();
+                }
+            });
+
+            // Context menu
+            table.addEventListener('contextmenu', showContextMenu);
+        }
+
+        function initializeContextMenu() {
+            const menu = document.querySelector('.context-menu');
+            
+            // Hide context menu on click outside
+            document.addEventListener('click', (e) => {
+                if (!menu.contains(e.target)) {
+                    menu.style.display = 'none';
+                }
+            });
+
+            // Handle context menu actions
+            menu.addEventListener('click', (e) => {
+                const action = e.target.dataset.action;
+                if (action) {
+                    handleContextMenuAction(action);
+                    menu.style.display = 'none';
+                }
+            });
+        }
+
+        function initializeToolbar() {
+            document.getElementById('addRow').addEventListener('click', () => addRow());
+            document.getElementById('addColumn').addEventListener('click', () => addColumn());
+            document.getElementById('deleteRow').addEventListener('click', () => deleteRow());
+            document.getElementById('deleteColumn').addEventListener('click', () => deleteColumn());
+            document.getElementById('mergeSelected').addEventListener('click', () => mergeCells());
+            document.getElementById('unmergeSelected').addEventListener('click', () => unmergeCells());
+            document.getElementById('addHeader').addEventListener('click', () => toggleHeader());
+            document.getElementById('toggleMergeMode').addEventListener('click', () => toggleMergeMode());
+        }
+
+        function initializeDimensionControls() {
+            const applyBtn = document.getElementById('applyDimensions');
+            if (applyBtn) {
+                applyBtn.addEventListener('click', () => {
+                    const totalRows = parseInt(document.getElementById('totalRows').value);
+                    const totalColumns = parseInt(document.getElementById('totalColumns').value);
+                    if (totalRows > 0 && totalColumns > 0) {
+                        createTable(totalRows, totalColumns);
+                    }
+                });
+            }
+        }
+
+        function initializeStyleControls() {
+            const controls = document.querySelectorAll('.style-controls input');
+            controls.forEach(control => {
+                control.addEventListener('change', (e) => {
+                    state.style[e.target.id] = e.target.checked;
+                    updatePreview();
+                });
+            });
+        }
+
+        function initializeMergeModeToggle() {
+            const btn = document.getElementById('toggleMergeMode');
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    state.mergeMode = !state.mergeMode;
+                    btn.textContent = 'Merge Mode: ' + (state.mergeMode ? 'ON' : 'OFF');
+                });
+            }
+        }
+
+        function startCellSelection(e) {
+            if (!state.mergeMode && !e.altKey && e.target.classList.contains('cell-editor')) return;
+            if (!e.target.closest('td, th')) return;
+            
+            state.selection.start = getCellPosition(e.target.closest('td, th'));
+            state.selection.cells.clear();
+            updateSelection();
+        }
+
+        function updateCellSelection(e) {
+            if (!state.mergeMode && !e.altKey && e.target.classList.contains('cell-editor')) return;
+            if (!state.selection.start || !e.buttons) return;
+            
+            if (e.target.closest('td, th')) {
+                state.selection.end = getCellPosition(e.target.closest('td, th'));
+                updateSelection();
+            }
+        }
+
+        function endCellSelection() {
+            if (state.merging) {
+                mergeCells();
+            }
+            state.selection.start = null;
+            state.selection.end = null;
+        }
+
+        function updateSelection() {
+            // Clear previous selection
+            document.querySelectorAll('.editor-table .selected').forEach(cell => {
+                cell.classList.remove('selected');
+            });
+
+            // Calculate selection range
+            const range = getSelectionRange();
+            
+            // Mark selected cells
+            for (let row = range.top; row <= range.bottom; row++) {
+                for (let col = range.left; col <= range.right; col++) {
+                    const cell = getCellAt(row, col);
+                    if (cell) {
+                        cell.classList.add('selected');
+                        state.selection.cells.add(cell);
+                    }
+                }
+            }
+        }
+
+        function getSelectionRange() {
+            const start = state.selection.start;
+            const end = state.selection.end || start;
+            
+            return {
+                top: Math.min(start.row, end.row),
+                bottom: Math.max(start.row, end.row),
+                left: Math.min(start.col, end.col),
+                right: Math.max(start.col, end.col)
+            };
+        }
+
+        function getCellPosition(cell) {
+            const row = cell.parentElement.rowIndex;
+            const col = cell.cellIndex;
+            return { row, col };
+        }
+
+        function getCellAt(row, col) {
+            const table = document.querySelector('.editor-table');
+            const tr = table.rows[row];
+            return tr ? tr.cells[col] : null;
+        }
+
+        function updateTableData() {
+            const table = document.querySelector('.editor-table');
+            state.table.headers = [];
+            state.table.rows = [];
+
+            // Get headers
+            if (table.tHead) {
+                const headerRow = Array.from(table.tHead.rows[0].cells).map(cell => {
+                    const content = cell.querySelector('.cell-editor').textContent;
+                    return cell.hasAttribute('colspan') || cell.hasAttribute('rowspan')
+                        ? {
+                            content,
+                            colspan: cell.getAttribute('colspan'),
+                            rowspan: cell.getAttribute('rowspan')
+                        }
+                        : content;
+                });
+                state.table.headers = headerRow;
+            }
+
+            // Get rows
+            Array.from(table.tBodies[0].rows).forEach(row => {
+                const rowData = Array.from(row.cells).map(cell => {
+                    const content = cell.querySelector('.cell-editor').textContent;
+                    return cell.hasAttribute('colspan') || cell.hasAttribute('rowspan')
+                        ? {
+                            content,
+                            colspan: cell.getAttribute('colspan'),
+                            rowspan: cell.getAttribute('rowspan')
+                        }
+                        : content;
+                });
+                state.table.rows.push(rowData);
+            });
+
+            updateJsonOutput();
+            updatePreview();
+        }
+
+        function updateJsonOutput() {
+            const output = {
+                type: 'table',
+                style: {
+                    theme: state.style.theme,
+                    striped: state.style.striped,
+                    bordered: state.style.bordered,
+                    hover: state.style.hover,
+                    compact: state.style.compact,
+                    span: 12
+                },
+                headers: state.table.headers,
+                rows: state.table.rows
+            };
+
+            document.querySelector('.json-output').value = JSON.stringify(output, null, 2);
+        }
+
+        function updatePreview() {
+            const previewContainer = document.getElementById('preview-container');
+            const tableHtml = generatePreviewTable();
+            previewContainer.innerHTML = tableHtml;
+        }
+
+        function generatePreviewTable() {
+            const table = document.createElement('table');
+            table.className = 'table-block theme-retro-mac';
+            if (state.style.striped) table.classList.add('striped');
+            if (state.style.bordered) table.classList.add('bordered');
+            if (state.style.hover) table.classList.add('hover');
+            if (state.style.compact) table.classList.add('compact');
+
+            // Add headers
+            if (state.table.headers.length) {
+                const thead = document.createElement('thead');
+                const headerRow = document.createElement('tr');
+                state.table.headers.forEach(header => {
+                    const th = document.createElement('th');
+                    if (typeof header === 'object') {
+                        th.textContent = header.content;
+                        if (header.colspan) th.setAttribute('colspan', header.colspan);
+                        if (header.rowspan) th.setAttribute('rowspan', header.rowspan);
+                    } else {
+                        th.textContent = header;
+                    }
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+            }
+
+            // Add rows
+            const tbody = document.createElement('tbody');
+            state.table.rows.forEach(row => {
+                const tr = document.createElement('tr');
+                row.forEach(cell => {
+                    const td = document.createElement('td');
+                    if (typeof cell === 'object') {
+                        td.textContent = cell.content;
+                        if (cell.colspan) td.setAttribute('colspan', cell.colspan);
+                        if (cell.rowspan) td.setAttribute('rowspan', cell.rowspan);
+                    } else {
+                        td.textContent = cell;
+                    }
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+
+            return table.outerHTML;
+        }
+
+        // Toolbar actions
+        function addRow() {
+            const table = document.querySelector('.editor-table');
+            const newRow = table.insertRow();
+            const cols = table.rows[0].cells.length;
+            
+            for (let i = 0; i < cols; i++) {
+                const cell = newRow.insertCell();
+                cell.innerHTML = '<div class="cell-editor" contenteditable="true"></div>';
+            }
+            
+            updateTableData();
+        }
+
+        function addColumn() {
+            const table = document.querySelector('.editor-table');
+            Array.from(table.rows).forEach(row => {
+                const cell = row.insertCell();
+                cell.innerHTML = '<div class="cell-editor" contenteditable="true"></div>';
+            });
+            
+            updateTableData();
+        }
+
+        function deleteRow() {
+            if (!state.selection.cells.size) return;
+            
+            const rowIndex = Array.from(state.selection.cells)[0].parentElement.rowIndex;
+            document.querySelector('.editor-table').deleteRow(rowIndex);
+            
+            updateTableData();
+        }
+
+        function deleteColumn() {
+            if (!state.selection.cells.size) return;
+            
+            const colIndex = Array.from(state.selection.cells)[0].cellIndex;
+            const table = document.querySelector('.editor-table');
+            
+            Array.from(table.rows).forEach(row => {
+                row.deleteCell(colIndex);
+            });
+            
+            updateTableData();
+        }
+
+        function mergeCells() {
+            if (state.selection.cells.size < 2) return;
+            
+            const range = getSelectionRange();
+            const firstCell = getCellAt(range.top, range.left);
+            const content = Array.from(state.selection.cells)
+                .map(cell => cell.querySelector('.cell-editor').textContent)
+                .filter(Boolean)
+                .join(' ');
+            
+            firstCell.setAttribute('colspan', range.right - range.left + 1);
+            firstCell.setAttribute('rowspan', range.bottom - range.top + 1);
+            firstCell.querySelector('.cell-editor').textContent = content;
+            
+            // Remove other cells
+            state.selection.cells.forEach(cell => {
+                if (cell !== firstCell) {
+                    cell.remove();
+                }
+            });
+            
+            updateTableData();
+        }
+
+        function unmergeCells() {
+            if (!state.selection.cells.size) return;
+            
+            const cell = Array.from(state.selection.cells)[0];
+            if (!cell.hasAttribute('colspan') && !cell.hasAttribute('rowspan')) return;
+            
+            const colspan = parseInt(cell.getAttribute('colspan')) || 1;
+            const rowspan = parseInt(cell.getAttribute('rowspan')) || 1;
+            const content = cell.querySelector('.cell-editor').textContent;
+            
+            cell.removeAttribute('colspan');
+            cell.removeAttribute('rowspan');
+            
+            // Add new cells
+            const table = document.querySelector('.editor-table');
+            for (let i = 0; i < rowspan; i++) {
+                for (let j = 0; j < colspan; j++) {
+                    if (i === 0 && j === 0) continue; // Skip first cell
+                    
+                    const newCell = table.rows[cell.parentElement.rowIndex + i].insertCell(cell.cellIndex + j);
+                    newCell.innerHTML = '<div class="cell-editor" contenteditable="true"></div>';
+                }
+            }
+            
+            updateTableData();
+        }
+
+        function toggleHeader() {
+            const table = document.querySelector('.editor-table');
+            if (table.tHead) {
+                table.deleteTHead();
+            } else {
+                const thead = table.createTHead();
+                const row = thead.insertRow();
+                const firstRow = table.rows[0];
+                
+                Array.from(firstRow.cells).forEach(cell => {
+                    const th = document.createElement('th');
+                    th.innerHTML = '<div class="cell-editor" contenteditable="true"></div>';
+                    row.appendChild(th);
+                });
+                
+                table.deleteRow(1); // Remove the first body row that became header
+            }
+            
+            updateTableData();
+        }
+
+        function toggleMergeMode() {
+            state.mergeMode = !state.mergeMode;
+            const btn = document.getElementById('toggleMergeMode');
+            btn.textContent = 'Merge Mode: ' + (state.mergeMode ? 'ON' : 'OFF');
+        }
+
+        // Context menu actions
+        function showContextMenu(e) {
+            e.preventDefault();
+            
+            const menu = document.querySelector('.context-menu');
+            menu.style.display = 'block';
+            menu.style.left = `${e.pageX}px`;
+            menu.style.top = `${e.pageY}px`;
+            
+            // Adjust menu position if it would go off screen
+            const rect = menu.getBoundingClientRect();
+            if (rect.right > window.innerWidth) {
+                menu.style.left = `${e.pageX - rect.width}px`;
+            }
+            if (rect.bottom > window.innerHeight) {
+                menu.style.top = `${e.pageY - rect.height}px`;
+            }
+        }
+
+        function handleContextMenuAction(action) {
+            switch (action) {
+                case 'merge':
+                    mergeCells();
+                    break;
+                case 'unmerge':
+                    unmergeCells();
+                    break;
+                case 'insert-row-above':
+                    insertRowAbove();
+                    break;
+                case 'insert-row-below':
+                    insertRowBelow();
+                    break;
+                case 'insert-col-left':
+                    insertColumnLeft();
+                    break;
+                case 'insert-col-right':
+                    insertColumnRight();
+                    break;
+                case 'delete-row':
+                    deleteRow();
+                    break;
+                case 'delete-col':
+                    deleteColumn();
+                    break;
+                case 'toggle-header':
+                    toggleHeader();
+                    break;
+            }
+        }
+
+        // Additional context menu actions
+        function insertRowAbove() {
+            if (!state.selection.cells.size) return;
+            
+            const rowIndex = Array.from(state.selection.cells)[0].parentElement.rowIndex;
+            const table = document.querySelector('.editor-table');
+            const newRow = table.insertRow(rowIndex);
+            
+            for (let i = 0; i < table.rows[0].cells.length; i++) {
+                const cell = newRow.insertCell();
+                cell.innerHTML = '<div class="cell-editor" contenteditable="true"></div>';
+            }
+            
+            updateTableData();
+        }
+
+        function insertRowBelow() {
+            if (!state.selection.cells.size) return;
+            
+            const rowIndex = Array.from(state.selection.cells)[0].parentElement.rowIndex;
+            const table = document.querySelector('.editor-table');
+            const newRow = table.insertRow(rowIndex + 1);
+            
+            for (let i = 0; i < table.rows[0].cells.length; i++) {
+                const cell = newRow.insertCell();
+                cell.innerHTML = '<div class="cell-editor" contenteditable="true"></div>';
+            }
+            
+            updateTableData();
+        }
+
+        function insertColumnLeft() {
+            if (!state.selection.cells.size) return;
+            
+            const colIndex = Array.from(state.selection.cells)[0].cellIndex;
+            const table = document.querySelector('.editor-table');
+            
+            Array.from(table.rows).forEach(row => {
+                const cell = row.insertCell(colIndex);
+                cell.innerHTML = '<div class="cell-editor" contenteditable="true"></div>';
+            });
+            
+            updateTableData();
+        }
+
+        function insertColumnRight() {
+            if (!state.selection.cells.size) return;
+            
+            const colIndex = Array.from(state.selection.cells)[0].cellIndex;
+            const table = document.querySelector('.editor-table');
+            
+            Array.from(table.rows).forEach(row => {
+                const cell = row.insertCell(colIndex + 1);
+                cell.innerHTML = '<div class="cell-editor" contenteditable="true"></div>';
+            });
+            
+            updateTableData();
+        }
+
+        // Copy JSON button
+        document.querySelector('.copy-button').addEventListener('click', () => {
+            const jsonOutput = document.querySelector('.json-output');
+            jsonOutput.select();
+            document.execCommand('copy');
+            
+            // Visual feedback
+            const originalText = jsonOutput.value;
+            jsonOutput.value = 'Copied!';
+            setTimeout(() => {
+                jsonOutput.value = originalText;
+            }, 1000);
+        });
+
+        function createTable(rows, cols) {
+            const table = document.querySelector('.editor-table');
+            table.innerHTML = ''; // clear current table
+            const tbody = document.createElement('tbody');
+            for (let r = 0; r < rows; r++) {
+                const tr = document.createElement('tr');
+                for (let c = 0; c < cols; c++) {
+                    const td = document.createElement('td');
+                    td.innerHTML = '<div class="cell-editor" contenteditable="true"></div>';
+                    tr.appendChild(td);
+                }
+                tbody.appendChild(tr);
+            }
+            table.appendChild(tbody);
+            updateTableData();
+        }
+    </script>
+</body>
+</html> 

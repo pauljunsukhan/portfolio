@@ -14,20 +14,7 @@ import { createDialog } from './globals.js';
 async function loadMenuConfig(pageSpecificConfig) {
     console.log('Loading menu config...', { pageSpecificConfig });
     
-    // Try to load from config directory first
-    try {
-        const defaultPath = './config/menubar.json';
-        const response = await fetch(defaultPath, { cache: 'no-store' });
-        if (response.ok) {
-            const data = await response.json();
-            console.log('Menu config loaded:', data);
-            return data;
-        }
-    } catch (error) {
-        console.error('Error loading default menu config:', error);
-    }
-
-    // Try specific config if provided
+    // If a specific config path is provided, try that first
     if (pageSpecificConfig) {
         try {
             const response = await fetch(pageSpecificConfig);
@@ -41,7 +28,76 @@ async function loadMenuConfig(pageSpecificConfig) {
         }
     }
 
-    return null;
+    // Try to load from current directory, first menubar.json then menu.json
+    try {
+        // Try menubar.json first
+        let response = await fetch('./menubar.json');
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Local menubar config loaded:', data);
+            return data;
+        }
+
+        // If menubar.json fails, try menu.json
+        response = await fetch('./menu.json');
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Local menu config loaded:', data);
+            return data;
+        }
+    } catch (error) {
+        // Silently continue to default config
+        console.warn('No local menu config found, trying default');
+    }
+
+    // Fall back to default config in /config directory, first menubar.json then menu.json
+    try {
+        // Try menubar.json first
+        let response = await fetch('/config/menubar.json');
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Default menubar config loaded:', data);
+            return data;
+        }
+
+        // If menubar.json fails, try menu.json
+        response = await fetch('/config/menu.json');
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Default menu config loaded:', data);
+            return data;
+        }
+
+        // If both fail, throw error
+        throw new Error('No menu configuration found');
+    } catch (error) {
+        console.warn('No menu configuration found:', error);
+        // Return a minimal default configuration instead of null
+        return {
+            apple_menu: {
+                icon: '▶︎ •၊၊||၊|၊||‌။',
+                aria_label: 'Apple menu',
+                role: 'button',
+                action: {
+                    type: 'dialog',
+                    title: 'About',
+                    content: 'Portfolio v1.0'
+                }
+            },
+            menu_items: [
+                {
+                    label: 'File',
+                    role: 'menu',
+                    items: []
+                },
+                {
+                    label: 'Edit',
+                    role: 'menu',
+                    items: []
+                }
+            ]
+        };
+    }
 }
 
 export async function generateMenuBar(pageSpecificConfig) {

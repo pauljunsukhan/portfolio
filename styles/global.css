@@ -327,3 +327,81 @@ main.mac-window {
     border-radius: 4px;
     display: block;
 }
+
+/* Table Block Styles */
+.table-block {
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    background: var(--window-bg);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.table-block table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-sm);
+}
+
+.table-block th {
+    background: var(--menu-bg);
+    color: var(--primary-color);
+    font-weight: bold;
+    text-align: left;
+    padding: 12px;
+    border-bottom: 2px solid var(--window-border);
+}
+
+.table-block td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    vertical-align: top;
+    line-height: 1.4;
+}
+
+/* Table Variations */
+.table-block table.striped tr:nth-child(even) {
+    background: rgba(0,0,0,0.02);
+}
+
+.table-block table.bordered th,
+.table-block table.bordered td {
+    border: 1px solid var(--window-border);
+}
+
+.table-block table.hover tr:hover {
+    background: rgba(0,0,0,0.04);
+}
+
+.table-block table.compact th,
+.table-block table.compact td {
+    padding: 6px 8px;
+}
+
+/* Theme Variations */
+.table-block.theme-retro-mac {
+    border: 1px solid var(--window-border);
+}
+
+.table-block.theme-retro-mac th {
+    background: linear-gradient(to bottom, #f5e6d3, #e6d7c4);
+    border-bottom: 1px solid var(--window-border);
+}
+
+.table-block.theme-retro-mac td {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    .table-block {
+        margin: 1rem -1rem;
+        width: calc(100% + 2rem);
+        border-radius: 0;
+    }
+    
+    .table-block td {
+        min-width: 120px; /* Ensure cells don't get too narrow */
+    }
+}
