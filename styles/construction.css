@@ -70,3 +70,81 @@
     );
     margin: calc(var(--font-size-base) * 2) 0;
 } 
+/* Additional retro styles for 90s flair */
+.construction-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.construction-sign {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.construction-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: fade 2s infinite;
+}
+
+.construction-header .barrier {
+    font-size: 1.5rem;
+}
+
+.construction-header .title {
+    font-family: "Courier New", monospace;
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    color: var(--primary-color);
+}
+
+.construction-info {
+    font-family: "Courier New", monospace;
+    line-height: 1.6;
+    margin: 1rem 0;
+}
+
+.webring-box {
+    border: 1px dashed #666;
+    padding: 1rem 2rem;
+    font-family: "Courier New", monospace;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.webring-box a {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.webring-box a:hover {
+    color: #006666;
+}
+
+.update-info {
+    font-family: "Courier New", monospace;
+    color: #333;
+}
+
+.date-underline {
+    border-bottom: 1px solid #333;
+    padding-bottom: 2px;
+}
+
+@keyframes fade {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
