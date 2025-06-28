@@ -188,9 +188,6 @@ input, textarea {
     .menu-item {
         max-width: none;
     }
-    .menu-item:nth-last-child(-n+2) {
-        display: flex;
-    }
 }
 
 /* Visitor Counter - positioned at bottom */

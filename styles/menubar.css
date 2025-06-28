@@ -146,33 +146,3 @@ button[role="menuitemradio"][aria-checked="true"]::before {
 
 /* Responsive adjustments */
 @media (max-width: 480px) {
-    /* Allow full menu text and enable horizontal scrolling */
-    .global-menu-bar {
-        overflow-x: auto;
-        overflow-y: visible; /* ensure submenus remain visible */
-    }
-
-    .menu-item > button {
-        max-width: none;
-        overflow: visible;
-        text-overflow: initial;
-    }
-
-    .menu-item:nth-last-child(-n+2) {
-        display: flex;
-    }
-}
-
-/* Window Title Bar Link (GitHub or similar) */
-.window-link {
-    position: absolute;
-    right: calc(var(--font-size-base) * 0.6);
-    color: var(--window-bg);
-    text-decoration: none;
-    font-size: var(--font-size-xs);
-    padding: calc(var(--font-size-base) * 0.15) calc(var(--font-size-base) * 0.4);
-    background: #2ea538; /* Muted retro Mac green */
-    border: 1px solid #1e7a28;
-    border-radius: 3px;
-    transition: all 0.2s ease;
-} 
