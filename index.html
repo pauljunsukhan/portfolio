@@ -3,7 +3,7 @@
 <head>
   <!-- Basic Meta Tags -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=5.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paul Han - Innovative Software & Hardware Engineer</title>
 
   <!-- SEO Optimization Section -->
@@ -191,12 +191,12 @@
   <div class="overlay" aria-hidden="true"></div>
 
   <!-- Scripts -->
-  <script type="module" src="/scripts/globals.js"></script>
-  <script type="module" src="/scripts/desktop.js"></script>
-  <script type="module" src="/scripts/menubar.js"></script>
-  <script type="module" src="/scripts/header.js"></script>
-  <script type="module" src="/scripts/projects.js"></script>
-  <script type="module" src="/scripts/socials.js"></script>
+  <script type="module" src="scripts/globals.js"></script>
+  <script type="module" src="scripts/desktop.js"></script>
+  <script type="module" src="scripts/menubar.js"></script>
+  <script type="module" src="scripts/header.js"></script>
+  <script type="module" src="scripts/projects.js"></script>
+  <script type="module" src="scripts/socials.js"></script>
 
   <!-- Load Our Modular JS (global, socials, projects, etc.) -->
   <script type="module">
@@ -212,17 +212,17 @@
       console.log('Initializing homepage...');
 
       // 1) Initialize menu bar
-      await generateMenuBar('/config/menu.json').catch(err => {
+      await generateMenuBar('config/menu.json').catch(err => {
         console.error('Error generating menu bar:', err);
       });
 
       // 2) Initialize header
-      await generateHeader('/config/header.json').catch(err => {
+      await generateHeader('config/header.json').catch(err => {
         console.error('Error generating header:', err);
       });
 
       // 3) Initialize desktop icons
-      await generateDesktopIcons('/config/desktop.json').catch(err => {
+      await generateDesktopIcons('config/desktop.json').catch(err => {
         console.error('Error generating desktop icons:', err);
       });
 
@@ -230,12 +230,12 @@
       updateVisitorCounter();
 
       // 5) Generate social links
-      await generateSocialLinks('/config/socials.json').catch(err => {
+      await generateSocialLinks('config/socials.json').catch(err => {
         console.error('Error generating social links:', err);
       });
 
       // 6) Load projects
-      await loadProjects('/config/projects.json').catch(err => {
+      await loadProjects('config/projects.json').catch(err => {
         console.error('Error loading projects:', err);
       });
 
@@ -243,8 +243,8 @@
       initAutoLinkify();
 
       // Load documents when DOM is ready
-      loadDocument('/assets/document_blocks/field_notes.json', 'field-notes-container');
-      loadDocument('/assets/document_blocks/project_docs.json', 'project-docs-container');
+      loadDocument('assets/document_blocks/field_notes.json', 'field-notes-container');
+      loadDocument('assets/document_blocks/project_docs.json', 'project-docs-container');
 
       console.log('Homepage initialization complete.');
     });
