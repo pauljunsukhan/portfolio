@@ -47,6 +47,11 @@
 </head>
 
 <body>
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark-mode');
+    }
+  </script>
   <!-- Classic Mac Menu Bar -->
   <nav class="global-menu-bar" role="navigation" aria-label="Main navigation">
     <!-- Menu bar is now generated dynamically by menubar.js -->

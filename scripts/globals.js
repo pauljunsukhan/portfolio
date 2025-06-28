@@ -343,9 +343,24 @@ export function initConstructionPage() {
     typewriterEffect(dateElement);
   }
 }
-  
+
+//////////////////////////////
+// 9) THEME HANDLING        //
+//////////////////////////////
+export function initializeTheme() {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    document.body.classList.add('dark-mode');
+  }
+}
+
+export function toggleTheme() {
+  const isDark = document.body.classList.toggle('dark-mode');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
 /////////////////////////////
-// 9) MAIN INIT SEQUENCE  //
+// 10) MAIN INIT SEQUENCE //
 /////////////////////////////
 /**
  * For pages that want to load everything on DOMContentLoaded,
@@ -355,6 +370,7 @@ export function initConstructionPage() {
 
 // (Example) If you want to run specific logic automatically:
 document.addEventListener('DOMContentLoaded', () => {
+  initializeTheme();
   // Initialize auto-linkify functionality
   initAutoLinkify();
   

@@ -63,6 +63,11 @@
 
 <body>
   <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark-mode');
+    }
+  </script>
+  <script>
     // Check if we're in preview mode
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('preview') === 'true') {

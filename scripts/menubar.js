@@ -1,4 +1,4 @@
-import { createDialog } from './globals.js';
+import { createDialog, toggleTheme } from './globals.js';
 
 /**
  * menubar.js
@@ -386,7 +386,7 @@ function handleToggleAction(action) {
     console.log('Handling toggle:', action);
     switch (action.target) {
         case 'theme':
-            document.body.classList.toggle('dark-mode');
+            toggleTheme();
             break;
             
         case 'layout':
