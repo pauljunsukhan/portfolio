@@ -4,6 +4,8 @@
 
 @import 'fonts.css';
 
+
+
 /* Construction Page Content */
 .construction-content {
     display: flex;
@@ -17,11 +19,12 @@
 }
 
 .construction-title {
+    font-family: var(--font-display);
     font-size: var(--font-size-title);
     margin-bottom: calc(var(--font-size-base) * 2);
     letter-spacing: var(--letter-spacing-wide);
     border-bottom: none;
-    animation: blink 2s infinite;
+    animation: blink 1s steps(2, start) infinite;
 }
 
 .construction-message {
@@ -51,6 +54,21 @@
 .construction-animation a:hover {
     background: var(--secondary-color);
     color: var(--window-bg);
+}
+
+.construction-wrapper {
+    padding: var(--spacing);
+}
+
+.construction-sign {
+    background: var(--window-bg);
+    border: 4px double var(--accent-color);
+    padding: var(--spacing);
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.construction-header .barrier {
+    animation: blink 1s steps(2, start) infinite;
 }
 
 @keyframes blink {
