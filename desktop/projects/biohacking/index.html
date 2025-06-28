@@ -113,7 +113,7 @@
           <div class="counter-digit" aria-hidden="true">0</div>
         </div>
         <img
-          src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fpauljunsukhan.com%2Fprojects%2Fbiohacking&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=visits&edge_flat=false"
+          src="https://visitor-badge.laobi.icu/badge?page_id=pauljunsukhan.com%2Fdesktop%2Fprojects%2Fbiohacking%2F"
           alt="Real-time visitor count for biohacking protocol"
           id="visitor-badge"
           style="position: absolute; width: 1px; height: 1px; overflow: hidden;"
@@ -127,24 +127,24 @@
   <div class="overlay" aria-hidden="true"></div>
 
   <!-- Scripts -->
-  <script type="module" src="../../scripts/globals.js"></script>
-  <script type="module" src="../../scripts/desktop.js"></script>
-  <script type="module" src="../../scripts/menubar.js"></script>
-  <script type="module" src="../../scripts/header.js"></script>
+  <script type="module" src="../../../scripts/globals.js"></script>
+  <script type="module" src="../../../scripts/desktop.js"></script>
+  <script type="module" src="../../../scripts/menubar.js"></script>
+  <script type="module" src="../../../scripts/header.js"></script>
 
   <!-- Load Our Modular JS -->
   <script type="module">
-    import { updateVisitorCounter, generateDesktopIcons } from '../../scripts/desktop.js';
-    import { initAutoLinkify } from '../../scripts/globals.js';
-    import { generateMenuBar } from '../../scripts/menubar.js';
-    import { generateHeader } from '../../scripts/header.js';
-    import { loadDocument } from '../../scripts/documents.js';
+    import { updateVisitorCounter, generateDesktopIcons } from '../../../scripts/desktop.js';
+    import { initAutoLinkify } from '../../../scripts/globals.js';
+    import { generateMenuBar } from '../../../scripts/menubar.js';
+    import { generateHeader } from '../../../scripts/header.js';
+    import { loadDocument } from '../../../scripts/documents.js';
 
     document.addEventListener('DOMContentLoaded', async () => {
       console.log('Initializing biohacking page...');
 
       // 1) Initialize menu bar
-      await generateMenuBar('../../config/menu.json').catch(err => {
+      await generateMenuBar('../../../config/menu.json').catch(err => {
         console.error('Error generating menu bar:', err);
       });
 
@@ -154,7 +154,7 @@
       });
 
       // 3) Initialize desktop icons
-      await generateDesktopIcons('../../config/desktop.json').catch(err => {
+      await generateDesktopIcons('../../../config/desktop.json').catch(err => {
         console.error('Error generating desktop icons:', err);
       });
 

@@ -129,50 +129,46 @@ export async function generateDesktopIcons(pageSpecificConfig) {
 //////////////////////////
 export function updateVisitorCounter() {
     try {
-        const badge = document.getElementById('visitor-badge');
         const digits = document.querySelectorAll('.counter-digit');
-        if (!badge || !digits.length) {
+        if (!digits.length) {
             console.warn('Visitor counter elements not found');
             return;
         }
 
-        function updateDisplay() {
+        const pageId = `pauljunsukhan.com${window.location.pathname}`;
+
+        async function updateDisplay() {
             try {
-                console.log('Updating visitor count...');
-                
-                // Use a local counter if the external service is unavailable
-                let count = localStorage.getItem('visitorCount');
-                if (!count) {
-                    count = '000001';
+                const resp = await fetch(
+                    `https://visitor-badge.laobi.icu/badge?page_id=${encodeURIComponent(pageId)}`,
+                    { mode: 'cors' }
+                );
+                const svg = await resp.text();
+                const match = svg.match(/>(\d+)<\/text>/);
+                let count = match ? match[1] : null;
+                if (count) {
                     localStorage.setItem('visitorCount', count);
                 } else {
-                    // Increment the count
-                    const newCount = String(parseInt(count) + 1).padStart(6, '0');
-                    localStorage.setItem('visitorCount', newCount);
-                    count = newCount;
+                    count = localStorage.getItem('visitorCount') || '0';
                 }
 
-                // Update the display
-                const paddedCount = count.padStart(6, '0');
+                const padded = String(count).padStart(6, '0');
                 digits.forEach((digit, idx) => {
-                    digit.textContent = paddedCount[idx] || '0';
-                });
-
-                // Try to fetch the external count in the background
-                fetch('https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fpauljunsukhan.com&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=visits&edge_flat=false', {
-                    mode: 'no-cors'
-                }).catch(err => {
-                    console.warn('External visitor counter service unavailable:', err);
+                    digit.textContent = padded[idx] || '0';
                 });
             } catch (err) {
-                console.error('Error in updateDisplay:', err);
+                console.warn('Visitor counter update failed:', err);
+                const fallback = localStorage.getItem('visitorCount') || '0';
+                const padded = String(fallback).padStart(6, '0');
+                digits.forEach((digit, idx) => {
+                    digit.textContent = padded[idx] || '0';
+                });
             }
         }
 
         console.log('Initializing visitor counter...');
         updateDisplay();
-        // Update every 5 minutes
-        setInterval(updateDisplay, 300000);
+        setInterval(updateDisplay, 300000); // Update every 5 minutes
 
     } catch (error) {
         console.error('Visitor counter error:', error);

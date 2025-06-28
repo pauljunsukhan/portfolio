@@ -366,10 +366,10 @@ async function loadProjectPreview(projectId, previewWindow, previewContent) {
     // Create and add iframe
     const iframe = document.createElement('iframe');
     iframe.style.width = '100%';
-    iframe.style.height = '100%';
+    iframe.style.height = 'auto';
     iframe.style.border = 'none';
     
-    // Add load event listener to modify iframe content
+    // Add load event listener to modify iframe content and size
     iframe.onload = () => {
       try {
         const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
@@ -404,6 +404,11 @@ async function loadProjectPreview(projectId, previewWindow, previewContent) {
           }
         `;
         iframeDoc.head.appendChild(style);
+
+        // Adjust iframe height based on content, with 90vh maximum
+        const contentHeight = iframeDoc.documentElement.scrollHeight;
+        const maxHeight = window.innerHeight * 0.9;
+        iframe.style.height = `${Math.min(contentHeight, maxHeight)}px`;
       } catch (err) {
         console.error('Error modifying iframe content:', err);
       }

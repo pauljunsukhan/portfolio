@@ -5,16 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Under Construction - Classic 90s style project page with modern Mac aesthetics">
     <title>Under Construction | Paul Junsuk Han</title>
-    <link rel="preload" href="/styles/global.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="/styles/desktop.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="/styles/menubar.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="/styles/construction.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/styles/global.css">
-        <link rel="stylesheet" href="/styles/desktop.css">
-        <link rel="stylesheet" href="/styles/menubar.css">
-        <link rel="stylesheet" href="/styles/construction.css">
-    </noscript>
+
 </head>
 <body>
     <!-- Add mobile menu toggle button -->
@@ -72,21 +63,3 @@
         </div>
     </main>
 
-    <div class="overlay" aria-hidden="true"></div>
-
-    <script type="module" src="../../scripts/globals.js"></script>
-    <script type="module" src="../../scripts/desktop.js"></script>
-    <script type="module" src="../../scripts/menubar.js"></script>
-    <script type="module">
-        import { generateDesktopIcons } from '../../scripts/desktop.js';
-        import { generateMenuBar } from '../../scripts/menubar.js';
-        import { initAutoLinkify } from '../../scripts/globals.js';
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            await generateMenuBar('../../config/menu.json').catch(console.error);
-            await generateDesktopIcons('../../config/desktop.json').catch(console.error);
-            initAutoLinkify();
-        });
-    </script>
-</body>
-</html> 
