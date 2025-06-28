@@ -377,16 +377,16 @@ async function loadProjectPreview(projectId, previewWindow, previewContent) {
         const menuBar = iframeDoc.querySelector('.global-menu-bar');
         const menuToggle = iframeDoc.querySelector('.menu-toggle');
         const desktopIcons = iframeDoc.querySelector('.desktop-icons');
-        
+
         if (menuBar) menuBar.remove();
         if (menuToggle) menuToggle.remove();
         if (desktopIcons) desktopIcons.remove();
-        
+
         // Add CSS to remove background and adjust window positioning
         const style = iframeDoc.createElement('style');
         style.textContent = `
-          body { 
-            padding-top: 0 !important; 
+          body {
+            padding-top: 0 !important;
             background: none !important;
             display: block !important;
             align-items: start !important;
@@ -394,7 +394,7 @@ async function loadProjectPreview(projectId, previewWindow, previewContent) {
           body::after {
             display: none !important;
           }
-          main.mac-window { 
+          main.mac-window {
             margin: 0 !important;
             width: 100% !important;
             max-width: none !important;
@@ -405,10 +405,24 @@ async function loadProjectPreview(projectId, previewWindow, previewContent) {
         `;
         iframeDoc.head.appendChild(style);
 
-        // Adjust iframe height based on content, with 90vh maximum
-        const contentHeight = iframeDoc.documentElement.scrollHeight;
-        const maxHeight = window.innerHeight * 0.9;
-        iframe.style.height = `${Math.min(contentHeight, maxHeight)}px`;
+        const updateHeight = () => {
+          try {
+            const contentHeight = iframeDoc.documentElement.scrollHeight;
+            const maxHeight = window.innerHeight * 0.9;
+            iframe.style.height = `${Math.min(contentHeight, maxHeight)}px`;
+          } catch (err) {
+            console.error('Error updating iframe height:', err);
+          }
+        };
+
+        // Initial height calculation
+        updateHeight();
+        // Additional adjustment shortly after load for mobile browsers
+        setTimeout(updateHeight, 500);
+
+        // Store and bind resize handler so we can remove it later
+        previewWindow._resizeHandler = updateHeight;
+        window.addEventListener('resize', updateHeight);
       } catch (err) {
         console.error('Error modifying iframe content:', err);
       }
@@ -470,6 +484,10 @@ function initializeProjectWindows() {
     previewWindow.classList.remove('active');
     document.body.classList.remove('preview-open');
     previewContent.innerHTML = '';
+    if (previewWindow._resizeHandler) {
+      window.removeEventListener('resize', previewWindow._resizeHandler);
+      delete previewWindow._resizeHandler;
+    }
   });
 
   // ESC key to close preview
