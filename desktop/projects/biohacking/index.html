@@ -127,24 +127,24 @@
   <div class="overlay" aria-hidden="true"></div>
 
   <!-- Scripts -->
-  <script type="module" src="../../scripts/globals.js"></script>
-  <script type="module" src="../../scripts/desktop.js"></script>
-  <script type="module" src="../../scripts/menubar.js"></script>
-  <script type="module" src="../../scripts/header.js"></script>
+  <script type="module" src="../../../scripts/globals.js"></script>
+  <script type="module" src="../../../scripts/desktop.js"></script>
+  <script type="module" src="../../../scripts/menubar.js"></script>
+  <script type="module" src="../../../scripts/header.js"></script>
 
   <!-- Load Our Modular JS -->
   <script type="module">
-    import { updateVisitorCounter, generateDesktopIcons } from '../../scripts/desktop.js';
-    import { initAutoLinkify } from '../../scripts/globals.js';
-    import { generateMenuBar } from '../../scripts/menubar.js';
-    import { generateHeader } from '../../scripts/header.js';
-    import { loadDocument } from '../../scripts/documents.js';
+    import { updateVisitorCounter, generateDesktopIcons } from '../../../scripts/desktop.js';
+    import { initAutoLinkify } from '../../../scripts/globals.js';
+    import { generateMenuBar } from '../../../scripts/menubar.js';
+    import { generateHeader } from '../../../scripts/header.js';
+    import { loadDocument } from '../../../scripts/documents.js';
 
     document.addEventListener('DOMContentLoaded', async () => {
       console.log('Initializing biohacking page...');
 
       // 1) Initialize menu bar
-      await generateMenuBar('../../config/menu.json').catch(err => {
+      await generateMenuBar('../../../config/menu.json').catch(err => {
         console.error('Error generating menu bar:', err);
       });
 
@@ -154,7 +154,7 @@
       });
 
       // 3) Initialize desktop icons
-      await generateDesktopIcons('../../config/desktop.json').catch(err => {
+      await generateDesktopIcons('../../../config/desktop.json').catch(err => {
         console.error('Error generating desktop icons:', err);
       });
 
