@@ -6,6 +6,8 @@
     <meta name="description" content="Under Construction - Classic 90s style project page with modern Mac aesthetics">
     <title>Under Construction | Paul Junsuk Han</title>
     <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/styles/menubar.css">
+    <link rel="stylesheet" href="/styles/desktop.css">
     <link rel="stylesheet" href="/styles/construction.css">
 </head>
 <body>
@@ -85,5 +87,13 @@
     </main>
 
     <script type="module" src="../../scripts/globals.js"></script>
+    <script type="module" src="../../scripts/desktop.js"></script>
+    <script type="module" src="../../scripts/menubar.js"></script>
+    <script type="module">
+        import { generateDesktopIcons } from '../../scripts/desktop.js';
+        import { generateMenuBar } from '../../scripts/menubar.js';
+        generateDesktopIcons('/config/desktop.json');
+        generateMenuBar('/config/menubar.json');
+    </script>
 </body>
-</html> 
+</html>
