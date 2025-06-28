@@ -146,14 +146,16 @@ button[role="menuitemradio"][aria-checked="true"]::before {
 
 /* Responsive adjustments */
 @media (max-width: 480px) {
-    .menu-item > button {
-        max-width: calc(var(--font-size-base) * 5.6);
-        overflow: hidden;
-        text-overflow: ellipsis;
+    /* Allow horizontal scrolling instead of truncating */
+    .global-menu-bar {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
-    
-    .menu-item:nth-last-child(-n+2) {
-        display: none;
+
+    /* Let items keep their full width */
+    .menu-item,
+    .menu-item > button {
+        max-width: none;
     }
 }
 

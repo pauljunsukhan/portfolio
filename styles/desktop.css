@@ -186,10 +186,7 @@ input, textarea {
         max-width: 150px;
     }
     .menu-item {
-        max-width: 40px;
-    }
-    .menu-item:nth-last-child(-n+2) {
-        display: none;
+        max-width: none;
     }
 }
 
