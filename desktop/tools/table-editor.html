@@ -168,6 +168,11 @@
     </style>
 </head>
 <body>
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
     <main class="mac-window">
         <header class="window-title-bar">
             <div class="window-controls">
