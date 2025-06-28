@@ -182,7 +182,8 @@ main.mac-window.project-window:hover {
     display: none;
     width: calc(100% - var(--window-margin) * 2);
     max-width: var(--max-width);
-    height: 90vh;
+    max-height: 90vh;
+    height: auto;
 }
 .project-preview.active {
     display: block;
@@ -213,18 +214,20 @@ main.mac-window.project-window:hover {
 }
 .project-preview .preview-content {
     background: var(--window-bg);
-    height: 100%;
+    max-height: 100%;
+    height: auto;
     border: 1px solid var(--window-border);
     border-radius: 0 6px 2px 2px;
     box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
     position: relative;
     z-index: 2000;
-    overflow: hidden;
+    overflow: auto;
 }
 .project-preview .preview-content main.mac-window {
     margin: calc(var(--font-size-base) * 1.4);
     width: calc(100% - calc(var(--font-size-base) * 2.8));
-    height: calc(100% - calc(var(--font-size-base) * 3.15));
+    height: auto;
+    max-height: calc(100% - calc(var(--font-size-base) * 3.15));
     border: 1px solid var(--window-border);
     border-radius: 6px 6px 2px 2px;
     overflow: auto;
