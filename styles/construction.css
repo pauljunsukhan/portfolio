@@ -4,13 +4,6 @@
 
 @import 'fonts.css';
 
-/* Retro Body Background */
-body {
-    background-image:
-        repeating-linear-gradient(45deg, #ffd700 0, #ffd700 10px, transparent 10px, transparent 20px),
-        repeating-linear-gradient(-45deg, #00b7ff 0, #00b7ff 10px, transparent 10px, transparent 20px);
-    background-size: 40px 40px;
-}
 
 /* Construction Page Content */
 .construction-content {
