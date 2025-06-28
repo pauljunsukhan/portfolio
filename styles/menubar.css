@@ -146,3 +146,16 @@ button[role="menuitemradio"][aria-checked="true"]::before {
 
 /* Responsive adjustments */
 @media (max-width: 480px) {
+    .submenu {
+        position: fixed;
+        top: calc(var(--font-size-menu) * 1.7);
+        left: 0;
+        right: 0;
+        width: 100%;
+        min-width: 0;
+        border-radius: 0;
+    }
+    .menu-item {
+        flex: 1 0 auto;
+    }
+}
