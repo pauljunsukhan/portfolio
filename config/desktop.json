@@ -2,7 +2,7 @@
     "home": {
         "icon": "💾",
         "label": "Home",
-        "url": "/",
+        "url": "#hero",
         "aria_label": "Home"
     },
     "projects": {
