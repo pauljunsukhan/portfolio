@@ -30,6 +30,7 @@
     z-index: 2000;
     font-family: var(--font-menu);
     font-size: var(--font-size-menu);
+    color: var(--primary-color);
     white-space: nowrap;
     overflow: visible;
 }

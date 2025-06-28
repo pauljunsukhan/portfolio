@@ -14,6 +14,7 @@
     gap: calc(var(--font-size-base) * 1.6);
     z-index: 1;
     transition: transform 0.3s ease;
+    color: var(--primary-color);
 }
 .desktop-icon {
     display: flex;
@@ -43,7 +44,7 @@
 .icon-label {
     font-family: var(--font-primary);
     font-size: var(--font-size-sm);
-    color: var(--window-border);
+    color: inherit;
     background: var(--menu-bg);
     padding: 2px 5px;
     border-radius: 0;
