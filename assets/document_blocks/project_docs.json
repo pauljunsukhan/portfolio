@@ -4,7 +4,7 @@
   "content": [
     {
       "type": "markdown",
-      "content": "# Project Documentation\n\nTechnical documentation for current projects.\n\n<iframe src=\"pdf-viewer.html?file=assets/docs/Stretch%20MEMS%20Designer%27s%20Handbook.pdf\" width=\"100%\" height=\"600\" title=\"Stretch MEMS Designer's Handbook\"></iframe>",
+      "content": "# Stretch MEMS Designer's Handbook\n\nThis book has been written as a comprehensive, self-explanatory reference handbook for the benefit of all who have an interest in the design and application of elastic biosensing, biofeedback, and neuromodulation films.\n\n<iframe src=\"pdf-viewer.html?file=assets/docs/Stretch%20MEMS%20Designer%27s%20Handbook.pdf\" width=\"100%\" height=\"600\" title=\"Stretch MEMS Designer's Handbook\"></iframe>",
       "style": {
         "margin": "normal"
       }
