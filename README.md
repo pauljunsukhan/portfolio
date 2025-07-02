@@ -8,6 +8,7 @@ A modern, SEO-friendly portfolio website built with vanilla HTML, CSS, and JavaS
 - SEO optimized
 - Fast loading with minimal JavaScript
 - Support for images, text, code blocks, and video
+- Integrated PDF viewer for resumes and documents
 - Lazy loading for images
 - Smooth scrolling navigation
 
@@ -76,3 +77,6 @@ server {
 - Use modern image formats (WebP) with fallbacks
 - Minimize external dependencies
 - Use lazy loading for images and videos 
+### Viewing PDFs
+
+Open `pdf-viewer.html?file=PATH_TO_PDF` to display PDF documents. Resume links in the site now use this viewer.

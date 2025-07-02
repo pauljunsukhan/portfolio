@@ -54,13 +54,13 @@
     "resume_sw": {
         "icon": "📄",
         "label": "Resume (SW)",
-        "url": "./assets/docs/Han_Paul Resume_SW.pdf",
+        "url": "./pdf-viewer.html?file=assets/docs/Han_Paul%20Resume_SW.pdf",
         "type": "link"
     },
     "resume_hw": {
         "icon": "📋",
         "label": "Resume (HW)",
-        "url": "./assets/docs/Han_Paul Resume.pdf",
+        "url": "./pdf-viewer.html?file=assets/docs/Han_Paul%20Resume.pdf",
         "type": "link"
     }
 } 

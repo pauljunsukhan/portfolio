@@ -129,9 +129,14 @@
       <!-- About / Notes Section -->
       <section id="about" aria-labelledby="about-title">
         <div class="technical-sketch">
-          <h2 id="about-title">Field Notes</h2>
-          <div id="field-notes-container">
-            <!-- Document content will be loaded here -->
+          <h2 id="about-title">Stretch MEMS Designer's Handbook</h2>
+          <div id="field-notes-container" class="pdf-container">
+            <iframe
+              src="pdf-viewer.html?file=assets/docs/Stretch%20MEMS%20Designer%27s%20Handbook.pdf"
+              width="100%"
+              height="600"
+              title="Stretch MEMS Designer's Handbook"
+            ></iframe>
           </div>
         </div>
       </section>
@@ -249,7 +254,6 @@
       initAutoLinkify();
 
       // Load documents when DOM is ready
-      loadDocument('assets/document_blocks/field_notes.json', 'field-notes-container');
       loadDocument('assets/document_blocks/project_docs.json', 'project-docs-container');
 
       console.log('Homepage initialization complete.');
