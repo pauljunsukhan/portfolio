@@ -4,17 +4,9 @@
   "content": [
     {
       "type": "markdown",
-      "content": "# Project Documentation\n\nTechnical documentation and implementation details for current projects.\n\n## System Architecture\n\nThe system is built using a modular approach with the following components:",
+      "content": "# Project Documentation\n\nTechnical documentation for current projects.\n\n<iframe src=\"pdf-viewer.html?file=assets/docs/Stretch%20MEMS%20Designer%27s%20Handbook.pdf\" width=\"100%\" height=\"600\" title=\"Stretch MEMS Designer's Handbook\"></iframe>",
       "style": {
         "margin": "normal"
-      }
-    },
-    {
-      "type": "code",
-      "content": "// Component structure\ncomponents/\n  ├── document/\n  │   ├── document.js\n  │   └── document.css\n  ├── projects/\n  └── socials/",
-      "language": "plaintext",
-      "style": {
-        "theme": "retro-mac"
       }
     }
   ],
