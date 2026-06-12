@@ -132,15 +132,15 @@
   <div class="overlay" aria-hidden="true"></div>
 
   <!-- Scripts -->
-  <script type="module" src="../../../scripts/globals.js"></script>
-  <script type="module" src="../../../scripts/desktop.js"></script>
+  <script type="module" src="../../../scripts/globals.js?v=4"></script>
+  <script type="module" src="../../../scripts/desktop.js?v=5"></script>
   <script type="module" src="../../../scripts/menubar.js"></script>
   <script type="module" src="../../../scripts/header.js"></script>
 
   <!-- Load Our Modular JS -->
   <script type="module">
-    import { updateVisitorCounter, generateDesktopIcons } from '../../../scripts/desktop.js';
-    import { initAutoLinkify } from '../../../scripts/globals.js';
+    import { updateVisitorCounter, generateDesktopIcons } from '../../../scripts/desktop.js?v=5';
+    import { initAutoLinkify } from '../../../scripts/globals.js?v=4';
     import { generateMenuBar } from '../../../scripts/menubar.js';
     import { generateHeader } from '../../../scripts/header.js';
     import { loadDocument } from '../../../scripts/documents.js';

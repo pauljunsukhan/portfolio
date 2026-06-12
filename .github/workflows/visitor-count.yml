@@ -1,0 +1,39 @@
+name: Update visitor counts
+
+# The hidden badge <img> on each page tallies hits server-side on every
+# real visit. This job reads those tallies once a day (server-side, where
+# CORS doesn't apply) and bakes them into config/visits.json, which the
+# site serves same-origin. No runtime third-party call from the browser.
+
+on:
+  schedule:
+    - cron: "0 7 * * *"   # daily, 07:00 UTC
+  workflow_dispatch: {}    # allow manual runs
+
+permissions:
+  contents: write
+
+concurrency:
+  group: visitor-count
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read counts and bake config/visits.json
+        run: python3 infra/update-visits.py
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- config/visits.json; then
+            echo "No change in visitor counts."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add config/visits.json
+          git commit -m "chore: update visitor counts [skip ci]"
+          git push

@@ -130,23 +130,39 @@ export async function generateDesktopIcons(pageSpecificConfig) {
 //////////////////////////
 // Visitor Counter      //
 //////////////////////////
-export function updateVisitorCounter() {
+export async function updateVisitorCounter() {
     try {
         const digits = document.querySelectorAll('.counter-digit');
-        if (!digits.length) {
-            console.warn('Visitor counter elements not found');
-            return;
+        if (!digits.length) return;
+
+        const show = (n) => {
+            const padded = String(n).padStart(6, '0').slice(-6);
+            digits.forEach((digit, idx) => {
+                digit.textContent = padded[idx] || '0';
+            });
+        };
+
+        // Paint the last value instantly, then refresh from the baked file.
+        show(localStorage.getItem('visitorCount') || '0');
+
+        // The hidden badge <img> tallies the hit server-side on every visit.
+        // A daily GitHub Action reads those tallies and bakes config/visits.json,
+        // which we serve same-origin — so the LED reads a real number with no
+        // cross-origin fetch and no live third-party dependency.
+        const pageId = `pauljunsukhan.com${window.location.pathname}`;
+        try {
+            const resp = await fetch('/config/visits.json', { cache: 'no-store' });
+            if (resp.ok) {
+                const visits = await resp.json();
+                const count = visits[pageId];
+                if (typeof count === 'number') {
+                    localStorage.setItem('visitorCount', count);
+                    show(count);
+                }
+            }
+        } catch {
+            // Keep the cached value already on screen.
         }
-
-        // The hidden badge <img> does the actual visit counting server-side.
-        // The badge endpoint blocks CORS for fetch, so the LED display just
-        // shows the last cached count — honest kitsch, zero console noise.
-        const count = localStorage.getItem('visitorCount') || '0';
-        const padded = String(count).padStart(6, '0');
-        digits.forEach((digit, idx) => {
-            digit.textContent = padded[idx] || '0';
-        });
-
     } catch (error) {
         console.error('Visitor counter error:', error);
     }
