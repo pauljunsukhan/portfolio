@@ -359,6 +359,15 @@ export function toggleTheme() {
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 
+// Follow theme changes made in other same-origin contexts: the parent page
+// when this page is embedded in an iframe, preview overlays, other tabs.
+// The storage event fires in every context except the one that set it.
+window.addEventListener('storage', (e) => {
+  if (e.key === 'theme') {
+    document.body.classList.toggle('dark-mode', e.newValue === 'dark');
+  }
+});
+
 /////////////////////////////
 // 10) MAIN INIT SEQUENCE //
 /////////////////////////////
