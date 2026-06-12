@@ -28,43 +28,12 @@ async function loadMenuConfig(pageSpecificConfig) {
         }
     }
 
-    // Try to load from current directory, first menubar.json then menu.json
+    // Fall back to the canonical config
     try {
-        // Try menubar.json first
-        let response = await fetch('./menubar.json', { cache: 'no-store' });
-        if (response.ok) {
-            const data = await response.json();
-            console.log('Local menubar config loaded:', data);
-            return data;
-        }
-
-        // If menubar.json fails, try menu.json
-        response = await fetch('./menu.json', { cache: 'no-store' });
-        if (response.ok) {
-            const data = await response.json();
-            console.log('Local menu config loaded:', data);
-            return data;
-        }
-    } catch (error) {
-        // Silently continue to default config
-        console.warn('No local menu config found, trying default');
-    }
-
-    // Fall back to default config in /config directory, first menubar.json then menu.json
-    try {
-        // Try menubar.json first
-        let response = await fetch('/config/menubar.json', { cache: 'no-store' });
+        const response = await fetch('/config/menubar.json', { cache: 'no-store' });
         if (response.ok) {
             const data = await response.json();
             console.log('Default menubar config loaded:', data);
-            return data;
-        }
-
-        // If menubar.json fails, try menu.json
-        response = await fetch('/config/menu.json', { cache: 'no-store' });
-        if (response.ok) {
-            const data = await response.json();
-            console.log('Default menu config loaded:', data);
             return data;
         }
 
@@ -481,5 +450,4 @@ function toggleMenuOverlay(show) {
     }
 }
 
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => generateMenuBar());
+// Pages initialize the menu bar explicitly via generateMenuBar(configPath).

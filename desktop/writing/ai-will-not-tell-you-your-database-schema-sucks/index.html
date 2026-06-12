@@ -320,13 +320,13 @@
   <div class="overlay" aria-hidden="true"></div>
 
   <!-- Scripts -->
-  <script type="module" src="/scripts/globals.js"></script>
-  <script type="module" src="/scripts/desktop.js"></script>
-  <script type="module" src="/scripts/menubar.js"></script>
+  <script type="module" src="/scripts/globals.js?v=3"></script>
+  <script type="module" src="/scripts/desktop.js?v=3"></script>
+  <script type="module" src="/scripts/menubar.js?v=3"></script>
 
   <script type="module">
-    import { updateVisitorCounter, generateDesktopIcons } from '/scripts/desktop.js';
-    import { generateMenuBar } from '/scripts/menubar.js';
+    import { updateVisitorCounter, generateDesktopIcons } from '/scripts/desktop.js?v=3';
+    import { generateMenuBar } from '/scripts/menubar.js?v=3';
 
     document.addEventListener('DOMContentLoaded', async () => {
       // Embed mode renders the bare article; skip site chrome entirely

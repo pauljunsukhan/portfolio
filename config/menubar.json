@@ -48,34 +48,13 @@
                         "content": "It's good as is."
                     }
                 },
-                                {
-                    "label": "Dark Mode (TODO)",
+                {
+                    "label": "Dark Mode",
                     "role": "menuitemcheckbox",
                     "action": {
                         "type": "toggle",
                         "target": "theme"
                     }
-                },
-                {
-                    "label": "Compromised (TODO)",
-                    "role": "menuitemradio",
-                    "group": "layout",
-                    "action": {
-                        "type": "toggle",
-                        "target": "layout",
-                        "value": "compact"
-                    }
-                },
-                {
-                    "label": "Idealized",
-                    "role": "menuitemradio",
-                    "group": "layout",
-                    "action": {
-                        "type": "toggle",
-                        "target": "layout",
-                        "value": "comfortable"
-                    },
-                    "default": true
                 }
             ]
         },

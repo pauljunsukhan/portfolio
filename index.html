@@ -67,20 +67,6 @@
       document.body.classList.add('dark-mode');
     }
   </script>
-  <script>
-    // Check if we're in preview mode
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('preview') === 'true') {
-      // Remove menu elements as soon as possible
-      document.addEventListener('DOMContentLoaded', () => {
-        const menuBar = document.querySelector('.menu-bar');
-        const menu = document.querySelector('.menu');
-        if (menuBar) menuBar.remove();
-        if (menu) menu.remove();
-      });
-    }
-  </script>
-
   <!-- Classic Mac Menu Bar -->
   <nav class="global-menu-bar" role="navigation" aria-label="Main navigation">
     <!-- Menu bar is now generated dynamically by menubar.js -->
@@ -142,7 +128,7 @@
           <div class="content">
             <iframe
               class="article-embed-frame"
-              src="/desktop/writing/ai-will-not-tell-you-your-database-schema-sucks/?preview=true"
+              src="/desktop/writing/ai-will-not-tell-you-your-database-schema-sucks/?preview=true&v=3"
               title="AI Will Not Tell You Your Database Schema Sucks — readable copy"
               loading="lazy"
             ></iframe>
@@ -236,22 +222,21 @@
   <div class="overlay" aria-hidden="true"></div>
 
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script type="module" src="scripts/globals.js?v=2"></script>
-  <script type="module" src="scripts/desktop.js?v=2"></script>
-  <script type="module" src="scripts/menubar.js?v=2"></script>
-  <script type="module" src="scripts/header.js?v=2"></script>
-  <script type="module" src="scripts/projects.js?v=2"></script>
-  <script type="module" src="scripts/socials.js?v=2"></script>
+  <script type="module" src="scripts/globals.js?v=3"></script>
+  <script type="module" src="scripts/desktop.js?v=3"></script>
+  <script type="module" src="scripts/menubar.js?v=3"></script>
+  <script type="module" src="scripts/header.js?v=3"></script>
+  <script type="module" src="scripts/projects.js?v=3"></script>
+  <script type="module" src="scripts/socials.js?v=3"></script>
 
   <!-- Load Our Modular JS (global, socials, projects, etc.) -->
   <script type="module">
-    import { updateVisitorCounter, generateDesktopIcons } from './scripts/desktop.js?v=2';
-    import { initAutoLinkify } from './scripts/globals.js?v=2';
-    import { generateMenuBar } from './scripts/menubar.js?v=2';
-    import { generateHeader } from './scripts/header.js?v=2';
-    import { generateSocialLinks } from './scripts/socials.js?v=2';
-    import { loadProjects } from './scripts/projects.js?v=2';
+    import { updateVisitorCounter, generateDesktopIcons } from './scripts/desktop.js?v=3';
+    import { initAutoLinkify } from './scripts/globals.js?v=3';
+    import { generateMenuBar } from './scripts/menubar.js?v=3';
+    import { generateHeader } from './scripts/header.js?v=3';
+    import { generateSocialLinks } from './scripts/socials.js?v=3';
+    import { loadProjects } from './scripts/projects.js?v=3';
 
     document.addEventListener('DOMContentLoaded', async () => {
       console.log('Initializing homepage...');

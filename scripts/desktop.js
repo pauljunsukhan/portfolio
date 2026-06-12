@@ -138,40 +138,14 @@ export function updateVisitorCounter() {
             return;
         }
 
-        const pageId = `pauljunsukhan.com${window.location.pathname}`;
-
-        async function updateDisplay() {
-            try {
-                const resp = await fetch(
-                    `https://visitor-badge.laobi.icu/badge?page_id=${encodeURIComponent(pageId)}`,
-                    { mode: 'cors' }
-                );
-                const svg = await resp.text();
-                const match = svg.match(/>(\d+)<\/text>/);
-                let count = match ? match[1] : null;
-                if (count) {
-                    localStorage.setItem('visitorCount', count);
-                } else {
-                    count = localStorage.getItem('visitorCount') || '0';
-                }
-
-                const padded = String(count).padStart(6, '0');
-                digits.forEach((digit, idx) => {
-                    digit.textContent = padded[idx] || '0';
-                });
-            } catch (err) {
-                console.warn('Visitor counter update failed:', err);
-                const fallback = localStorage.getItem('visitorCount') || '0';
-                const padded = String(fallback).padStart(6, '0');
-                digits.forEach((digit, idx) => {
-                    digit.textContent = padded[idx] || '0';
-                });
-            }
-        }
-
-        console.log('Initializing visitor counter...');
-        updateDisplay();
-        setInterval(updateDisplay, 300000); // Update every 5 minutes
+        // The hidden badge <img> does the actual visit counting server-side.
+        // The badge endpoint blocks CORS for fetch, so the LED display just
+        // shows the last cached count — honest kitsch, zero console noise.
+        const count = localStorage.getItem('visitorCount') || '0';
+        const padded = String(count).padStart(6, '0');
+        digits.forEach((digit, idx) => {
+            digit.textContent = padded[idx] || '0';
+        });
 
     } catch (error) {
         console.error('Visitor counter error:', error);
