@@ -2,25 +2,31 @@
     "home": {
         "icon": "💾",
         "label": "Home",
-        "url": "#hero",
+        "url": "/#hero",
         "aria_label": "Home"
+    },
+    "writing": {
+        "icon": "📜",
+        "label": "Writing",
+        "url": "/#writing",
+        "aria_label": "Writing"
     },
     "projects": {
         "icon": "📁",
         "label": "Projects",
-        "url": "#projects",
+        "url": "/#projects",
         "aria_label": "Projects"
     },
     "notes": {
         "icon": "📝",
         "label": "Notes",
-        "url": "#about",
+        "url": "/#notes",
         "aria_label": "Notes"
     },
     "contact": {
         "icon": "✉️",
         "label": "Contact",
-        "url": "#contact",
+        "url": "/#contact",
         "aria_label": "Contact"
     }
-} 
+}

@@ -17,7 +17,7 @@ async function loadMenuConfig(pageSpecificConfig) {
     // If a specific config path is provided, try that first
     if (pageSpecificConfig) {
         try {
-            const response = await fetch(pageSpecificConfig);
+            const response = await fetch(pageSpecificConfig, { cache: 'no-store' });
             if (response.ok) {
                 const data = await response.json();
                 console.log('Specific menu config loaded:', data);
@@ -31,7 +31,7 @@ async function loadMenuConfig(pageSpecificConfig) {
     // Try to load from current directory, first menubar.json then menu.json
     try {
         // Try menubar.json first
-        let response = await fetch('./menubar.json');
+        let response = await fetch('./menubar.json', { cache: 'no-store' });
         if (response.ok) {
             const data = await response.json();
             console.log('Local menubar config loaded:', data);
@@ -39,7 +39,7 @@ async function loadMenuConfig(pageSpecificConfig) {
         }
 
         // If menubar.json fails, try menu.json
-        response = await fetch('./menu.json');
+        response = await fetch('./menu.json', { cache: 'no-store' });
         if (response.ok) {
             const data = await response.json();
             console.log('Local menu config loaded:', data);
@@ -53,7 +53,7 @@ async function loadMenuConfig(pageSpecificConfig) {
     // Fall back to default config in /config directory, first menubar.json then menu.json
     try {
         // Try menubar.json first
-        let response = await fetch('/config/menubar.json');
+        let response = await fetch('/config/menubar.json', { cache: 'no-store' });
         if (response.ok) {
             const data = await response.json();
             console.log('Default menubar config loaded:', data);
@@ -61,7 +61,7 @@ async function loadMenuConfig(pageSpecificConfig) {
         }
 
         // If menubar.json fails, try menu.json
-        response = await fetch('/config/menu.json');
+        response = await fetch('/config/menu.json', { cache: 'no-store' });
         if (response.ok) {
             const data = await response.json();
             console.log('Default menu config loaded:', data);

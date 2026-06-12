@@ -8,7 +8,7 @@ async function loadHeaderConfig(pageSpecificConfig) {
     // If a specific config path is provided, try that first
     if (pageSpecificConfig) {
         try {
-            const response = await fetch(pageSpecificConfig);
+            const response = await fetch(pageSpecificConfig, { cache: 'no-store' });
             if (response.ok) {
                 const data = await response.json();
                 console.log('Specific header config loaded:', data);
@@ -21,7 +21,7 @@ async function loadHeaderConfig(pageSpecificConfig) {
 
     // Try to load from current directory
     try {
-        const response = await fetch('./header.json');
+        const response = await fetch('./header.json', { cache: 'no-store' });
         if (response.ok) {
             const data = await response.json();
             console.log('Local header config loaded:', data);
@@ -33,7 +33,7 @@ async function loadHeaderConfig(pageSpecificConfig) {
 
     // Fall back to default config in /config directory
     try {
-        const response = await fetch('/config/header.json');
+        const response = await fetch('/config/header.json', { cache: 'no-store' });
         if (!response.ok) {
             throw new Error('Failed to load header config');
         }

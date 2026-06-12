@@ -18,11 +18,11 @@ import { createDialog, linkifyText } from './globals.js';
  * 
  * @param {string} [pageSpecificConfig] - optional path to a page-specific JSON config
  */
-export async function loadProjects(pageSpecificConfig) {
+export async function loadProjects(pageSpecificConfig, gridSelector = '.project-grid.dynamic-projects') {
   try {
     // If no page-specific config, fallback to './config/projects.json'
     const configUrl = pageSpecificConfig || './config/projects.json';
-    console.log(`Loading projects from ${configUrl} ...`);
+    console.log(`Loading projects from ${configUrl} into ${gridSelector} ...`);
 
     const response = await fetch(configUrl, { cache: 'no-store' });
     if (!response.ok) {
@@ -30,11 +30,14 @@ export async function loadProjects(pageSpecificConfig) {
     }
     const data = await response.json();
 
-    // Store the data globally for use in getProjectUrl
-    window.projectsData = data;
+    // Merge into the global store used by getProjectUrl
+    // (multiple grids on one page share it)
+    window.projectsData = {
+      projects: [...(window.projectsData?.projects || []), ...data.projects]
+    };
 
     // Check if we have a container
-    const dynamicProjectsGrid = document.querySelector('.project-grid.dynamic-projects');
+    const dynamicProjectsGrid = document.querySelector(gridSelector);
     if (!dynamicProjectsGrid) {
       // Not all pages will have a .dynamic-projects container
       console.log('No .project-grid.dynamic-projects found; skipping project rendering.');
@@ -63,7 +66,7 @@ export async function loadProjects(pageSpecificConfig) {
   } catch (error) {
     console.error('Error loading projects:', error);
     // Show an error message in the container, if it exists
-    const dynamicProjectsGrid = document.querySelector('.project-grid.dynamic-projects');
+    const dynamicProjectsGrid = document.querySelector(gridSelector);
     if (dynamicProjectsGrid) {
       dynamicProjectsGrid.innerHTML = `
         <div class="error-message">
@@ -121,6 +124,11 @@ function createProjectWindow(project) {
       <ul class="auto-linkify">
         ${(project.specs || []).map(spec => `<li>${linkifyText(spec)}</li>`).join('')}
       </ul>
+      ${
+        project.embed
+          ? `<div class="project-embed"><iframe src="${project.embed}" loading="lazy" title="${project.title || 'Project'} — live preview"></iframe></div>`
+          : ''
+      }
       <div class="project-actions">
         <button class="project-button preview" data-project="${project.id}">Preview</button>
         <a href="${linkUrl}" class="project-button link">Link</a>
@@ -146,10 +154,13 @@ function createProjectWindow(project) {
   });
 
   // If window is minimized by default, add it to the dock
+  // (only if it lives in the dock's grid — secondary grids collapse in place)
   if (project.defaultMinimized && dockManager) {
     // Small delay to ensure the dock is ready
     setTimeout(() => {
-      dockManager.addMinimizedWindow(windowDiv);
+      if (dockManager.projectGrid.contains(windowDiv)) {
+        dockManager.addMinimizedWindow(windowDiv);
+      }
     }, 100);
   }
 
@@ -294,9 +305,11 @@ class DockManager {
 }
 
 // Initialize dock manager after DOM is loaded
+// (docks live in the main projects grid, not in secondary grids like writing)
 let dockManager;
 document.addEventListener('DOMContentLoaded', () => {
-  const projectGrid = document.querySelector('.project-grid');
+  const projectGrid = document.querySelector('.project-grid.dynamic-projects') ||
+                      document.querySelector('.project-grid');
   if (projectGrid) {
     dockManager = new DockManager(projectGrid);
   }
@@ -306,20 +319,25 @@ document.addEventListener('DOMContentLoaded', () => {
  * Toggles the minimize/maximize state of a project window
  */
 function toggleMinimize(projectWindow, button) {
+  // Only windows in the main projects grid use the dock;
+  // windows in other grids (e.g. writing) collapse in place.
+  const usesDock = !!(dockManager &&
+    (dockManager.projectGrid.contains(projectWindow) || projectWindow.closest('.dock-window')));
+
   if (projectWindow.classList.contains('minimized')) {
     // Maximize
     projectWindow.classList.remove('minimized');
     button.classList.remove('maximize-button');
     button.classList.add('minimize-button');
     button.setAttribute('aria-label', 'Minimize window');
-    dockManager.removeMinimizedWindow(projectWindow);
+    if (usesDock) dockManager.removeMinimizedWindow(projectWindow);
   } else {
     // Minimize
     projectWindow.classList.add('minimized');
     button.classList.remove('minimize-button');
     button.classList.add('maximize-button');
     button.setAttribute('aria-label', 'Maximize window');
-    dockManager.addMinimizedWindow(projectWindow);
+    if (usesDock) dockManager.addMinimizedWindow(projectWindow);
   }
 }
 
@@ -353,41 +371,40 @@ function getProjectUrl(projectId) {
 async function loadProjectPreview(projectId, previewWindow, previewContent) {
   try {
     const url = getProjectUrl(projectId);
-    // If user gave a direct .html link, use it. Otherwise, append index.html
-    const pageUrl = url.endsWith('.html') ? url : `${url}${url.endsWith('/') ? '' : '/'}index.html`;
+    // If user gave a direct file link (with optional ?query/#hash), use it.
+    // Otherwise treat it as a directory and append index.html.
+    const urlPath = url.split(/[?#]/)[0];
+    const pageUrl = /\.[a-z0-9]+$/i.test(urlPath) ? url : `${url}${url.endsWith('/') ? '' : '/'}index.html`;
     
     // Show preview overlay
     previewWindow.classList.add('active');
     document.body.classList.add('preview-open');
-    
-    // Clear old preview content
+
+    // Fresh iframe that fills the preview window from the first frame;
+    // the previewed page scrolls inside it. No measuring, no resizing.
     previewContent.innerHTML = '';
-    
-    // Create and add iframe
     const iframe = document.createElement('iframe');
-    iframe.style.width = '100%';
-    iframe.style.height = 'auto';
-    iframe.style.border = 'none';
-    
-    // Add load event listener to modify iframe content and size
+    iframe.className = 'preview-frame';
+
+    // Strip site chrome from same-origin pages once they load
     iframe.onload = () => {
       try {
         const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-        // Remove menu elements
-        const menuBar = iframeDoc.querySelector('.global-menu-bar');
-        const menuToggle = iframeDoc.querySelector('.menu-toggle');
-        const desktopIcons = iframeDoc.querySelector('.desktop-icons');
+        iframeDoc.querySelectorAll('.global-menu-bar, .menu-toggle, .desktop-icons')
+          .forEach(el => el.remove());
 
-        if (menuBar) menuBar.remove();
-        if (menuToggle) menuToggle.remove();
-        if (desktopIcons) desktopIcons.remove();
-
-        // Add CSS to remove background and adjust window positioning
         const style = iframeDoc.createElement('style');
         style.textContent = `
+          html {
+            scrollbar-width: none !important;
+          }
+          html::-webkit-scrollbar,
+          body::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+          }
           body {
             padding-top: 0 !important;
-            background: none !important;
             display: block !important;
             align-items: start !important;
           }
@@ -395,8 +412,8 @@ async function loadProjectPreview(projectId, previewWindow, previewContent) {
             display: none !important;
           }
           main.mac-window {
-            margin: 0 !important;
-            width: 100% !important;
+            margin: calc(var(--font-size-base, 12px) * 1.4) auto !important;
+            width: calc(100% - calc(var(--font-size-base, 12px) * 2.8)) !important;
             max-width: none !important;
           }
           .overlay {
@@ -404,30 +421,12 @@ async function loadProjectPreview(projectId, previewWindow, previewContent) {
           }
         `;
         iframeDoc.head.appendChild(style);
-
-        const updateHeight = () => {
-          try {
-            const contentHeight = iframeDoc.documentElement.scrollHeight;
-            const maxHeight = window.innerHeight * 0.9;
-            iframe.style.height = `${Math.min(contentHeight, maxHeight)}px`;
-          } catch (err) {
-            console.error('Error updating iframe height:', err);
-          }
-        };
-
-        // Initial height calculation
-        updateHeight();
-        // Additional adjustment shortly after load for mobile browsers
-        setTimeout(updateHeight, 500);
-
-        // Store and bind resize handler so we can remove it later
-        previewWindow._resizeHandler = updateHeight;
-        window.addEventListener('resize', updateHeight);
       } catch (err) {
-        console.error('Error modifying iframe content:', err);
+        // Cross-origin pages just render as-is
+        console.warn('Preview chrome-strip skipped:', err);
       }
     };
-    
+
     iframe.src = pageUrl;
     previewContent.appendChild(iframe);
   } catch (error) {
@@ -452,9 +451,11 @@ function initializeProjectWindows() {
   }
 
   // Preview button: fetch remote page, load content, show overlay
+  // (guarded so repeat init calls for additional grids don't double-bind)
   projectWindows.forEach(win => {
     const previewButton = win.querySelector('.project-button.preview');
-    if (previewButton) {
+    if (previewButton && !previewButton.dataset.bound) {
+      previewButton.dataset.bound = 'true';
       previewButton.addEventListener('click', async () => {
         try {
           await loadProjectPreview(
@@ -479,15 +480,15 @@ function initializeProjectWindows() {
     }
   });
 
+  // Exit/ESC handlers only need to be bound once per page
+  if (previewWindow.dataset.bound) return;
+  previewWindow.dataset.bound = 'true';
+
   // Exit button -> hide overlay
   exitButton.addEventListener('click', () => {
     previewWindow.classList.remove('active');
     document.body.classList.remove('preview-open');
     previewContent.innerHTML = '';
-    if (previewWindow._resizeHandler) {
-      window.removeEventListener('resize', previewWindow._resizeHandler);
-      delete previewWindow._resizeHandler;
-    }
   });
 
   // ESC key to close preview

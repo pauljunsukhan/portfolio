@@ -1,0 +1,18 @@
+{
+  "projects": [
+    {
+      "id": "schema-article",
+      "title": "AI Will Not Tell You Your Database Schema Sucks",
+      "subtitle": "Design the schema separately and read it yourself",
+      "description": "Attack it a few rounds with the best model you can rent. You're the depth-first search.",
+      "specs": [
+        "06.2026 · Essay"
+      ],
+      "defaultMinimized": false,
+      "buttons": {
+        "preview": "/desktop/writing/ai-will-not-tell-you-your-database-schema-sucks/",
+        "link": "/desktop/writing/ai-will-not-tell-you-your-database-schema-sucks/"
+      }
+    }
+  ]
+}

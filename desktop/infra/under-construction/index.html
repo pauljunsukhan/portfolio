@@ -87,7 +87,7 @@
         import { initAutoLinkify } from '../../../scripts/globals.js';
 
         document.addEventListener('DOMContentLoaded', async () => {
-            await generateMenuBar('../../../config/menu.json').catch(console.error);
+            await generateMenuBar('../../../config/menubar.json').catch(console.error);
             await generateDesktopIcons('../../../config/desktop.json').catch(console.error);
             initAutoLinkify();
         });

@@ -1,0 +1,410 @@
+/* ===============================
+ * article.css
+ * Long-form writing pages: figures, schema tables,
+ * ER diagrams, chat mockups, callouts.
+ * Inherits the retro-mac design system from global.css.
+ * =============================== */
+
+:root {
+    --smell-color: #c41e3a;          /* Darker apple red (matches close-button border) */
+    --smell-bg: rgba(255, 59, 48, 0.08);
+    --fix-color: #1e7a28;            /* Darker muted mac green */
+    --fix-bg: rgba(46, 165, 56, 0.08);
+}
+
+body.dark-mode {
+    --smell-color: #ff6b61;
+    --smell-bg: rgba(255, 59, 48, 0.12);
+    --fix-color: #5fd368;
+    --fix-bg: rgba(46, 165, 56, 0.12);
+}
+
+/* ---------- Article layout ---------- */
+
+.article-body {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.article-body section {
+    margin-bottom: calc(var(--spacing) * 1.5);
+}
+
+.article-body p {
+    font-size: var(--font-size-content, 14px);
+}
+
+.article-lede {
+    font-size: calc(var(--font-size-content, 14px) * 1.1);
+    border-left: 3px solid var(--secondary-color);
+    padding-left: 1rem;
+    font-style: italic;
+}
+
+.article-body h2 {
+    margin-top: calc(var(--spacing) * 1.25);
+}
+
+/* Pull quote — engineering-notebook margin note energy */
+.pullquote {
+    margin: 2rem 0;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--window-border);
+    border-left: 4px solid var(--accent-color);
+    background: var(--menu-bg);
+    font-size: calc(var(--font-size-content, 14px) * 1.05);
+    letter-spacing: 0.02em;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- Figure windows (screenshot-friendly, self-contained) ---------- */
+
+.figure-window {
+    margin: 2rem 0;
+    background: var(--window-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 6px 6px 2px 2px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.figure-window > .figure-title-bar {
+    display: flex;
+    align-items: center;
+    background: var(--menu-bg);
+    border-bottom: 1px solid var(--window-border);
+    padding: 0 8px;
+    height: 24px;
+    font-size: var(--font-size-sm, 11px);
+}
+
+.figure-window > .figure-title-bar .figure-dots {
+    display: flex;
+    gap: 5px;
+    flex: 0 0 auto;
+}
+
+.figure-window > .figure-title-bar .figure-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid var(--window-border);
+    display: inline-block;
+}
+
+.figure-window > .figure-title-bar .figure-dots span:nth-child(1) { background: #ff3b30; border-color: #c41e3a; }
+.figure-window > .figure-title-bar .figure-dots span:nth-child(2) { background: #ffbd2e; border-color: #dea123; }
+.figure-window > .figure-title-bar .figure-dots span:nth-child(3) { background: #2ea538; border-color: #1e7a28; }
+
+.figure-window > .figure-title-bar .figure-title {
+    flex: 1 1 auto;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: var(--primary-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.figure-window > .figure-content {
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+.figure-window figcaption {
+    padding: 0.6rem 1rem;
+    border-top: 1px dashed var(--window-border);
+    font-size: var(--font-size-sm, 11px);
+    letter-spacing: 0.03em;
+    color: var(--text-color);
+    opacity: 0.85;
+}
+
+/* ---------- Schema tables ---------- */
+
+.schema-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-sm, 12px);
+}
+
+.schema-table caption {
+    caption-side: top;
+    text-align: left;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.4rem 0.2rem;
+    border-bottom: 2px solid var(--window-border);
+}
+
+.schema-table th {
+    background: linear-gradient(to bottom, var(--menu-bg), rgba(0, 0, 0, 0.04));
+    text-align: left;
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--window-border);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: var(--font-size-sm, 11px);
+}
+
+.schema-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    vertical-align: top;
+    line-height: 1.45;
+}
+
+.schema-table .col-name { white-space: nowrap; font-weight: bold; }
+.schema-table .col-type { white-space: nowrap; opacity: 0.8; }
+
+.schema-table tr.row-smell td { background: var(--smell-bg); }
+.schema-table tr.row-fix td { background: var(--fix-bg); }
+
+.smell-note {
+    color: var(--smell-color);
+    font-weight: bold;
+}
+
+.fix-note {
+    color: var(--fix-color);
+    font-weight: bold;
+}
+
+.smell-tag,
+.fix-tag {
+    display: inline-block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 1px 6px;
+    border-radius: 3px;
+    border: 1px solid currentColor;
+    margin-right: 4px;
+    white-space: nowrap;
+}
+
+.smell-tag { color: var(--smell-color); background: var(--smell-bg); }
+.fix-tag { color: var(--fix-color); background: var(--fix-bg); }
+
+/* ---------- ER diagrams (inline SVG) ---------- */
+
+.er-diagram svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    font-family: var(--font-primary);
+}
+
+.er-diagram .er-entity-box {
+    fill: var(--window-bg);
+    stroke: var(--window-border);
+    stroke-width: 1.5;
+}
+
+.er-diagram .er-entity-title {
+    fill: var(--menu-bg);
+    stroke: var(--window-border);
+    stroke-width: 1.5;
+}
+
+.er-diagram text {
+    fill: var(--text-color);
+    font-family: "Courier New", monospace;
+}
+
+.er-diagram .er-title-text {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.er-diagram .er-col-smell { fill: var(--smell-color); font-weight: bold; }
+.er-diagram .er-col-fix { fill: var(--fix-color); }
+.er-diagram .er-label { font-size: 12px; letter-spacing: 0.04em; }
+.er-diagram .er-label-smell { fill: var(--smell-color); font-size: 13px; font-weight: bold; }
+.er-diagram .er-label-fix { fill: var(--fix-color); font-size: 13px; font-weight: bold; }
+
+.er-diagram .er-rel {
+    stroke: var(--text-color);
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.er-diagram .er-rel-smell {
+    stroke: var(--smell-color);
+    stroke-dasharray: 4 3;
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.er-diagram .er-rel-fix {
+    stroke: var(--fix-color);
+    stroke-width: 1.5;
+    fill: none;
+}
+
+/* ---------- Chat mockups ---------- */
+
+.chat-mockup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.chat-msg {
+    max-width: 88%;
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    padding: 0.6rem 0.8rem;
+    font-size: var(--font-size-sm, 12px);
+    line-height: 1.5;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+.chat-msg .chat-speaker {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+    opacity: 0.7;
+}
+
+.chat-msg.chat-user {
+    align-self: flex-end;
+    background: var(--menu-bg);
+}
+
+.chat-msg.chat-ai {
+    align-self: flex-start;
+    background: var(--window-bg);
+}
+
+.chat-msg.chat-ai.chat-coping { border-left: 3px solid var(--smell-color); }
+.chat-msg.chat-ai.chat-honest { border-left: 3px solid var(--fix-color); }
+
+.chat-msg code {
+    background: rgba(0, 0, 0, 0.06);
+    padding: 0 3px;
+    border-radius: 2px;
+}
+
+body.dark-mode .chat-msg code {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ---------- Code blocks ---------- */
+
+.article-body pre.ddl {
+    background: var(--menu-bg);
+    border: 1px solid var(--window-border);
+    border-radius: 4px;
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: var(--font-size-sm, 12px);
+    line-height: 1.5;
+}
+
+/* ---------- Checklist ---------- */
+
+.review-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.review-checklist li {
+    padding: 0.5rem 0 0.5rem 2rem;
+    position: relative;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+    font-size: var(--font-size-content, 14px);
+    line-height: 1.5;
+}
+
+.review-checklist li::before {
+    content: '☐';
+    position: absolute;
+    left: 0.4rem;
+    top: 0.4rem;
+    font-size: 1.1em;
+    color: var(--secondary-color);
+}
+
+/* ---------- Article list (writing desktop) ---------- */
+
+.article-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.article-card .article-card-meta {
+    font-size: var(--font-size-sm, 11px);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+    margin-bottom: 0.4rem;
+}
+
+.article-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 768px) {
+    .figure-window > .figure-content {
+        padding: 0.6rem;
+    }
+
+    .chat-msg {
+        max-width: 100%;
+    }
+}
+
+/* ---------- Embed mode (?preview=true, inside the homepage Writing window) ----------
+   Bare content only: no second window chrome, no header furniture, no paper grid. */
+
+html[data-embed="true"] {
+    scrollbar-width: none;       /* Firefox: scroll without the bar */
+}
+
+html[data-embed="true"]::-webkit-scrollbar,
+html[data-embed="true"] body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;               /* WebKit: scroll without the bar */
+}
+
+html[data-embed="true"] body {
+    padding-top: 0;
+    background-color: var(--window-bg);
+    background-image: none;
+    overflow-x: hidden;
+}
+
+html[data-embed="true"] body::after {
+    display: none;
+}
+
+html[data-embed="true"] main.mac-window {
+    margin: 0 auto;
+    width: 100%;
+    max-width: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+}
+
+html[data-embed="true"] main.mac-window > .window-title-bar,
+html[data-embed="true"] .notebook-header,
+html[data-embed="true"] .visitor-counter {
+    display: none;
+}
+
+html[data-embed="true"] main.mac-window > .content {
+    padding: 1.25rem 1.5rem 2rem;
+}

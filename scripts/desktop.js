@@ -9,7 +9,7 @@ async function loadDesktopConfig(pageSpecificConfig) {
     // If a specific config path is provided, try that first
     if (pageSpecificConfig) {
         try {
-            const response = await fetch(pageSpecificConfig);
+            const response = await fetch(pageSpecificConfig, { cache: 'no-store' });
             if (response.ok) {
                 const data = await response.json();
                 console.log('Specific desktop config loaded successfully');
@@ -22,7 +22,7 @@ async function loadDesktopConfig(pageSpecificConfig) {
 
     // Try to load from current directory
     try {
-        const response = await fetch('./desktop.json');
+        const response = await fetch('./desktop.json', { cache: 'no-store' });
         if (response.ok) {
             const data = await response.json();
             console.log('Local desktop config loaded successfully');
@@ -35,7 +35,7 @@ async function loadDesktopConfig(pageSpecificConfig) {
     // Fall back to default config
     try {
         console.log('Loading default desktop config from: ./config/desktop.json');
-        const response = await fetch('./config/desktop.json');
+        const response = await fetch('./config/desktop.json', { cache: 'no-store' });
         if (!response.ok) {
             throw new Error(`Failed to load default desktop config: ${response.status}`);
         }
@@ -87,13 +87,16 @@ export async function generateDesktopIcons(pageSpecificConfig) {
                 <div class="icon-label">${icon.label}</div>
             `;
 
-            // Add smooth scrolling for hash links
-            if (icon.url.startsWith('#')) {
+            // Smooth-scroll hash links ("#about") and root hash links ("/#about")
+            // when the target section exists on the current page; otherwise let
+            // the browser navigate (e.g. back to the homepage from a subpage).
+            const hashIndex = icon.url.indexOf('#');
+            if (hashIndex !== -1) {
                 element.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = icon.url.slice(1);
+                    const targetId = icon.url.slice(hashIndex + 1);
                     const targetElement = document.getElementById(targetId);
                     if (targetElement) {
+                        e.preventDefault();
                         targetElement.scrollIntoView({
                             behavior: 'smooth',
                             block: 'start'

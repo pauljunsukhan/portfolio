@@ -7,7 +7,7 @@
   <title>Paul Han - Innovative Software & Hardware Engineer</title>
 
   <!-- SEO Optimization Section -->
-  <meta name="description" content="Paul Han's Portfolio - Innovative Software & Hardware Engineer crafting elegant solutions. Explore projects in AI, machine learning, and creative problem-solving.">
+  <meta name="description" content="Paul Han — engineer in the AI age: memory systems, reinforcement learning, AI personalities. Projects and essays on the new way of engineering.">
   <meta name="keywords" content="software engineer, hardware engineer, full stack developer, creative problem solver, technical writing, system design, engineering solutions, AI, machine learning, portfolio">
   <meta name="author" content="Paul Junsuk Han">
   <meta name="robots" content="index, follow, max-image-preview:large">
@@ -26,7 +26,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pauljunsukhan.com/">
   <meta property="og:title" content="Paul Han - Innovative SWE & HWE | Creative Problem Solver">
-  <meta property="og:description" content="Discover innovative software & hardware engineering projects. From AI and machine learning to creative problem-solving, explore my journey in technology and engineering.">
+  <meta property="og:description" content="Memory systems, reinforcement learning, AI personalities. Projects and essays on the new way of engineering.">
   <meta property="og:image" content="https://pauljunsukhan.com/assets/site/social-preview.webp">
   <meta property="og:image:alt" content="Preview image showing Paul Han's portfolio">
   <meta property="og:image:type" content="image/webp">
@@ -36,11 +36,11 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://pauljunsukhan.com/">
   <meta name="twitter:title" content="Paul Han - Innovative SWE & HWE | Creative Problem Solver">
-  <meta name="twitter:description" content="Discover innovative software & hardware engineering projects. From AI and machine learning to creative problem-solving, explore my journey in technology and engineering.">
+  <meta name="twitter:description" content="Memory systems, reinforcement learning, AI personalities. Projects and essays on the new way of engineering.">
   <meta name="twitter:image" content="https://pauljunsukhan.com/assets/site/social-preview.webp">
   <meta name="twitter:image:alt" content="Preview image showing Paul Han's portfolio">
-  <meta name="twitter:creator" content="@yourtwitterhandle">
-  <meta name="twitter:site" content="@yourtwitterhandle">
+  <meta name="twitter:creator" content="@pauljunsukhan">
+  <meta name="twitter:site" content="@pauljunsukhan">
 
   <!-- Canonical & Language -->
   <link rel="canonical" href="https://pauljunsukhan.com/">
@@ -51,13 +51,13 @@
   <link rel="preload" href="styles/desktop.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="styles/menubar.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="styles/header.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="styles/projects.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="styles/projects.css?v=2" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript>
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/desktop.css">
     <link rel="stylesheet" href="styles/menubar.css">
     <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="styles/projects.css">
+    <link rel="stylesheet" href="styles/projects.css?v=2">
   </noscript>
 </head>
 
@@ -105,8 +105,8 @@
       <section id="hero" aria-labelledby="hero-title">
         <div class="notebook-header">
           <div class="header-left">
-            <time class="date" datetime="2024-01-03">
-              Last Update: <span class="typewriter">01.03.2024</span>
+            <time class="date" datetime="2026-06-11">
+              Last Update: <span class="typewriter">06.11.2026</span>
             </time>
           </div>
           <div class="header-right">
@@ -122,27 +122,45 @@
         </div>
         <h1 id="hero-title">Paul Junsuk Han</h1>
         <p class="subtitle">
-          I'm a deep tech researcher at Calculus House and the Residency focused on intelligent materials and biosensing. I'm pioneering a new discipline of engineering, stretch mems.
+          Until the age of AI, no technology surprised me. I had quietly conceded that we'd reached the end of history for technology. I love this AI age. It's a new way of engineering — the old methods have to be totally rewritten. Figuring out how to engineer with AI is going to be the exciting project of my life.
         </p>
       </section>
 
-      <!-- About / Notes Section -->
-      <section id="about" aria-labelledby="about-title">
-        <div class="technical-sketch">
-          <h2 id="about-title">Field Notes</h2>
-          <div id="field-notes-container">
-            <!-- Document content will be loaded here -->
+      <!-- Latest Section: the newest essay, readable in place -->
+      <section id="latest" aria-labelledby="latest-title">
+        <h2 id="latest-title">Latest</h2>
+        <div class="mac-window article-embed-window">
+          <div class="window-title-bar">
+            <div class="window-controls">
+              <button class="window-button minimize-button" aria-label="Minimize window"></button>
+              <button class="window-button quick-link-button" aria-label="Open essay page"
+                      data-link="/desktop/writing/ai-will-not-tell-you-your-database-schema-sucks/"></button>
+            </div>
+            <div class="window-title"></div>
+            <a href="/desktop/writing/ai-will-not-tell-you-your-database-schema-sucks/" class="project-link-button">Full Page</a>
           </div>
+          <div class="content">
+            <iframe
+              class="article-embed-frame"
+              src="/desktop/writing/ai-will-not-tell-you-your-database-schema-sucks/?preview=true"
+              title="AI Will Not Tell You Your Database Schema Sucks — readable copy"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- Writing Section: essay cards, same form as project windows -->
+      <section id="writing" aria-labelledby="writing-title">
+        <h2 id="writing-title">Writing</h2>
+        <div class="project-grid writing-grid" role="list" aria-label="Essay list" lang="en">
+          <!-- Essays loaded dynamically from JSON -->
         </div>
       </section>
 
       <!-- Projects Section -->
       <section id="projects" aria-labelledby="projects-title">
-        <h2 id="projects-title">Project Documentation</h2>
-        <div id="project-docs-container">
-          <!-- Document content will be loaded here -->
-        </div>
-        
+        <h2 id="projects-title">Projects</h2>
         <div class="project-grid dynamic-projects" role="list" aria-label="Project list" lang="en">
           <!-- Projects loaded dynamically from JSON -->
         </div>
@@ -151,6 +169,28 @@
         <div class="project-preview" aria-label="Project preview overlay">
           <button class="exit-button" aria-label="Close preview">Exit</button>
           <div class="preview-content"><!-- Project preview content --></div>
+        </div>
+      </section>
+
+      <!-- Notes / Journal Section -->
+      <section id="notes" aria-labelledby="notes-title">
+        <h2 id="notes-title">Notes</h2>
+        <div class="mac-window">
+          <div class="window-title-bar">
+            <div class="window-controls">
+            </div>
+            <div class="window-title">field_notes.journal</div>
+          </div>
+          <div class="content">
+            <div class="journal-entry">
+              <time class="journal-date" datetime="2026-06">06.2026</time>
+              <p>Tagged the original site as <a href="https://github.com/pauljunsukhan/portfolio/releases/tag/v1.0-2024">v1.0-2024</a> and started the writing section. First essay: <a href="/desktop/writing/ai-will-not-tell-you-your-database-schema-sucks/">AI Will Not Tell You Your Database Schema Sucks</a>.</p>
+            </div>
+            <div class="journal-entry">
+              <time class="journal-date" datetime="2025-07">07.2025</time>
+              <p>I'm a deep tech researcher at Calculus House and the Residency focused on intelligent materials and biosensing. I'm pioneering a new discipline of engineering, stretch mems.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -197,28 +237,27 @@
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script type="module" src="scripts/globals.js"></script>
-  <script type="module" src="scripts/desktop.js"></script>
-  <script type="module" src="scripts/menubar.js"></script>
-  <script type="module" src="scripts/header.js"></script>
-  <script type="module" src="scripts/projects.js"></script>
-  <script type="module" src="scripts/socials.js"></script>
+  <script type="module" src="scripts/globals.js?v=2"></script>
+  <script type="module" src="scripts/desktop.js?v=2"></script>
+  <script type="module" src="scripts/menubar.js?v=2"></script>
+  <script type="module" src="scripts/header.js?v=2"></script>
+  <script type="module" src="scripts/projects.js?v=2"></script>
+  <script type="module" src="scripts/socials.js?v=2"></script>
 
   <!-- Load Our Modular JS (global, socials, projects, etc.) -->
   <script type="module">
-    import { updateVisitorCounter, generateDesktopIcons } from './scripts/desktop.js';
-    import { initAutoLinkify } from './scripts/globals.js';
-    import { generateMenuBar } from './scripts/menubar.js';
-    import { generateHeader } from './scripts/header.js';
-    import { generateSocialLinks } from './scripts/socials.js';
-    import { loadProjects } from './scripts/projects.js';
-    import { loadDocument } from './scripts/documents.js';
+    import { updateVisitorCounter, generateDesktopIcons } from './scripts/desktop.js?v=2';
+    import { initAutoLinkify } from './scripts/globals.js?v=2';
+    import { generateMenuBar } from './scripts/menubar.js?v=2';
+    import { generateHeader } from './scripts/header.js?v=2';
+    import { generateSocialLinks } from './scripts/socials.js?v=2';
+    import { loadProjects } from './scripts/projects.js?v=2';
 
     document.addEventListener('DOMContentLoaded', async () => {
       console.log('Initializing homepage...');
 
       // 1) Initialize menu bar
-      await generateMenuBar('config/menu.json').catch(err => {
+      await generateMenuBar('config/menubar.json').catch(err => {
         console.error('Error generating menu bar:', err);
       });
 
@@ -240,17 +279,33 @@
         console.error('Error generating social links:', err);
       });
 
-      // 6) Load projects
+      // 6) Load projects, then essay cards into the writing grid
       await loadProjects('config/projects.json').catch(err => {
         console.error('Error loading projects:', err);
+      });
+      await loadProjects('config/writing.json', '.project-grid.writing-grid').catch(err => {
+        console.error('Error loading writing cards:', err);
       });
 
       // 7) Initialize auto-linkify after content is loaded
       initAutoLinkify();
 
-      // Load documents when DOM is ready
-      loadDocument('assets/document_blocks/field_notes.json', 'field-notes-container');
-      loadDocument('assets/document_blocks/project_docs.json', 'project-docs-container');
+      // 8) Latest window: minimize toggle + quick link (same pattern as project windows)
+      const latestWin = document.querySelector('.article-embed-window');
+      if (latestWin) {
+        const minBtn = latestWin.querySelector('.window-button.minimize-button');
+        minBtn?.addEventListener('click', () => {
+          latestWin.classList.toggle('minimized');
+          const min = latestWin.classList.contains('minimized');
+          minBtn.classList.toggle('minimize-button', !min);
+          minBtn.classList.toggle('maximize-button', min);
+          minBtn.setAttribute('aria-label', min ? 'Maximize window' : 'Minimize window');
+        });
+        const quickLink = latestWin.querySelector('.window-button.quick-link-button');
+        quickLink?.addEventListener('click', () => {
+          if (quickLink.dataset.link) window.location.href = quickLink.dataset.link;
+        });
+      }
 
       console.log('Homepage initialization complete.');
     });
@@ -270,7 +325,7 @@
         "https://linkedin.com/in/pauljunsukhan"
       ],
       "jobTitle": ["Software Engineer", "Hardware Engineer"],
-      "description": "I'm a deep tech researcher at Calculus House and the Residency focused on intelligent materials and biosensing. I'm pioneering a new discipline of engineering, stretch mems.",
+      "description": "Engineer in the AI age: memory systems, reinforcement learning, AI personalities. Projects and essays on the new way of engineering.",
       "knowsAbout": [
         "Software Engineering",
         "Hardware Engineering",
@@ -319,24 +374,7 @@
           "addressRegion": "CA",
           "addressCountry": "US"
         }
-      },
-      "workExample": [
-        {
-          "@type": "TechArticle",
-          "name": "Neural Network Visualizer",
-          "url": "https://pauljunsukhan.com/projects/neural-network/",
-          "abstract": "Interactive visualization tool for neural network architectures using WebGL and React",
-          "proficiencyLevel": "Advanced",
-          "genre": "Software Engineering",
-          "datePublished": "2024-01-02",
-          "author": {
-            "@type": "Person",
-            "name": "Paul Junsuk Han"
-          },
-          "keywords": ["Neural Networks","WebGL","React","Visualization","Machine Learning"],
-          "technicalLevel": "Advanced"
-        }
-      ]
+      }
     }
   </script>
   <script type="application/ld+json">

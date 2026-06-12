@@ -85,6 +85,14 @@
             "items": [
 
                 {
+                    "label": "Writing",
+                    "role": "menuitem",
+                    "action": {
+                        "type": "link",
+                        "url": "/#writing"
+                    }
+                },
+                {
                     "label": "Resume (SW)",
                     "role": "menuitem",
                     "action": {
