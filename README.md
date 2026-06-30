@@ -79,4 +79,4 @@ server {
 - Use lazy loading for images and videos 
 ### Viewing PDFs
 
-Open `pdf-viewer.html?file=PATH_TO_PDF` to display PDF documents. Resume links in the site now use this viewer.
+Open `pdf-viewer.html?file=PATH_TO_PDF` to display PDF documents. The viewer now supports next/previous navigation, zoom, download and print buttons, and a simple search field. Pages are rendered on demand for better performance.
