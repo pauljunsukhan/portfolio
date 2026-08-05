@@ -1,6 +1,21 @@
 {
   "projects": [
     {
+      "id": "biometric-wearable",
+      "title": "Biometric Wearable",
+      "subtitle": "PPG + IMU Wearable - ESP32 POC to 6-Layer nRF52840 EVT",
+      "description": "A biometric wearable in two board generations: an ESP32-S3 POC verified with fab X-ray inspection, then a 6-layer nRF52840 EVT written in atopile - 0201, BGA, and DFN packaging, nPM1300 power, 50-board production run.",
+      "specs": [
+        "Tech: nRF52840 (BC840), MAX30101 PPG, BMI270 IMU, nPM1300 PMIC, atopile + KiCad",
+        "Build: 6-layer, 0201/BGA/DFN; 50 PCB + 5 PCBA (JLCPCB, Mar 2025)"
+      ],
+      "defaultMinimized": true,
+      "buttons": {
+        "preview": "/desktop/projects/biometric-wearable",
+        "link": "/desktop/projects/biometric-wearable"
+      }
+    },
+    {
       "id": "stretch-mems-handbook",
       "title": "Stretch MEMS Designer's Handbook",
       "subtitle": "Stretch MEMS Handbook",

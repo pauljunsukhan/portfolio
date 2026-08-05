@@ -1,0 +1,12 @@
+{
+    "window_title": "Biometric Wearable",
+    "last_update": "08.05.2026",
+    "headshot": {
+        "src": "/assets/site/headshot.png",
+        "alt": "Paul Han - Software and Hardware Engineer",
+        "width": 180,
+        "height": 180
+    },
+    "title": "BIOMETRIC WEARABLE",
+    "subtitle": "PPG + IMU wearable - ESP32 POC to a 6-layer nRF52840 EVT"
+}
