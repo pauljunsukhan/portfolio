@@ -49,7 +49,6 @@ async function loadDesktopConfig(pageSpecificConfig) {
 }
 
 export async function generateDesktopIcons(pageSpecificConfig) {
-    console.log('generateDesktopIcons called');
     const config = await loadDesktopConfig(pageSpecificConfig);
     if (!config) {
         console.error('No desktop config loaded');
@@ -61,16 +60,11 @@ export async function generateDesktopIcons(pageSpecificConfig) {
         console.error('No desktop-icons container found. Skipping desktop icons.');
         return;
     }
-
-    console.log('Found desktop-icons container:', desktopIconsContainer);
-    console.log('Clearing desktop icons container');
     desktopIconsContainer.innerHTML = '';
 
     // Create desktop icons
     for (const [key, icon] of Object.entries(config)) {
         try {
-            console.log(`Creating desktop icon for ${key}:`, icon);
-            
             // Validate required properties
             if (!icon.icon || !icon.label || !icon.url) {
                 console.warn(`Skipping desktop icon ${key}: missing required properties`);
@@ -87,12 +81,17 @@ export async function generateDesktopIcons(pageSpecificConfig) {
                 <div class="icon-label">${icon.label}</div>
             `;
 
-            // Smooth-scroll hash links ("#about") and root hash links ("/#about")
-            // when the target section exists on the current page; otherwise let
+            // Smooth-scroll hash links only when the link targets the page we
+            // are already on; subpages reuse section ids like "hero", so an
+            // id match alone is not enough - compare pathnames, otherwise let
             // the browser navigate (e.g. back to the homepage from a subpage).
             const hashIndex = icon.url.indexOf('#');
             if (hashIndex !== -1) {
                 element.addEventListener('click', (e) => {
+                    const linkPath = new URL(icon.url, window.location.href).pathname;
+                    if (linkPath !== window.location.pathname) {
+                        return;
+                    }
                     const targetId = icon.url.slice(hashIndex + 1);
                     const targetElement = document.getElementById(targetId);
                     if (targetElement) {
@@ -106,7 +105,6 @@ export async function generateDesktopIcons(pageSpecificConfig) {
             }
 
             desktopIconsContainer.appendChild(element);
-            console.log(`Added desktop icon for ${key}`);
         } catch (error) {
             console.error(`Error creating desktop icon for ${key}:`, error);
         }

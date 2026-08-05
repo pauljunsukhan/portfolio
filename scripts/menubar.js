@@ -107,8 +107,6 @@ export async function generateMenuBar(pageSpecificConfig) {
 
     // Initialize keyboard navigation
     initializeKeyboardNav(menuBar);
-
-    console.log('Menu bar generation complete');
     return menuBar;
 }
 
@@ -144,8 +142,6 @@ function createAppleMenu(config) {
 }
 
 function createMenuItem(config, menuBar) {
-    console.log('Creating menu item:', { label: config.label, role: config.role });
-    
     const container = document.createElement('div');
     container.className = 'menu-item';
     
@@ -156,7 +152,6 @@ function createMenuItem(config, menuBar) {
     
     // Create submenu for top-level menu items only
     if (config.items && config.role === 'menu') {
-        console.log('Creating submenu for:', config.label);
         button.setAttribute('aria-haspopup', 'true');
         button.setAttribute('aria-expanded', 'false');
         
@@ -348,7 +343,13 @@ function handleDialogAction(action) {
 
 function handleLinkAction(action) {
     console.log('Handling link:', action);
-    window.open(action.url, '_blank', 'noopener,noreferrer');
+    const url = new URL(action.url, window.location.href);
+    if (url.origin === window.location.origin) {
+        // Internal destination: navigate in place, keep history sane
+        window.location.href = url.href;
+    } else {
+        window.open(url.href, '_blank', 'noopener,noreferrer');
+    }
 }
 
 function handleToggleAction(action) {
@@ -369,7 +370,6 @@ function handleToggleAction(action) {
 
 function initializeKeyboardNav(menubar) {
     // Will implement arrow key navigation, Esc to close, etc.
-    console.log('Keyboard navigation to be implemented');
 }
 
 // Add this function to create and manage the menu overlay

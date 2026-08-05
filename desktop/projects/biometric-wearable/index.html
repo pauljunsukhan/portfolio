@@ -201,6 +201,9 @@
             <img
               src="/assets/images/projects/wearable-poc-hero.jpg"
               alt="The assembled POC board photographed on black - ESP32-S3-WROOM module, sensors, and USB-C"
+            
+              width="1600"
+              height="1043"
             >
             <figcaption>The POC, Jan 2025</figcaption>
           </figure>
@@ -208,6 +211,9 @@
             <img
               src="/assets/images/projects/wearable-evt-hero.jpg"
               alt="The assembled EVT board photographed on black - BC840 module, brass touch pads, and FPC connector"
+            
+              width="1600"
+              height="1184"
             >
             <figcaption>The EVT, Mar 2025</figcaption>
           </figure>
@@ -215,6 +221,9 @@
             <img
               src="/assets/images/projects/wearable-schematic-root.png"
               alt="Root schematic sheet of the POC - ESP32-S3, sensor bus, and reset circuit"
+            
+              width="1754"
+              height="1241"
             >
             <figcaption>POC root sheet</figcaption>
           </figure>
@@ -253,6 +262,9 @@
               src="/assets/images/projects/wearable-xray.jpg"
               alt="Fab X-ray of the assembled POC board showing the module, QFN packages, and connector solder joints"
               loading="lazy"
+            
+              width="1537"
+              height="1537"
             >
             <figcaption>
               Production X-ray, Jan 13 2025 - module, QFNs, and connector joints
@@ -290,6 +302,9 @@
               src="/assets/images/projects/wearable-schematic-root.png"
               alt="POC root schematic sheet - ESP32-S3, sensor I2C bus, and reset circuit"
               loading="lazy"
+            
+              width="1754"
+              height="1241"
             >
             <figcaption>
               Root sheet - ESP32-S3, sensor bus (MAX30101, MPU-6050, TMP116), reset.
@@ -300,6 +315,9 @@
               src="/assets/images/projects/wearable-schematic-power.png"
               alt="POC power schematic sheet - USB-C input protection, BQ25606 charger, BQ27421 fuel gauge"
               loading="lazy"
+            
+              width="1754"
+              height="1241"
             >
             <figcaption>
               Power sheet - USB-C input protection, BQ25606 charger with power-path,
@@ -311,6 +329,9 @@
               src="/assets/images/projects/wearable-schematic-rails.png"
               alt="POC rails schematic sheet - TPS63021 buck-boost, TPS61023 boost, TPS7A02 LDO"
               loading="lazy"
+            
+              width="1754"
+              height="1241"
             >
             <figcaption>
               Rails sheet - TPS63021 3V3 buck-boost, TPS61023 5V LED boost, TPS7A02
@@ -338,6 +359,9 @@
               src="/assets/images/projects/wearable-evt-render.jpg"
               alt="EVT board render with dimensions marked - 23.5 x 22.25 mm outline"
               loading="lazy"
+            
+              width="1600"
+              height="1579"
             >
             <figcaption>EVT board render with dimensions - 23.5 x 22.25 mm.</figcaption>
           </figure>
@@ -374,7 +398,10 @@
                 src="/assets/images/projects/wearable-evt-battery.jpg"
                 alt="EVT board with its 3.7 V 30 mAh Li-Po battery, held in a palm for scale"
                 loading="lazy"
-              >
+              
+              width="1200"
+              height="1600"
+            >
               <figcaption>
                 EVT board with its 3.7 V 30 mAh Li-Po, in palm for scale.
               </figcaption>
@@ -384,7 +411,10 @@
                 src="/assets/images/projects/wearable-encapsulated.jpg"
                 alt="EVT board encapsulated in its soft printed enclosure, ready for wear"
                 loading="lazy"
-              >
+              
+              width="1200"
+              height="1600"
+            >
               <figcaption>Encapsulated for wear.</figcaption>
             </figure>
           </div>
@@ -403,6 +433,9 @@
               src="/assets/images/projects/wearable-forearm.jpg"
               alt="The encapsulated EVT board worn directly on the forearm"
               loading="lazy"
+            
+              width="1200"
+              height="1600"
             >
             <figcaption>Worn on the forearm.</figcaption>
           </figure>
@@ -488,6 +521,8 @@ power_interface.gnd ~ gnd</code></pre>
     import { generateHeader } from '../../../scripts/header.js';
 
     document.addEventListener('DOMContentLoaded', async () => {
+      // Bare embed inside the homepage Latest window: no chrome to build
+      if (document.documentElement.dataset.embed === 'true') return;
       await generateMenuBar('../../../config/menubar.json').catch(err => {
         console.error('Error generating menu bar:', err);
       });

@@ -76,7 +76,7 @@
                     "role": "menuitem",
                     "action": {
                         "type": "link",
-                        "url": "./pdf-viewer.html?file=assets/docs/Han_Paul%20Resume_SW.pdf"
+                        "url": "/pdf-viewer.html?file=assets/docs/Han_Paul%20Resume_SW.pdf"
                     }
                 },
                 {
@@ -84,7 +84,7 @@
                     "role": "menuitem",
                     "action": {
                         "type": "link",
-                        "url": "./pdf-viewer.html?file=assets/docs/Han_Paul%20Resume.pdf"
+                        "url": "/pdf-viewer.html?file=assets/docs/Han_Paul%20Resume.pdf"
                     }
                 },
                 {
@@ -139,7 +139,7 @@
                     "role": "menuitem",
                     "action": {
                         "type": "link",
-                        "url": "./documentation/ARCHITECTURE.md"
+                        "url": "/documentation/ARCHITECTURE.md"
                     }
                 },
                 {
@@ -147,7 +147,7 @@
                     "role": "menuitem",
                     "action": {
                         "type": "link",
-                        "url": "./documentation/DESIGN.md"
+                        "url": "/documentation/DESIGN.md"
                     }
                 }
             ]
