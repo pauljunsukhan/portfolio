@@ -16,6 +16,22 @@
       }
     },
     {
+      "id": "haptica-capture",
+      "title": "Haptica Capture Rig",
+      "subtitle": "Egocentric Multimodal Capture for Robot Learning",
+      "description": "Founder-built capture system recording synchronized vision, depth, tactile, and kinematic data from humans doing skilled manual work — the training data robots can't scrape.",
+      "specs": [
+        "4× global-shutter cameras on Jetson AGX Orin: stereo head pair + wrist cams, hardware frame sync, GPS-disciplined time",
+        "Custom FPCB tactile skin: piezoresistive matrix + custom acquisition electronics",
+        "Pipeline: synced session bundles → rosbag2/MCAP → LeRobot training packages over 10 GbE ingest"
+      ],
+      "defaultMinimized": false,
+      "buttons": {
+        "preview": "/desktop/projects/haptica-capture",
+        "link": "/desktop/projects/haptica-capture"
+      }
+    },
+    {
       "id": "stretch-mems-handbook",
       "title": "Stretch MEMS Designer's Handbook",
       "subtitle": "Stretch MEMS Handbook",

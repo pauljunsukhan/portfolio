@@ -1,0 +1,12 @@
+{
+    "window_title": "Haptica Capture Rig",
+    "last_update": "07.31.2026",
+    "headshot": {
+        "src": "/assets/site/headshot.png",
+        "alt": "Paul Han - Software and Hardware Engineer",
+        "width": 180,
+        "height": 180
+    },
+    "title": "TRANSCRIBING DEXTERITY",
+    "subtitle": "Egocentric multimodal capture for robot skill learning"
+}
