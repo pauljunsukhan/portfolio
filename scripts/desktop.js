@@ -9,7 +9,7 @@ async function loadDesktopConfig(pageSpecificConfig) {
     // If a specific config path is provided, try that first
     if (pageSpecificConfig) {
         try {
-            const response = await fetch(pageSpecificConfig, { cache: 'no-store' });
+            const response = await fetch(pageSpecificConfig);
             if (response.ok) {
                 const data = await response.json();
                 console.log('Specific desktop config loaded successfully');
@@ -22,7 +22,7 @@ async function loadDesktopConfig(pageSpecificConfig) {
 
     // Try to load from current directory
     try {
-        const response = await fetch('./desktop.json', { cache: 'no-store' });
+        const response = await fetch('./desktop.json');
         if (response.ok) {
             const data = await response.json();
             console.log('Local desktop config loaded successfully');
@@ -35,7 +35,7 @@ async function loadDesktopConfig(pageSpecificConfig) {
     // Fall back to default config
     try {
         console.log('Loading default desktop config from: ./config/desktop.json');
-        const response = await fetch('./config/desktop.json', { cache: 'no-store' });
+        const response = await fetch('./config/desktop.json');
         if (!response.ok) {
             throw new Error(`Failed to load default desktop config: ${response.status}`);
         }

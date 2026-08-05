@@ -51,16 +51,10 @@
         "url": "https://pauljunsukhanwrites.substack.com",
         "type": "link"
     },
-    "resume_sw": {
-        "icon": "📄",
-        "label": "Resume (SW)",
-        "url": "./pdf-viewer.html?file=assets/docs/Han_Paul%20Resume_SW.pdf",
-        "type": "link"
-    },
     "resume_hw": {
         "icon": "📋",
         "label": "Resume (HW)",
-        "url": "./pdf-viewer.html?file=assets/docs/Han_Paul%20Resume.pdf",
+        "url": "/pdf-viewer.html?file=assets/docs/Han_Paul%20Resume.pdf",
         "type": "link"
     }
-} 
+}

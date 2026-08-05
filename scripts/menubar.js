@@ -17,7 +17,7 @@ async function loadMenuConfig(pageSpecificConfig) {
     // If a specific config path is provided, try that first
     if (pageSpecificConfig) {
         try {
-            const response = await fetch(pageSpecificConfig, { cache: 'no-store' });
+            const response = await fetch(pageSpecificConfig);
             if (response.ok) {
                 const data = await response.json();
                 console.log('Specific menu config loaded:', data);
@@ -30,7 +30,7 @@ async function loadMenuConfig(pageSpecificConfig) {
 
     // Fall back to the canonical config
     try {
-        const response = await fetch('/config/menubar.json', { cache: 'no-store' });
+        const response = await fetch('/config/menubar.json');
         if (response.ok) {
             const data = await response.json();
             console.log('Default menubar config loaded:', data);

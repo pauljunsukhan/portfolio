@@ -24,7 +24,7 @@ export async function loadProjects(pageSpecificConfig, gridSelector = '.project-
     const configUrl = pageSpecificConfig || './config/projects.json';
     console.log(`Loading projects from ${configUrl} into ${gridSelector} ...`);
 
-    const response = await fetch(configUrl, { cache: 'no-store' });
+    const response = await fetch(configUrl);
     if (!response.ok) {
       throw new Error(`Failed to load projects: ${response.status}`);
     }

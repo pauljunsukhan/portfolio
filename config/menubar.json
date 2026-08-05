@@ -1,156 +1,145 @@
 {
-    "apple_menu": {
-        "icon": "▶︎ •၊၊||၊|၊||‌။",
-        "aria_label": "Apple menu",
-        "role": "button",
-        "action": {
+  "apple_menu": {
+    "icon": "▶︎ •၊၊||၊|၊||‌။",
+    "aria_label": "Apple menu",
+    "role": "button",
+    "action": {
+      "type": "dialog",
+      "content": "It feels like the future!",
+      "title": "System Information"
+    }
+  },
+  "menu_items": [
+    {
+      "label": "File",
+      "role": "menu",
+      "items": [
+        {
+          "label": "Export Page",
+          "role": "menuitem",
+          "action": {
             "type": "dialog",
-            "content": "It feels like the future!",
-            "title": "System Information"
+            "title": "Export Page as PDF",
+            "content": "Roadmap: convert current page to pdf for offline viewing."
+          }
+        },
+        {
+          "label": "Export Site",
+          "role": "menuitem",
+          "action": {
+            "type": "dialog",
+            "title": "Export Site as PDF",
+            "content": "Roadmap: convert entire site to pdf for offline viewing."
+          }
         }
+      ]
     },
-    "menu_items": [
+    {
+      "label": "Edit",
+      "role": "menu",
+      "items": [
         {
-            "label": "File",
-            "role": "menu",
-            "items": [
-                {
-                    "label": "Export Page",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "dialog",
-                        "title": "Export Page as PDF",
-                        "content": "Roadmap: convert current page to pdf for offline viewing."
-                    }
-                },
-                {
-                    "label": "Export Site",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "dialog",
-                        "title": "Export Site as PDF",
-                        "content": "Roadmap: convert entire site to pdf for offline viewing."
-                    }
-                }
-            ]
+          "label": "Preferences",
+          "role": "menuitem",
+          "action": {
+            "type": "dialog",
+            "title": "Preferences",
+            "content": "It's good as is."
+          }
         },
         {
-            "label": "Edit",
-            "role": "menu",
-            "items": [
-
-                {
-                    "label": "Preferences",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "dialog",
-                        "title": "Preferences",
-                        "content": "It's good as is."
-                    }
-                },
-                {
-                    "label": "Dark Mode",
-                    "role": "menuitemcheckbox",
-                    "action": {
-                        "type": "toggle",
-                        "target": "theme"
-                    }
-                }
-            ]
-        },
-        {
-            "label": "View",
-            "role": "menu",
-            "items": [
-
-                {
-                    "label": "Writing",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "/#writing"
-                    }
-                },
-                {
-                    "label": "Resume (SW)",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "/pdf-viewer.html?file=assets/docs/Han_Paul%20Resume_SW.pdf"
-                    }
-                },
-                {
-                    "label": "Resume (HW)",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "/pdf-viewer.html?file=assets/docs/Han_Paul%20Resume.pdf"
-                    }
-                },
-                {
-                    "label": "GitHub",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "https://github.com/pauljunsukhan"
-                    }
-                },
-                {
-                    "label": "Hugging Face",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "https://huggingface.co/pauljunsukhan"
-                    }
-                },
-                {
-                    "label": "Old Site",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "https://paulside.com"
-                    }
-                }
-
-            ]
-        },
-        {
-            "label": "Help",
-            "role": "menu",
-            "items": [
-                {
-                    "label": "Twitter",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "https://x.com/pauljunsukhan"
-                    }
-                },
-                {
-                    "label": "LinkedIn",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "https://linkedin.com/in/pauljunsukhan"
-                    }
-                },
-                {
-                    "label": "System Docs",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "/documentation/ARCHITECTURE.md"
-                    }
-                },
-                {
-                    "label": "Design Docs",
-                    "role": "menuitem",
-                    "action": {
-                        "type": "link",
-                        "url": "/documentation/DESIGN.md"
-                    }
-                }
-            ]
+          "label": "Dark Mode",
+          "role": "menuitemcheckbox",
+          "action": {
+            "type": "toggle",
+            "target": "theme"
+          }
         }
-    ]
-} 
+      ]
+    },
+    {
+      "label": "View",
+      "role": "menu",
+      "items": [
+        {
+          "label": "Writing",
+          "role": "menuitem",
+          "action": {
+            "type": "link",
+            "url": "/#writing"
+          }
+        },
+        {
+          "label": "Resume (HW)",
+          "role": "menuitem",
+          "action": {
+            "type": "link",
+            "url": "/pdf-viewer.html?file=assets/docs/Han_Paul%20Resume.pdf"
+          }
+        },
+        {
+          "label": "GitHub",
+          "role": "menuitem",
+          "action": {
+            "type": "link",
+            "url": "https://github.com/pauljunsukhan"
+          }
+        },
+        {
+          "label": "Hugging Face",
+          "role": "menuitem",
+          "action": {
+            "type": "link",
+            "url": "https://huggingface.co/pauljunsukhan"
+          }
+        },
+        {
+          "label": "Old Site",
+          "role": "menuitem",
+          "action": {
+            "type": "link",
+            "url": "https://paulside.com"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Help",
+      "role": "menu",
+      "items": [
+        {
+          "label": "Twitter",
+          "role": "menuitem",
+          "action": {
+            "type": "link",
+            "url": "https://x.com/pauljunsukhan"
+          }
+        },
+        {
+          "label": "LinkedIn",
+          "role": "menuitem",
+          "action": {
+            "type": "link",
+            "url": "https://linkedin.com/in/pauljunsukhan"
+          }
+        },
+        {
+          "label": "System Docs",
+          "role": "menuitem",
+          "action": {
+            "type": "link",
+            "url": "/documentation/ARCHITECTURE.md"
+          }
+        },
+        {
+          "label": "Design Docs",
+          "role": "menuitem",
+          "action": {
+            "type": "link",
+            "url": "/documentation/DESIGN.md"
+          }
+        }
+      ]
+    }
+  ]
+}
