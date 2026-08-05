@@ -109,6 +109,30 @@
       line-height: 1.5;
     }
     .code-caption { margin-top: -0.5rem; }
+    /* Embed mode: bare page inside the homepage Latest window (?preview=true) */
+    html[data-embed="true"] { scrollbar-width: none; }
+    html[data-embed="true"]::-webkit-scrollbar,
+    html[data-embed="true"] body::-webkit-scrollbar { width: 0; height: 0; display: none; }
+    html[data-embed="true"] body {
+      padding-top: 0;
+      background-color: var(--window-bg);
+      background-image: none;
+      overflow-x: hidden;
+    }
+    html[data-embed="true"] body::after { display: none; }
+    html[data-embed="true"] main.mac-window {
+      margin: 0 auto;
+      width: 100%;
+      max-width: none;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      background: transparent;
+    }
+    html[data-embed="true"] main.mac-window > .window-title-bar,
+    html[data-embed="true"] .notebook-header,
+    html[data-embed="true"] .visitor-counter { display: none; }
+    html[data-embed="true"] main.mac-window > .content { padding: 1.25rem 1.5rem 2rem; }
   </style>
 </head>
 
@@ -116,6 +140,17 @@
   <script>
     if (localStorage.getItem('theme') === 'dark') {
       document.body.classList.add('dark-mode');
+    }
+  </script>
+  <script>
+    // Embed mode: render the bare page (no menubar/icons) when loaded
+    // inside the homepage's Latest window via ?preview=true
+    if (new URLSearchParams(window.location.search).get('preview') === 'true') {
+      document.documentElement.setAttribute('data-embed', 'true');
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.global-menu-bar, .desktop-icons, .menu-toggle')
+          .forEach(el => el.remove());
+      });
     }
   </script>
   <!-- Classic Mac Menu Bar -->

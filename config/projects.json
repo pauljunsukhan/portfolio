@@ -9,7 +9,7 @@
         "Tech: nRF52840 (BC840), MAX30101 PPG, BMI270 IMU, nPM1300 PMIC, atopile + KiCad",
         "Build: 6-layer, 0201/BGA/DFN, 23.5 x 22.25 mm; 50 PCB + 5 PCBA (Mar 2025)"
       ],
-      "defaultMinimized": true,
+      "defaultMinimized": false,
       "buttons": {
         "preview": "/desktop/projects/biometric-wearable",
         "link": "/desktop/projects/biometric-wearable"

@@ -245,6 +245,107 @@ body.dark-mode {
     fill: none;
 }
 
+/* ---------- Quadrant chart (polish × expressivity) ---------- */
+
+.quadrant svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    font-family: var(--font-primary);
+}
+
+.quadrant .q-axis {
+    stroke: var(--text-color);
+    stroke-width: 1.5;
+}
+
+.quadrant .q-grid {
+    stroke: var(--text-color);
+    stroke-dasharray: 4 4;
+    opacity: 0.25;
+}
+
+.quadrant .q-axis-label {
+    fill: var(--text-color);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    font-weight: bold;
+}
+
+.quadrant .q-zone {
+    fill: var(--text-color);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    opacity: 0.5;
+}
+
+.quadrant .q-zone.q-beautiful { fill: var(--fix-color); opacity: 0.75; }
+.quadrant .q-zone.q-slop { fill: var(--smell-color); opacity: 0.7; }
+
+.quadrant .q-dot {
+    stroke: var(--window-bg);
+    stroke-width: 2;
+}
+
+.quadrant .q-name {
+    fill: var(--text-color);
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.quadrant .q-arrow {
+    stroke: var(--fix-color);
+    stroke-width: 1.5;
+    stroke-dasharray: 4 3;
+    fill: none;
+}
+
+.quadrant .q-arrow-label {
+    fill: var(--fix-color);
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+}
+
+/* ---------- Retention curve (a quadrant variant) ---------- */
+
+.retention .r-fill {
+    fill: var(--secondary-color);
+    opacity: 0.08;
+}
+
+.retention .r-curve {
+    stroke: var(--secondary-color);
+    stroke-width: 2.5;
+    fill: none;
+}
+
+.retention .r-mark {
+    stroke: var(--smell-color);
+    stroke-dasharray: 4 3;
+    stroke-width: 1.5;
+}
+
+.retention .r-note {
+    fill: var(--text-color);
+    font-size: 12px;
+    letter-spacing: 0.03em;
+}
+
+.retention .r-note-warn {
+    fill: var(--smell-color);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.03em;
+}
+
+.retention .r-tick {
+    fill: var(--text-color);
+    font-size: 11px;
+    opacity: 0.7;
+}
+
 /* ---------- Chat mockups ---------- */
 
 .chat-mockup {

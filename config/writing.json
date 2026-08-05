@@ -1,6 +1,20 @@
 {
   "projects": [
     {
+      "id": "beautiful-mediums",
+      "title": "Beautiful Mediums and Those Just Pretty",
+      "subtitle": "A defense of communicating ideas through short-form video.",
+      "description": "People I respect think it's a mistake. But a medium's beauty is its expressivity, and the despised forms may have the most of it left.",
+      "specs": [
+        "06.2026 · Essay"
+      ],
+      "defaultMinimized": false,
+      "buttons": {
+        "preview": "/desktop/writing/beautiful-mediums-and-those-just-pretty/",
+        "link": "/desktop/writing/beautiful-mediums-and-those-just-pretty/"
+      }
+    },
+    {
       "id": "schema-article",
       "title": "AI Will Not Tell You Your Database Schema Sucks",
       "subtitle": "Design the schema separately and read it yourself",
